@@ -9,7 +9,7 @@ const Search = ({filterStudent}) => {
 
     const handleFilter = (e) => {
         setFilter(e.target.value);
-        filterStudent(filter);
+        filterStudent(e.target.value);
     }
     return (
         <input className={"search"} placeholder={"검색"} value={filter} onChange={(e)=> handleFilter(e)}/>

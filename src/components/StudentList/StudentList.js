@@ -18,6 +18,7 @@ const StudentList = ({studentList}) => {
                             <StudentItem key={item.id} item={item} />
 
                         ))}
+
                 </tbody>
             </table>
         </div>

@@ -6,6 +6,7 @@ import StudentAdder from "./components/StudentAdder/StudentAdder";
 import StudentList from "./components/StudentList/StudentList";
 import {useState} from "react";
 import StudentDetail from "./components/StudentDetail/StudentDetail";
+import Modal from "./components/Modal/Modal";
 
 function App() {
     const dummyData = [
@@ -57,7 +58,10 @@ function App() {
     const [studentList, setStudentList] = useState(dummyData);
     const [filteredStudents, setFilteredStudents] = useState(dummyData);
 
+    const [modalVisible, setModalVisible] = useState(false);
+
     const filterStudent = (filter) => {
+
         if(filter===''){
             setFilteredStudents(studentList);
         }
@@ -68,17 +72,27 @@ function App() {
 
     }
 
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
+
+
+    const addStudent = () => {
+      
+    }
+
   return (
     <div className="App">
         <Header />
         <Dashboard />
 
+        {modalVisible === true ? <Modal toggleModal={toggleModal} /> : <div />}
 
         <div className={"studentManage"}>
             <div className={"leftScreen"}>
                 <div className="inputSection">
                     <Search filterStudent={filterStudent}/>
-                    <StudentAdder />
+                    <StudentAdder toggleModal={toggleModal} />
                 </div>
 
             <div className="studentList">

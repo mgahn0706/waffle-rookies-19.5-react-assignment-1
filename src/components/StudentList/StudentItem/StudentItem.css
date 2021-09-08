@@ -16,9 +16,11 @@
     border-bottom: 1px solid #ACACAC;
 }
 
-.studentRow:hover td{
+.studentRow:hover td {
     background-color: #DEDEDE;
 }
+
+
 
 .blank{
     background-color: #F8F8F8;
@@ -26,4 +28,17 @@
     border-top: 1px solid #ACACAC;
     border-bottom: 1px solid #ACACAC;
 
+
+}
+
+.selectionButton{
+    float: right;
+    margin-right: 22px;
+    width: 33px;
+    height: 33px;
+    visibility: hidden;
+}
+
+.studentRow:hover button {
+    visibility: visible;
 }

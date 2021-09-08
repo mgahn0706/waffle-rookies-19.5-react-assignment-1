@@ -11,7 +11,7 @@ const StudentItem = ({item}) => {
                     {item.grade}
                 </td>
                 <td className="blank">
-
+                    <button className="selectionButton">-></button>
                 </td>
             </tr>
 

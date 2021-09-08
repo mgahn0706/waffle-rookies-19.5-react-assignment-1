@@ -1,8 +1,13 @@
 import "./StudentAdder.css";
 
-const StudentAdder = () => {
+const StudentAdder = ({toggleModal}) => {
+
+    const handleAddButton = () => {
+        toggleModal();
+    }
+
     return (
-            <button className={"searchButton"}>추가</button>
+            <button className={"mainAddButton"} onClick={handleAddButton}>추가</button>
 
     );
 }
