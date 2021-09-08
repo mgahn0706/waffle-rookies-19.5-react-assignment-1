@@ -55,8 +55,18 @@ function App() {
     ];
 
     const [studentList, setStudentList] = useState(dummyData);
+    const [filteredStudents, setFilteredStudents] = useState(dummyData);
 
+    const filterStudent = (filter) => {
+        if(filter===''){
+            setFilteredStudents(studentList);
+        }
+        else{
+            const filteredStudents =studentList.filter((student)=>student.name.includes(filter))
+            setFilteredStudents(filteredStudents);
+        }
 
+    }
 
   return (
     <div className="App">
@@ -67,12 +77,12 @@ function App() {
         <div className={"studentManage"}>
             <div className={"leftScreen"}>
                 <div className="inputSection">
-                    <Search />
+                    <Search filterStudent={filterStudent}/>
                     <StudentAdder />
                 </div>
 
             <div className="studentList">
-                <StudentList studentList={studentList}/>
+                <StudentList studentList={filteredStudents}/>
             </div>
         </div>
         <div className={"verticalBorder"}>

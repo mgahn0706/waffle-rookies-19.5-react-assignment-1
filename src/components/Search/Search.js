@@ -1,8 +1,18 @@
 import "./Search.css";
+import {useState} from "react";
 
-const Search = () => {
+
+
+const Search = ({filterStudent}) => {
+
+    const [filter,setFilter] = useState("");
+
+    const handleFilter = (e) => {
+        setFilter(e.target.value);
+        filterStudent(filter);
+    }
     return (
-        <input className={"search"} placeholder={"검색"}/>
+        <input className={"search"} placeholder={"검색"} value={filter} onChange={(e)=> handleFilter(e)}/>
     );
 }
 
