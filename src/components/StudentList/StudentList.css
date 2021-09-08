@@ -1,0 +1,31 @@
+.listHeader{
+    background-color: #C4C4C4;
+    height: 65px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+
+.studentListSection{
+    padding-left: 0;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    text-align: center;
+
+} /*table*/
+
+.listSection{
+    border: solid #D3D3D3;
+    float: left;
+    width: 624px;
+    height: 598px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    overflow-y: auto;
+
+
+}
+

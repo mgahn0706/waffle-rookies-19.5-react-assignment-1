@@ -1,0 +1,29 @@
+.studentName{
+    font-family: Abel;
+    background-color: #F8F8F8;
+    width: 160px;
+    height: 73px;
+    border-top: 1px solid #ACACAC;
+    border-bottom: 1px solid #ACACAC;
+}
+
+.studentGrade{
+    font-family: Abel;
+    background-color: #F8F8F8;
+    width: 80px;
+    height: 73px;
+    border-top: 1px solid #ACACAC;
+    border-bottom: 1px solid #ACACAC;
+}
+
+.studentRow:hover td{
+    background-color: #DEDEDE;
+}
+
+.blank{
+    background-color: #F8F8F8;
+    height: 73px;
+    border-top: 1px solid #ACACAC;
+    border-bottom: 1px solid #ACACAC;
+
+}
