@@ -13,7 +13,7 @@ const Search = ({filterStudent, setFilter}) => {
 
     }
     return (
-        <input className={"search"} placeholder={"검색"} onChange={(e)=> handleFilter(e)}/>
+        <input className="search" placeholder={"검색"} onChange={(e)=> handleFilter(e)}/>
     );
 }
 

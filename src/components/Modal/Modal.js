@@ -12,7 +12,7 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
     const handleCloseButton = () => {
 
-      toggleModal();
+      toggleModal(); /*Modal status update */
     }
 
     const handleAddButton = () => {
@@ -29,10 +29,12 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
             setName('');
             setGrade('');
             setProfile('');
-            toggleModal();
+            toggleModal(); /* addStudent 에 newStudent 를 보냄 + 입력창 초기화 및 Modal state 를 변경. */
         }
+
+
         else {
-            window.alert("제대로 입력해라");
+            window.alert("이름 또는 학년이 올바르지 않습니다.");
         }
     }
 
@@ -50,8 +52,10 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
                 </div>
                 <div className="modalProfile">
                     <span className="textProfile"> 프로필 </span>
-                    <input value={profile} onChange={(e)=>setProfile(e.target.value)}className="inputProfile"/>
+
+                    <input value={profile} onChange={(e)=>setProfile(e.target.value)} className="inputProfile"/>
                 </div>
+
                 <div className="modalButton">
                     <button className="closeButton" onClick={handleCloseButton}>닫기</button>
                     <button className="addButton" onClick={handleAddButton}>추가</button>

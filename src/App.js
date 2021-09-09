@@ -9,6 +9,9 @@ import StudentDetail from "./components/StudentDetail/StudentDetail";
 import Modal from "./components/Modal/Modal";
 
 function App() {
+
+    const nullStudentInfo = [null,null,null];
+
     const dummyData = [
         {
             id: 1,
@@ -59,8 +62,10 @@ function App() {
     const [filter,setFilter] = useState("");
     const [studentList, setStudentList] = useState(dummyData);
     const [filteredStudents, setFilteredStudents] = useState(dummyData);
-
     const [modalVisible, setModalVisible] = useState(false);
+    const [selectedStudentInfo, selectStudentInfo] = useState([null,null,null,null]);
+
+
 
     const filterStudent = (filter) => {
 
@@ -86,7 +91,29 @@ function App() {
     };
 
 
-    useEffect(()=>{filterStudent(filter);},[studentList]); /*동기화를 위해 useEffect 사용*/
+    useEffect(()=>{filterStudent(filter);},[studentList]); /*학생 추가시 리스트 동기화를 위해 useEffect 사용*/
+
+    const showDetail = (selectedStudent) => {
+        if(selectedStudent===null){
+            selectStudentInfo(nullStudentInfo);
+
+        }
+        else {
+            selectedStudent = studentList.filter((student) => (student.id === selectedStudent));
+            selectStudentInfo([selectedStudent[0].name,selectedStudent[0].grade,selectedStudent[0].profileImg, selectedStudent[0].id])
+
+        }
+
+    } /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
+    useEffect(()=>{},[selectedStudentInfo]);
+
+    const deleteStudent = (id) => {
+        const newStudentList = studentList.filter(item => item.id !== id);
+        setStudentList(newStudentList);
+
+    }
+
+
   return (
 
     <div className="App">
@@ -105,14 +132,14 @@ function App() {
                 </div>
 
             <div className="studentList">
-                <StudentList studentList={filteredStudents}/>
+                <StudentList studentList={filteredStudents} showDetail={showDetail}/>
             </div>
         </div>
         <div className="verticalBorder">
 
         </div>
         <div className={"rightScreen"}>
-            <StudentDetail />
+            <StudentDetail selectedStudent={selectedStudentInfo} deleteStudent={deleteStudent}/>
         </div>
 
         </div>

@@ -1,7 +1,7 @@
 import "./StudentList.css";
 import StudentItem from "./StudentItem/StudentItem";
 
-const StudentList = ({studentList}) => {
+const StudentList = ({studentList, showDetail}) => {
 
     return (
         <div className={"listSection"}>
@@ -15,7 +15,7 @@ const StudentList = ({studentList}) => {
                 </thead>
                 <tbody>
                         {studentList.map(item => (
-                            <StudentItem key={item.id} item={item} />
+                            <StudentItem key={item.id} item={item} showDetail={showDetail}/>
 
                         ))}
 
