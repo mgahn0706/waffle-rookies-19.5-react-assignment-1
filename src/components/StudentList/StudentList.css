@@ -5,7 +5,17 @@
     margin-bottom: 0;
 }
 
+.blankHeader{
+    width: 380px;
+}
 
+.nameHeader{
+    width: 162px;
+}
+
+.gradeHeader{
+    width: 82px;
+}
 
 .studentListSection{
     padding-left: 0;
@@ -26,6 +36,7 @@
     margin-bottom: 80px;
     overflow-y: auto;
 
-
 }
+
+
 

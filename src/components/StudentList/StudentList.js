@@ -8,9 +8,9 @@ const StudentList = ({studentList}) => {
             <table className="studentListSection">
                 <thead>
                     <tr className="listHeader">
-                        <th className="Name">이름</th>
-                        <th className="Grade">학년</th>
-                        <th className="Blank"></th>
+                        <th className="nameHeader">이름</th>
+                        <th className="gradeHeader">학년</th>
+                        <th className="blankHeader"></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -63,6 +63,7 @@
     background-color: #CACACA;
     border: none;
 }
+
 .modalWrapper{
     background-color:rgba(0,0,0,0.5);
     position: fixed;
@@ -70,7 +71,22 @@
     left: 0;
     width:100vw;
     height:100vh;
+    transition: all 0.3s;
+    visibility: hidden;
 
+    opacity:0%;
+
+}
+
+.modalWrappervisible{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    transition: all 0.3s;
+    visibility: visible;
 
 
 }

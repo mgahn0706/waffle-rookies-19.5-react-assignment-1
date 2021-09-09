@@ -3,34 +3,58 @@ import {useState} from "react";
 
 
 
-const Modal = ({toggleModal}) => {
+const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
+    const [name, setName] = useState('');
+    const [grade, setGrade] = useState('');
+    const [profile, setProfile] = useState('');
 
 
     const handleCloseButton = () => {
 
-      toggleModal(false);
+      toggleModal();
+    }
+
+    const handleAddButton = () => {
+        const newStudent = {
+            id: Math.random(),
+            name: name,
+            grade: grade,
+            profile: profile,
+        }
+
+        if((name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
+
+            addStudent(newStudent);
+            setName('');
+            setGrade('');
+            setProfile('');
+            toggleModal();
+        }
+        else {
+            window.alert("제대로 입력해라");
+        }
     }
 
 
     return (
-        <div className="modalWrapper">
+        <div className={"modalWrapper"+(modalVisible ? "visible" : "")} >
             <div className="modal">
                 <div className="modalName">
                     <span className="textName"> 이름 </span>
-                    <input className="inputName"/>
+                    <input value={name} onChange={(e)=>setName(e.target.value)} className="inputName" />
                 </div>
                 <div className="modalGrade">
                     <span className="textGrade"> 학년 </span>
-                    <input className="inputGrade"/>
+                    <input value={grade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
                 </div>
                 <div className="modalProfile">
                     <span className="textProfile"> 프로필 </span>
-                    <input className="inputProfile"/>
+                    <input value={profile} onChange={(e)=>setProfile(e.target.value)}className="inputProfile"/>
                 </div>
                 <div className="modalButton">
                     <button className="closeButton" onClick={handleCloseButton}>닫기</button>
-                    <button className="addButton">추가</button>
+                    <button className="addButton" onClick={handleAddButton}>추가</button>
                 </div>
             </div>
         </div>

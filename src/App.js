@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Search from "./components/Search/Search";
 import StudentAdder from "./components/StudentAdder/StudentAdder";
 import StudentList from "./components/StudentList/StudentList";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import StudentDetail from "./components/StudentDetail/StudentDetail";
 import Modal from "./components/Modal/Modal";
 
@@ -55,6 +55,8 @@ function App() {
 
     ];
 
+
+    const [filter,setFilter] = useState("");
     const [studentList, setStudentList] = useState(dummyData);
     const [filteredStudents, setFilteredStudents] = useState(dummyData);
 
@@ -64,10 +66,12 @@ function App() {
 
         if(filter===''){
             setFilteredStudents(studentList);
+
         }
         else{
             const filteredStudents =studentList.filter((student)=>student.name.includes(filter))
             setFilteredStudents(filteredStudents);
+
         }
 
     }
@@ -77,21 +81,26 @@ function App() {
     };
 
 
-    const addStudent = () => {
-      
-    }
+    const addStudent = (newStudent) => {
+      setStudentList([...studentList,newStudent]);
+    };
 
+
+    useEffect(()=>{filterStudent(filter);},[studentList]); /*동기화를 위해 useEffect 사용*/
   return (
+
     <div className="App">
         <Header />
         <Dashboard />
 
-        {modalVisible === true ? <Modal toggleModal={toggleModal} /> : <div />}
+        <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible}/>
+
+
 
         <div className={"studentManage"}>
             <div className={"leftScreen"}>
                 <div className="inputSection">
-                    <Search filterStudent={filterStudent}/>
+                    <Search filterStudent={filterStudent} setFilter={setFilter}/>
                     <StudentAdder toggleModal={toggleModal} />
                 </div>
 
@@ -99,7 +108,7 @@ function App() {
                 <StudentList studentList={filteredStudents}/>
             </div>
         </div>
-        <div className={"verticalBorder"}>
+        <div className="verticalBorder">
 
         </div>
         <div className={"rightScreen"}>
