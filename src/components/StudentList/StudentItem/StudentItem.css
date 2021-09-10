@@ -52,6 +52,7 @@
 
 .blankSelected button{
     transform: rotate(180deg);
+    z-index: 0;
 }
 
 .studentRowselected button {

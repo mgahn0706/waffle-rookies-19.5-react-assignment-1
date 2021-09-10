@@ -1,10 +1,14 @@
 import "./StudentItem.css"
 import {useEffect, useState} from "react";
 
-const StudentItem = ({item, showDetail}) => {
+const StudentItem = ({item, showDetail, isSelected}) => {
 
 
-    const [isChecked,setChecked] = useState(false);
+    const [isChecked,setChecked] = useState(isSelected);
+
+
+
+ 
 
     const handleSelectButton = () => {
 
@@ -13,6 +17,12 @@ const StudentItem = ({item, showDetail}) => {
 
 
     }
+
+    if(isChecked && !isSelected){
+        handleSelectButton()
+    }
+
+
 
 
 

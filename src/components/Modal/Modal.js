@@ -3,7 +3,7 @@ import {useState} from "react";
 
 
 
-const Modal = ({toggleModal, addStudent, modalVisible}) => {
+const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
 
     const [name, setName] = useState('');
     const [grade, setGrade] = useState('');
@@ -11,8 +11,10 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
 
     const handleCloseButton = () => {
-
-      toggleModal(); /*Modal status update */
+        setName('');
+        setGrade('');
+        setProfile('');
+        toggleModal(); /*Modal status update */
     }
 
     const handleAddButton = () => {
@@ -20,18 +22,31 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
             id: Math.random(),
             name: name,
             grade: grade,
-            profile: profile,
+            profileImg: profile,
         }
+        const sameName = studentList.find(item=>item.name===newStudent.name);
 
-        if((name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
+        if(sameName===undefined && (name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
 
             addStudent(newStudent);
             setName('');
             setGrade('');
             setProfile('');
             toggleModal(); /* addStudent 에 newStudent 를 보냄 + 입력창 초기화 및 Modal state 를 변경. */
+            } /*이름 같은 사람이 아예없고 입력도 적절한 경우*/
+
+
+        else if(sameName.grade===Number(newStudent.grade) || sameName.grade===newStudent.grade){
+            window.alert("이미 "+sameName.grade+"학년에 동명이인이 있습니다.");
         }
 
+        else if((name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
+            addStudent(newStudent);
+            setName('');
+            setGrade('');
+            setProfile('');
+            toggleModal();
+        } /*이름은 같지만 동명이인이 아니고 입력이 적절한 경우*/
 
         else {
             window.alert("이름 또는 학년이 올바르지 않습니다.");

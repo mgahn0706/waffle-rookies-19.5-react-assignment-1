@@ -10,7 +10,7 @@ import Modal from "./components/Modal/Modal";
 
 function App() {
 
-    const nullStudentInfo = [null,null,null];
+    const nullStudentInfo = [null,null,null,null];
 
     const dummyData = [
         {
@@ -64,7 +64,7 @@ function App() {
     const [filteredStudents, setFilteredStudents] = useState(dummyData);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedStudentInfo, selectStudentInfo] = useState([null,null,null,null]);
-
+    const [selectedStudentID, setSelectedStudentID] = useState(null);
 
 
     const filterStudent = (filter) => {
@@ -79,6 +79,7 @@ function App() {
 
         }
 
+
     }
 
     const toggleModal = () => {
@@ -88,30 +89,47 @@ function App() {
 
     const addStudent = (newStudent) => {
       setStudentList([...studentList,newStudent]);
+      setSelectedStudentID(newStudent.id);
+
     };
 
 
-    useEffect(()=>{filterStudent(filter);},[studentList]); /*학생 추가시 리스트 동기화를 위해 useEffect 사용*/
+
 
     const showDetail = (selectedStudent) => {
         if(selectedStudent===null){
             selectStudentInfo(nullStudentInfo);
+            setSelectedStudentID(null);
 
         }
         else {
             selectedStudent = studentList.filter((student) => (student.id === selectedStudent));
             selectStudentInfo([selectedStudent[0].name,selectedStudent[0].grade,selectedStudent[0].profileImg, selectedStudent[0].id])
+            setSelectedStudentID(selectedStudent[0].id);
 
         }
 
     } /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
     useEffect(()=>{},[selectedStudentInfo]);
 
+
     const deleteStudent = (id) => {
         const newStudentList = studentList.filter(item => item.id !== id);
         setStudentList(newStudentList);
 
     }
+
+    const changeStudent = (changedStudent) => {
+        const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
+        const newStudentList = studentList.slice();
+        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profileImg}
+        newStudentList.splice(targetIndex, 1, changedItem)
+        setStudentList(newStudentList);
+
+    }
+
+
+    useEffect(()=>filterStudent(filter)); /*학생 추가시 리스트 동기화를 위해 useEffect 사용*/
 
 
   return (
@@ -120,7 +138,7 @@ function App() {
         <Header />
         <Dashboard />
 
-        <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible}/>
+        <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible} studentList={studentList}/>
 
 
 
@@ -132,14 +150,14 @@ function App() {
                 </div>
 
             <div className="studentList">
-                <StudentList studentList={filteredStudents} showDetail={showDetail}/>
+                <StudentList studentList={filteredStudents} showDetail={showDetail} selectedStudentID={selectedStudentID}/>
             </div>
         </div>
         <div className="verticalBorder">
 
         </div>
         <div className={"rightScreen"}>
-            <StudentDetail selectedStudent={selectedStudentInfo} deleteStudent={deleteStudent}/>
+            <StudentDetail selectedStudent={selectedStudentInfo} deleteStudent={deleteStudent} changeStudent={changeStudent} studentList={studentList}/>
         </div>
 
         </div>

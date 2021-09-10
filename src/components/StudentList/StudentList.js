@@ -1,7 +1,10 @@
 import "./StudentList.css";
 import StudentItem from "./StudentItem/StudentItem";
+import {useEffect, useState} from "react";
 
-const StudentList = ({studentList, showDetail}) => {
+const StudentList = ({studentList, showDetail, selectedStudentID}) => {
+
+    console.log(selectedStudentID)
 
     return (
         <div className={"listSection"}>
@@ -14,9 +17,10 @@ const StudentList = ({studentList, showDetail}) => {
                     </tr>
                 </thead>
                 <tbody>
-                        {studentList.map(item => (
-                            <StudentItem key={item.id} item={item} showDetail={showDetail}/>
-
+                        {studentList.map((item) => (
+                            (selectedStudentID===item.id ? <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={true} />
+                                : <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={false} />)
+                            /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
                         ))}
 
                 </tbody>
