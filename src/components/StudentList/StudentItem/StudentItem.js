@@ -8,21 +8,16 @@ const StudentItem = ({item, showDetail, isSelected}) => {
 
 
 
- 
+
 
     const handleSelectButton = () => {
 
         setChecked(!isChecked);
         (isChecked ? showDetail(null) : showDetail(item.id))
+    } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
-
-    }
-
-    if(isChecked && !isSelected){
-        handleSelectButton()
-    }
-
-
+    useEffect(()=>{setChecked(isSelected)},[isSelected])
+/* 외부에서 선택 여부가 바뀌면 바로 적용해주기 위함 ex) 다른 학생이 선택되어 선택이 취소됨*/
 
 
 

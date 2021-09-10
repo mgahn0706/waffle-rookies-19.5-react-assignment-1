@@ -7,13 +7,11 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
     const [newName, setNewName] = useState('');
     const [newGrade, setNewGrade] = useState('');
     const [newProfile, setNewProfile] = useState('');
-    useEffect(()=> {setNewName(selectedStudent[0]);},[selectedStudent[0]])
-    useEffect(()=> {setNewGrade(selectedStudent[1]);},[selectedStudent[1]])
-    useEffect(()=> {setNewProfile(selectedStudent[2]);},[selectedStudent[2]])
+    useEffect(()=>{setNewName(selectedStudent[0])},[selectedStudent])
+    useEffect(()=>{setNewGrade(selectedStudent[1])},[selectedStudent])
+    useEffect(()=>{setNewProfile(selectedStudent[2])},[selectedStudent])
 
     const handleSaveButton = () => {
-
-
 
         const changedStudent = {
             id: selectedStudent[3],
@@ -22,23 +20,26 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
             profileImg: newProfile,
         }
 
-        const sameName = studentList.find(item=>item.name===changedStudent.name);
-        if(sameName.grade===changedStudent.grade || sameName.grade===Number(changedStudent.grade)){
-            window.alert("이미 "+sameName.grade+"학년에 동명이인이 있습니다.");
-        }
-
-        else if((newName.length===2 || newName.length===3)&&(newGrade in [1,2,3,"1","2","3"])){
+        const sameName = studentList.find(item => item.name === changedStudent.name);
+        if (sameName === undefined && (newName.length === 2 || newName.length === 3) && (newGrade in [1, 2, 3, "1", "2", "3"])) {
             /*값을 변경한 경우는 string, 변경하지 않은 경우는 int 로 인식해서 2가지 경우 다 올바른 입력으로 넣음.*/
 
-            changeStudent(changedStudent); /*입력이 정확한 경우 change 해준다.*/
+            changeStudent(changedStudent);
 
 
-        }
+        } /* 이름이 같은 사람이 없고 입력이 정확한 경우 change 해준다.*/
+        else if (sameName.grade === changedStudent.grade || sameName.grade === Number(changedStudent.grade)) {
+            window.alert("이미 " + sameName.grade + "학년에 동명이인이 있습니다.");
+        } /*이름이 같고 학년도 같아서 동명이인이 있는 경우*/
 
+        else if ((newName.length === 2 || newName.length === 3) && (newGrade in [1, 2, 3, "1", "2", "3"])) {
+            changeStudent(changedStudent);
+        } /*이름이 같지만 학년이 같지 않고 입력이 올바른 경우*/
 
         else {
 
             window.alert("이름 또는 학년이 올바르지 않습니다.");
+            /*입력 형식이 잘못된 경우*/
         }
     }
 
@@ -79,7 +80,7 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
 
                     <div className="profileChange">
                         <span className="profileChangeText">프로필</span>
-                        <input className="profileChangeInput" value={newProfile || ''} onChange={(e)=>setNewProfile(e.target.value)} />
+                        <input className="profileChangeInput" value={newProfile || ''} onChange={(e)=>setNewProfile(e.target.value)}  />
                     </div>
 
 
@@ -89,4 +90,4 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
     );
 }
 
-export default StudentDetail
+export default StudentDetail;

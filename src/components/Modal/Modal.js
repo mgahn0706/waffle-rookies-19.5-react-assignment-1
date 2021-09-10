@@ -50,7 +50,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
 
         else {
             window.alert("이름 또는 학년이 올바르지 않습니다.");
-        }
+        } /*입력 형식이 맞지 않는 경우*/
     }
 
 

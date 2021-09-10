@@ -47,6 +47,9 @@
     height: 33px;
     visibility: hidden;
     transition: transform 0.2s;
+    border: none;
+    font-weight: bold;
+
 
 }
 

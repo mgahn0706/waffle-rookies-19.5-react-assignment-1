@@ -80,18 +80,19 @@ function App() {
         }
 
 
-    }
+    } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
-    };
+    }; /*Modal 상태 변경*/
 
 
     const addStudent = (newStudent) => {
       setStudentList([...studentList,newStudent]);
       setSelectedStudentID(newStudent.id);
+        selectStudentInfo([newStudent.name,newStudent.grade,newStudent.profileImg, newStudent.id])
 
-    };
+    }; /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
 
 
 
@@ -101,7 +102,7 @@ function App() {
             selectStudentInfo(nullStudentInfo);
             setSelectedStudentID(null);
 
-        }
+        } /*아무도 선택되지 않은 경우*/
         else {
             selectedStudent = studentList.filter((student) => (student.id === selectedStudent));
             selectStudentInfo([selectedStudent[0].name,selectedStudent[0].grade,selectedStudent[0].profileImg, selectedStudent[0].id])
@@ -110,14 +111,14 @@ function App() {
         }
 
     } /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
-    useEffect(()=>{},[selectedStudentInfo]);
+    useEffect(()=>{},[selectedStudentInfo]); /*선택하자마자 info 를 보여주도록 하는 useEffect*/
 
 
     const deleteStudent = (id) => {
         const newStudentList = studentList.filter(item => item.id !== id);
         setStudentList(newStudentList);
 
-    }
+    } /*id를 받아서 해당 학생을 list 에서 삭제*/
 
     const changeStudent = (changedStudent) => {
         const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
@@ -126,10 +127,10 @@ function App() {
         newStudentList.splice(targetIndex, 1, changedItem)
         setStudentList(newStudentList);
 
-    }
+    } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
 
 
-    useEffect(()=>filterStudent(filter)); /*학생 추가시 리스트 동기화를 위해 useEffect 사용*/
+    useEffect(()=>filterStudent(filter),[studentList,filter]); /*학생 추가시 리스트 동기화를 위해 useEffect 사용*/
 
 
   return (

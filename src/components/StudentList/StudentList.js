@@ -1,10 +1,10 @@
 import "./StudentList.css";
 import StudentItem from "./StudentItem/StudentItem";
-import {useEffect, useState} from "react";
+
 
 const StudentList = ({studentList, showDetail, selectedStudentID}) => {
 
-    console.log(selectedStudentID)
+
 
     return (
         <div className={"listSection"}>

@@ -3,7 +3,7 @@ import "./Header.css";
 const Header = () => {
     return (
         <div className="Header" >
-            <a href="https://wafflestudio.com" target="_blank">
+            <a href="https://wafflestudio.com" target="_blank" rel="noreferrer">
                 <img src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75" alt="waffleLogo" className={"waffleLogo"}></img>
             </a>
 
