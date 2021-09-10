@@ -5,9 +5,9 @@ import {useState} from "react";
 
 const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
 
-    const [name, setName] = useState('');
-    const [grade, setGrade] = useState('');
-    const [profile, setProfile] = useState('');
+    const [addedName, setName] = useState('');
+    const [addedGrade, setGrade] = useState('');
+    const [addedProfile, setProfile] = useState('');
 
 
     const handleCloseButton = () => {
@@ -20,13 +20,18 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
     const handleAddButton = () => {
         const newStudent = {
             id: Math.random(),
-            name: name,
-            grade: grade,
-            profileImg: profile,
+            name: addedName,
+            grade: addedGrade,
+            profileImg: addedProfile,
         }
+
         const sameName = studentList.find(item=>item.name===newStudent.name);
 
-        if(sameName===undefined && (name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
+        if(!(addedGrade in ["1","2","3"]) || (addedName.length!==2 && addedName.length!==3)){
+            window.alert("이름 또는 학년이 올바르지 않습니다.");
+        }
+
+        else if(sameName===undefined){
 
             addStudent(newStudent);
             setName('');
@@ -40,7 +45,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
             window.alert("이미 "+sameName.grade+"학년에 동명이인이 있습니다.");
         }
 
-        else if((name.length===2 || name.length===3)&&(grade==="3" || grade==="2" || grade==="1")){
+        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3"])){
             addStudent(newStudent);
             setName('');
             setGrade('');
@@ -59,16 +64,16 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
             <div className="modal">
                 <div className="modalName">
                     <span className="textName"> 이름 </span>
-                    <input value={name} onChange={(e)=>setName(e.target.value)} className="inputName" />
+                    <input value={addedName} onChange={(e)=>setName(e.target.value)} className="inputName" />
                 </div>
                 <div className="modalGrade">
                     <span className="textGrade"> 학년 </span>
-                    <input value={grade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
+                    <input value={addedGrade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
                 </div>
                 <div className="modalProfile">
                     <span className="textProfile"> 프로필 </span>
 
-                    <input value={profile} onChange={(e)=>setProfile(e.target.value)} className="inputProfile"/>
+                    <input value={addedProfile} onChange={(e)=>setProfile(e.target.value)} className="inputProfile"/>
                 </div>
 
                 <div className="modalButton">

@@ -21,7 +21,13 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
         }
 
         const sameName = studentList.find(item => item.name === changedStudent.name);
-        if (sameName === undefined && (newName.length === 2 || newName.length === 3) && (newGrade in [1, 2, 3, "1", "2", "3"])) {
+
+        if((newName.length!==2 && newName.length!==3)|| !(newGrade in [1,2,3,"1","2","3"])){
+            window.alert("이름 또는 학년이 올바르지 않습니다.");
+            /*입력 형식이 잘못된 경우*/
+        }
+
+        else if (sameName === undefined) {
             /*값을 변경한 경우는 string, 변경하지 않은 경우는 int 로 인식해서 2가지 경우 다 올바른 입력으로 넣음.*/
 
             changeStudent(changedStudent);
