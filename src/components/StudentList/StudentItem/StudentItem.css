@@ -1,0 +1,67 @@
+.studentRow{
+    font-family: Abel;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #F8F8F8;
+    height: 73px;
+    border-top: 2px solid #ACACAC;
+    border-bottom: 2px solid #ACACAC;
+}
+
+.studentRowselected{
+    font-family: Abel;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #DEDEDE;
+    height: 73px;
+    border-top: 2px solid #ACACAC;
+    border-bottom: 2px solid #ACACAC;
+}
+
+.studentRowselected:hover{
+    background-color: rgb(255,255,255);
+}
+
+.studentName{
+    width: 160px;
+
+
+}
+
+.studentGrade{
+    width: 80px;
+
+}
+
+.studentRow:hover td {
+    background-color: #DEDEDE;
+}
+
+
+
+
+.selectionButton{
+    float: right;
+    margin-right: 22px;
+    width: 33px;
+    height: 33px;
+    visibility: hidden;
+    transition: transform 0.2s;
+    border: none;
+    font-weight: bold;
+
+
+}
+
+.blankSelected button{
+    transform: rotate(180deg);
+    z-index: 0;
+}
+
+.studentRowselected button {
+    visibility: visible;
+}
+
+.studentRow:hover button {
+    visibility: visible;
+}
