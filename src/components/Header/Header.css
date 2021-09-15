@@ -1,0 +1,15 @@
+.waffleLogo{
+    width: 54px;
+    height: 58px;
+    vertical-align: middle;
+}
+
+.title{
+    font-family: Abel;
+    margin: 15px;
+    height: 50px;
+    font-weight: bold;
+    line-height: 31px;
+    font-style:normal;
+}
+

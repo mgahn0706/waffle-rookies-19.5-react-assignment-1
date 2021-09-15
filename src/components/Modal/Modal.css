@@ -1,0 +1,95 @@
+.modal{
+
+    background-color: white;
+    width: 670px;
+    height: 280px;
+    top: 366px;
+    left: 383px;
+    font-size: 18px;
+    font-family: Abel;
+    display: block;
+    position: fixed;
+    padding-top: 22px;
+    padding-left: 28px;
+    border: solid black 1px;
+    z-index: 2; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+
+
+
+}
+
+.modalName, .modalGrade, .modalProfile{
+    margin: 22px;
+}
+
+
+.inputName, .inputGrade, .inputProfile{
+    width: 492px;
+    height: 30px;
+    background-color: #F4F4F4;
+    border: solid #C2C2C2 1px;
+
+}
+
+
+.textName, .textGrade, .textProfile{
+    width: 82px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.modalButton{
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+}
+
+.addButton{
+    font-size: 18px;
+    font-weight: 400;
+    width: 72px;
+    height: 34px;
+    margin-right: 27px;
+    margin-left: 11px;
+    border:none;
+    background-color: #BFF8C5;
+
+}
+.closeButton{
+    font-size: 18px;
+    font-weight: 400;
+    width: 72px;
+    height: 34px;
+    margin-right: 11px;
+    background-color: #CACACA;
+    border: none;
+}
+
+.modalWrapper{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    transition: all 0.3s;
+    visibility: hidden;
+
+    opacity:0%;
+    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+
+}
+
+.modalWrappervisible{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    transition: all 0.3s;
+    visibility: visible;
+    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+
+
+}
