@@ -7,14 +7,17 @@
 
 .blankHeader{
     width: 380px;
+    height: 60px;
 }
 
 .nameHeader{
     width: 162px;
+    height: 60px;
 }
 
 .gradeHeader{
     width: 82px;
+    height: 60px;
 }
 
 .studentListSection{
@@ -35,6 +38,17 @@
     margin-top: 20px;
     margin-bottom: 80px;
     overflow-y: auto;
+
+}
+
+.emptyListSection{
+    width: 100%;
+    font-size: 36px;
+    text-align: center;
+    font-weight: bold;
+    height: 530px;
+    line-height: 530px;
+
 
 }
 
