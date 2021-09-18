@@ -4,9 +4,11 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Search from "./components/Search/Search";
 import StudentAdder from "./components/StudentAdder/StudentAdder";
 import StudentList from "./components/StudentList/StudentList";
-import {useEffect, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import StudentDetail from "./components/StudentDetail/StudentDetail";
 import Modal from "./components/Modal/Modal";
+
+
 
 function App() {
 
@@ -60,12 +62,12 @@ function App() {
 
 
     const [filter,setFilter] = useState("");
-    const [studentList, setStudentList] = useState(dummyData);
     const [filteredStudents, setFilteredStudents] = useState(dummyData);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedStudentInfo, selectStudentInfo] = useState([null,null,null,null]);
     const [selectedStudentID, setSelectedStudentID] = useState(null);
-
+    const [studentList,setStudentList] = useState(dummyData)
+    
 
     const filterStudent = (filter) => {
 

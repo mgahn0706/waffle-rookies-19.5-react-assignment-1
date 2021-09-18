@@ -70,11 +70,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
                     <span className="textGrade"> 학년 </span>
                     <input value={addedGrade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
                 </div>
-                <div className="modalProfile">
-                    <span className="textProfile"> 프로필 </span>
 
-                    <input value={addedProfile} onChange={(e)=>setProfile(e.target.value)} className="inputProfile"/>
-                </div>
 
                 <div className="modalButton">
                     <button className="closeButton" onClick={handleCloseButton}>닫기</button>
