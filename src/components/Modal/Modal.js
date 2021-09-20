@@ -27,7 +27,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
 
         const sameName = studentList.find(item=>item.name===newStudent.name);
 
-        if(!(addedGrade in ["1","2","3"]) || (addedName.length!==2 && addedName.length!==3)){
+        if(!(addedGrade in ["1","2","3",1,2,3]) || (addedName.length!==2 && addedName.length!==3)){
             window.alert("이름 또는 학년이 올바르지 않습니다.");
         }
 
@@ -45,7 +45,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
             window.alert("이미 "+sameName.grade+"학년에 동명이인이 있습니다.");
         }
 
-        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3"])){
+        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3",1,2,3])){
             addStudent(newStudent);
             setName('');
             setGrade('');
