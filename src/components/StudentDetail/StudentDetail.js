@@ -1,8 +1,11 @@
 import "./StudentDetail.css";
 import {useEffect, useState} from "react";
+import {useStudentContext} from "../../context/StudentContext";
 
 
-const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentList}) => {
+const StudentDetail = ({selectedStudent, deleteStudent, changeStudent}) => {
+
+    const {studentList} = useStudentContext();
 
     const [newName, setNewName] = useState('');
     const [newGrade, setNewGrade] = useState('');
@@ -28,7 +31,7 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
         }
 
         else if (sameName === undefined) {
-            /*값을 변경한 경우는 string, 변경하지 않은 경우는 int 로 인식해서 2가지 경우 다 올바른 입력으로 넣음.*/
+            /*값을 변경한 경우는 string, 변경하지 않은 경우는 int 로 인식해서 2가지 경우 다 올바른 입력으로 넣*/
 
             changeStudent(changedStudent);
 
@@ -82,11 +85,6 @@ const StudentDetail = ({selectedStudent, deleteStudent, changeStudent, studentLi
                     <div className="gradeChange">
                         <span className="gradeChangeText">학년</span>
                         <input className="gradeChangeInput" value={newGrade || ''} onChange={(e)=>setNewGrade(e.target.value)} />
-                    </div>
-
-                    <div className="profileChange">
-                        <span className="profileChangeText">프로필</span>
-                        <input className="profileChangeInput" value={newProfile || ''} onChange={(e)=>setNewProfile(e.target.value)}  />
                     </div>
 
 

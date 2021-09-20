@@ -1,10 +1,13 @@
 import "./Search.css";
+import {useContext} from "react";
+import {useFilterContext} from "../../context/StudentContext";
 
 
 
 
-const Search = ({filterStudent, setFilter}) => {
+const Search = ({filterStudent}) => {
 
+    const {filter, setFilter} = useFilterContext();
 
     const handleFilter = (e) => {
 

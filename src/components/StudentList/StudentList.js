@@ -1,9 +1,11 @@
 import "./StudentList.css";
 import StudentItem from "./StudentItem/StudentItem";
+import {useFilteredStudentsContext, useStudentContext} from "../../context/StudentContext";
 
 
-const StudentList = ({studentList, showDetail, selectedStudentID}) => {
 
+const StudentList = ({filteredStudentList, showDetail, selectedStudentID}) => {
+const {studentList} = useStudentContext();
 
     if(studentList.length===0){
         return (
@@ -40,7 +42,7 @@ const StudentList = ({studentList, showDetail, selectedStudentID}) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {studentList.map((item) => (
+                    {filteredStudentList.map((item) => (
                         (selectedStudentID === item.id ?
                             <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={true}/>
                             : <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={false}/>)

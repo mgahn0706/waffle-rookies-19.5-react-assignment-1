@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useState} from "react";
 
 const dummyData = [
     {
@@ -14,22 +14,24 @@ const dummyData = [
 ]
 
 const StudentContext = createContext(dummyData);
+const FilterContext = createContext('');
+const FilteredStudentContext = createContext(dummyData);
 
 export const StudentProvider = ({children}) => {
-    const nullStudentInfo = [null,null,null,null];
+    const [filter,setFilter] = useState("");
     const [selectedStudentID, setSelectedStudentID] = useState(null);
     const [studentList, setStudentList] = useState(dummyData)
     const [selectedStudentInfo, selectStudentInfo] = useState([null,null,null,null]);
-    const [filteredStudents, setFilteredStudents] = useState(dummyData);
-    const filterStudent = (filter) => {
-        /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
-    }
 
     return (
-        <StudentContext value={{studentList, selectedStudentID, selectedStudentInfo}}>
+        <StudentContext.Provider value={{studentList,setStudentList}}>
+            <FilterContext.Provider value={{filter,setFilter}}>
             {children}
-        </StudentContext>
+            </FilterContext.Provider>
+        </StudentContext.Provider>
     )
 };
 
 export const useStudentContext = () => useContext(StudentContext);
+export const useFilterContext = () => useContext(FilterContext);
+export const useFilteredStudentsContext = () => useContext(FilteredStudentContext);
