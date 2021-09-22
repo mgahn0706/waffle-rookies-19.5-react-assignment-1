@@ -73,20 +73,7 @@ const Main = () => {
     useEffect(()=>{},[selectedStudent]); /*선택하자마자 info 를 보여주도록 하는 useEffect*/
 
 
-    const deleteStudent = (id) => {
-        const newStudentList = studentList.filter(item => item.id !== id);
-        setStudentList(newStudentList);
 
-    } /*id를 받아서 해당 학생을 list 에서 삭제*/
-
-    const changeStudent = (changedStudent) => {
-        const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
-        const newStudentList = studentList.slice();
-        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profileImg}
-        newStudentList.splice(targetIndex, 1, changedItem)
-        setStudentList(newStudentList);
-
-    } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
 
 
 
@@ -96,7 +83,7 @@ const Main = () => {
         <div className="App">
             <Header />
             <Dashboard />
-            <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible} studentList={studentList}/>
+            <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible}/>
             <div className={"studentManage"}>
                 <div className={"leftScreen"}>
                     <div className="inputSection">

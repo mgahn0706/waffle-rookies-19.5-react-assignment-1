@@ -8,7 +8,7 @@ const Routes = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/students" component={Main}/>
-                <Route path="/students/:id" component={StudentPage}/>
+                <Route path="/student/:id" component={StudentPage}/>
                 <Redirect to="/students"/>
             </Switch>
         </BrowserRouter>

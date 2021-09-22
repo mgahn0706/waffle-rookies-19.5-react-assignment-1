@@ -1,10 +1,11 @@
 import "./Modal.css";
 import {useState} from "react";
+import {useStudentContext} from "../../Context/StudentContext";
 
 
 
-const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
-
+const Modal = ({toggleModal, addStudent, modalVisible}) => {
+    const {studentList} = useStudentContext();
     const [addedName, setName] = useState('');
     const [addedGrade, setGrade] = useState('');
     const [addedProfile, setProfile] = useState('');

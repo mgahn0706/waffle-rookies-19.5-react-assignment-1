@@ -11,9 +11,9 @@ const StudentDetail = () => {
 
 
     const handleDetailButton = () => {
-        console.log(selectedStudent);
+
         return(
-            history.push('students/${selectedStudent.id}')
+            history.push('/student/${selectedStudent.id}')
         );
     }
     return (

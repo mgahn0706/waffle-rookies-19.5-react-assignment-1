@@ -1,23 +1,59 @@
 import "./StudentPage.css";
 import {useEffect, useState} from "react";
-import {useStudentContext} from "../../Context/StudentContext";
+import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
+import {useHistory, useParams} from "react-router-dom";
 
 
-const StudentPage = ({selectedStudent, deleteStudent, changeStudent}) => {
+const StudentPage = () => {
+    const {selectedStudent, setSelectedStudent} = useSelectedStudentContext();
+    const {studentList,setStudentList} = useStudentContext();
+    const params = useParams();
 
-    const {studentList} = useStudentContext();
+    const history = useHistory();
 
     const [newName, setNewName] = useState('');
     const [newGrade, setNewGrade] = useState('');
     const [newProfile, setNewProfile] = useState('');
-    useEffect(()=>{setNewName(selectedStudent[0])},[selectedStudent])
-    useEffect(()=>{setNewGrade(selectedStudent[1])},[selectedStudent])
-    useEffect(()=>{setNewProfile(selectedStudent[2])},[selectedStudent])
+    useEffect(()=>{setNewName(selectedStudent.name)},[selectedStudent])
+    useEffect(()=>{setNewGrade(selectedStudent.grade)},[selectedStudent])
+    useEffect(()=>{setNewProfile(selectedStudent.profile_img)},[selectedStudent])
+
+    const nullStudent = {
+        "id": null,
+        "name": null,
+        "grade": null,
+        "profile_img": null,
+        "email": null,
+        "phone": null,
+        "major": null,
+        "locked": false
+    }
+
+
+    const deleteStudent = (id) => {
+        const newStudentList = studentList.filter(item => item.id !== id);
+        setStudentList(newStudentList);
+
+    } /*id를 받아서 해당 학생을 list 에서 삭제*/
+
+    const changeStudent = (changedStudent) => {
+        const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
+        const newStudentList = studentList.slice();
+        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profileImg}
+        newStudentList.splice(targetIndex, 1, changedItem)
+        setStudentList(newStudentList);
+
+    } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
+
+
+    const handleHomeButton = () => {
+        history.goBack();
+    }
 
     const handleSaveButton = () => {
 
         const changedStudent = {
-            id: selectedStudent[3],
+            id: selectedStudent.id,
             name: newName,
             grade: newGrade,
             profileImg: newProfile,
@@ -53,8 +89,8 @@ const StudentPage = ({selectedStudent, deleteStudent, changeStudent}) => {
     }
 
     const handleDeleteButton = () => {
-        deleteStudent(selectedStudent[3]); /*id를 delete 함수에 넘겨줘서 삭제*/
-        selectedStudent[0]=null;     /*detail 창의 정보들을 name 을 빈칸으로 바꿔서 지움 */
+        deleteStudent(selectedStudent.id); /*id를 delete 함수에 넘겨줘서 삭제*/
+        /*detail 창의 정보들을 name 을 빈칸으로 바꿔서 지움 */
     }
 
 
@@ -64,9 +100,7 @@ const StudentPage = ({selectedStudent, deleteStudent, changeStudent}) => {
     return (
 
         <div className="studentDetail">
-            <div className={"selectedScreen"+(selectedStudent[0]===null ? "Hidden" : "")}>
-                왼쪽 표에서 학생을 선택해 주세요.
-            </div>
+
             <div className="detailButton">
                 <button className="saveButton" onClick={()=>handleSaveButton()}>저장</button>
                 <button className="deleteButton" onClick={()=>handleDeleteButton()}>삭제</button>
@@ -74,7 +108,7 @@ const StudentPage = ({selectedStudent, deleteStudent, changeStudent}) => {
             </div>
             <div className="detailContent">
                 <div className="profileBox">
-                    <img className="profileImage" src={selectedStudent[2]} alt="프로필 이미지를 찾을 수 없습니다."/>
+                    <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
                 </div>
                 <div className="detailInformation">
                     <div className="nameChange">
@@ -85,6 +119,11 @@ const StudentPage = ({selectedStudent, deleteStudent, changeStudent}) => {
                     <div className="gradeChange">
                         <span className="gradeChangeText">학년</span>
                         <input className="gradeChangeInput" value={newGrade || ''} onChange={(e)=>setNewGrade(e.target.value)} />
+                    </div>
+
+                    <div className="profileChange">
+                        <span className="profileChangeText">프로필</span>
+                        <input className="profileChangeInput" value={newProfile || ''} onChange={(e)=>setNewProfile(e.target.value)} />
                     </div>
 
 
