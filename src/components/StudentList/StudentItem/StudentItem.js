@@ -2,15 +2,21 @@ import "./StudentItem.css"
 import {useEffect, useState} from "react";
 
 const StudentItem = ({item, showDetail, isSelected}) => {
-
-
     const [isChecked,setChecked] = useState(isSelected); /*anti-pattern 수정중임*/
-
+    const nullStudent = {
+        "id": null,
+        "name": null,
+        "grade": null,
+        "profile_img": null,
+        "email": null,
+        "phone": null,
+        "major": null,
+        "locked": false
+    }
 
     const handleSelectButton = () => {
-
         setChecked(!isChecked);
-        (isChecked ? showDetail(null) : showDetail(item.id))
+        (isChecked ? showDetail(nullStudent) : showDetail(item))
     } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
     useEffect(()=>{setChecked(isSelected)},[isSelected])

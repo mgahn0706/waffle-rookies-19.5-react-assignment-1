@@ -1,5 +1,5 @@
 import "./Dashboard.css";
-import {useStudentContext} from "../../context/StudentContext";
+import {useStudentContext} from "../../Context/StudentContext";
 import {PieChart, Pie, ResponsiveContainer,Cell} from "recharts";
 
 
@@ -29,7 +29,6 @@ const Dashboard = () => {
                 <PieChart width={400} height={400}>
                     <Pie
                         data={gradeStat}
-                        label
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value" />

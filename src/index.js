@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {StudentProvider} from "./context/StudentContext";
+import {StudentProvider} from "./Context/StudentContext";
 
 ReactDOM.render(
 

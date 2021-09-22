@@ -1,11 +1,12 @@
 import "./StudentList.css";
 import StudentItem from "./StudentItem/StudentItem";
-import {useFilteredStudentsContext, useStudentContext} from "../../context/StudentContext";
+import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
 
 
 
 const StudentList = ({filteredStudentList, showDetail, selectedStudentID}) => {
 const {studentList} = useStudentContext();
+const {selectedStudent,setSelectedStudent} = useSelectedStudentContext();
 
     if(studentList.length===0){
         return (
@@ -43,7 +44,7 @@ const {studentList} = useStudentContext();
                     </thead>
                     <tbody>
                     {filteredStudentList.map((item) => (
-                        (selectedStudentID === item.id ?
+                        (selectedStudent === item ?
                             <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={true}/>
                             : <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={false}/>)
                         /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/

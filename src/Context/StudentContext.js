@@ -13,20 +13,31 @@ const dummyData = [
     }
 ]
 
+const nullStudent = {
+    "id": null,
+    "name": null,
+    "grade": null,
+    "profile_img": null,
+    "email": null,
+    "phone": null,
+    "major": null,
+    "locked": false
+}
+
 const StudentContext = createContext(dummyData);
 const FilterContext = createContext('');
-const FilteredStudentContext = createContext(dummyData);
+const SelectedStudentContext = createContext(nullStudent);
 
 export const StudentProvider = ({children}) => {
     const [filter,setFilter] = useState("");
-    const [selectedStudentID, setSelectedStudentID] = useState(null);
-    const [studentList, setStudentList] = useState(dummyData)
-    const [selectedStudentInfo, selectStudentInfo] = useState([null,null,null,null]);
-
+    const [studentList, setStudentList] = useState(dummyData);
+    const [selectedStudent,setSelectedStudent] = useState(nullStudent);
     return (
         <StudentContext.Provider value={{studentList,setStudentList}}>
             <FilterContext.Provider value={{filter,setFilter}}>
-            {children}
+                <SelectedStudentContext.Provider value={{selectedStudent,setSelectedStudent}}>
+                    {children}
+                </SelectedStudentContext.Provider>
             </FilterContext.Provider>
         </StudentContext.Provider>
     )
@@ -34,4 +45,4 @@ export const StudentProvider = ({children}) => {
 
 export const useStudentContext = () => useContext(StudentContext);
 export const useFilterContext = () => useContext(FilterContext);
-export const useFilteredStudentsContext = () => useContext(FilteredStudentContext);
+export const useSelectedStudentContext = () => useContext(SelectedStudentContext);

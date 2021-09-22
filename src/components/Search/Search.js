@@ -1,6 +1,5 @@
 import "./Search.css";
-import {useContext} from "react";
-import {useFilterContext} from "../../context/StudentContext";
+import {useFilterContext} from "../../Context/StudentContext";
 
 
 
