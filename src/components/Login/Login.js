@@ -6,8 +6,7 @@ import {useHistory} from "react-router-dom";
 const Login = () => {
 
     const history = useHistory();
-
-    const {isLogin,setLogin} = useLoginContext();
+    const {setLogin} = useLoginContext();
     const handleSignInButton  = () => {
         setLogin(true);
         history.replace('/students')

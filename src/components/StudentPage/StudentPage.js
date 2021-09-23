@@ -1,7 +1,8 @@
 import "./StudentPage.css";
 import {useEffect, useState} from "react";
-import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
+import {useStudentContext} from "../../Context/StudentContext";
 import {useHistory, useParams} from "react-router-dom";
+import Confirm from "./Confirm/Confirm";
 
 
 const StudentPage = () => {
@@ -11,37 +12,22 @@ const StudentPage = () => {
     const selectedStudentMatch = studentList.filter(item => String(item.id)===params.id); /*주소창 직접 입력시 string 으로 저장되므로 String 으로 바꿔줌*/
     const selectedStudent = selectedStudentMatch[0]
 
-
-
-    const nullStudent = {
-        "id": null,
-        "name": null,
-        "grade": null,
-        "profile_img": null,
-        "email": null,
-        "phone": null,
-        "major": null,
-        "locked": false
-    }
-
-
-
     /*주소창에 id를 직접 입력하는 경우를 대비하여 selectedStudent 에서 가져오지 않고 id 에서 useParams 를 이용*/
-
-
 
 
     const [newProfile, setNewProfile] = useState('');
     const [newPhone, setNewPhone] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    const [newMajor, setNewMajor] = useState('');
+    const [isConfirmVisible, setConfirmVisible] = useState(false);
+
     useEffect(()=>setNewProfile(selectedStudent.profile_img),[selectedStudent]);
+    useEffect(()=>setNewPhone(selectedStudent.phone),[selectedStudent]);
+    useEffect(()=>setNewEmail(selectedStudent.email),[selectedStudent]);
+    useEffect(()=>setNewMajor(selectedStudent.major),[selectedStudent]);
 
 
 
-    const deleteStudent = (id) => {
-        const newStudentList = studentList.filter(item => item.id !== id);
-        setStudentList(newStudentList);
-
-    } /*id를 받아서 해당 학생을 list 에서 삭제*/
 
     const changeStudent = (changedStudent) => {
         const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
@@ -68,9 +54,9 @@ const StudentPage = () => {
 
     }
 
-    const handleDeleteButton = () => {
-        deleteStudent(selectedStudent.id); /*id를 delete 함수에 넘겨줘서 삭제*/
-        /*detail 창의 정보들을 name 을 빈칸으로 바꿔서 지움 */
+    const toggleConfirm = () => {
+        setConfirmVisible(!isConfirmVisible);
+        /*modal 창 띄우기 */
     }
 
 
@@ -79,10 +65,11 @@ const StudentPage = () => {
         return (
 
             <div className="studentPage">
+                <Confirm selectedStudent={selectedStudent} toggleConfirm={()=>toggleConfirm()} isConfirmVisible={isConfirmVisible}/>
 
                 <div className="PageButton">
                     <button className="saveButton" onClick={() => handleSaveButton()}>저장</button>
-                    <button className="deleteButton" onClick={() => handleDeleteButton()}>삭제</button>
+                    <button className="deleteButton" onClick={() => toggleConfirm()}>삭제</button>
                     <button className="homeButton" onClick={() => handleHomeButton()}>학생 목록 페이지로</button>
 
                 </div>
@@ -111,6 +98,20 @@ const StudentPage = () => {
                             <span className="phoneChangeText">전화번호</span>
                             <input className="phoneChangeInput" value={newPhone || ''}
                                    onChange={(e) => setNewPhone(e.target.value)}/>
+                        </div>
+                        <div className="emailChange">
+                            <span className="emailChangeText">이메일</span>
+                            <input className="emailChangeInput" value={newEmail || ''}
+                                   onChange={(e) => setNewEmail(e.target.value)}/>
+                        </div>
+                        <div className="majorChange">
+                            <span className="majorChangeText">전공</span>
+                            <select className="majorInput">
+                                {selectedStudent.major==="frontend" ? <option value="frontend" selected>frontend</option> : <option value="frontend">frontend</option>}
+                                {selectedStudent.major==="backend" ? <option value="backend" selected>backend</option> : <option value="backend">backend</option>}
+                                {selectedStudent.major==="android" ? <option value="android" selected>android</option> : <option value="android">android</option>}
+                                {selectedStudent.major==="iOS" ? <option value="iOS" selected>iOS</option> : <option value="iOS">iOS</option>}
+                            </select>
                         </div>
 
 
