@@ -1,8 +1,6 @@
-.studentDetail{
-    border: 1px solid #D3D3D3;
-    width: 622px;
-    height: 652px;
-    text-align: center;
+.studentPage{
+    margin-left: 60px;
+    margin-right: 60px;
 
 }
 
@@ -26,23 +24,6 @@
 
 }
 
-.selectedScreen{
-    visibility: hidden;
-
-}
-
-.selectedScreenHidden{
-    visibility: visible;
-    position: absolute;
-    width: 622px;
-    height: 652px;
-    background-color: white;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 652px;
-    z-index: 0;
-
-}
 
 .profileBox{
     width: 250px;
@@ -50,14 +31,43 @@
     border-radius: 70%;
     overflow: hidden;
     border: solid #E4E4E4 1px;
-    margin:60px;
     display: inline-block;
     line-height: 250px;
     font-size: 13px;
+    float: left;
 
 
 }
 
+.immutableInformation{
+    float: left;
+    height: 310px;
+}
+
+.immutableInformation.outer{
+    display: flex;
+    align-items: center;
+}
+
+.informationIcon{
+    clear: both;
+    background-color: #C4C4C4;
+    width: 104px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.informationSection{
+    clear: both;
+    border: solid black 1px;
+    width: 633px;
+    height: 380px;
+
+
+}
 
 .pageButton{
     display: flex;
@@ -73,12 +83,12 @@
     background-color: #ECFFEB;
     border: none;
     font-size: 18px;
-    font-weight: 400;
     border-radius: 10px;
     text-align: right;
     margin: 21px;
     padding: 16px;
     line-height: 13px;
+    font-weight: bold;
 }
 
 .deleteButton{
@@ -87,7 +97,7 @@
     background-color: #FDE4E4;
     border: none;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: bold;
     border-radius: 10px;
     text-align: right;
     margin: 21px;
@@ -107,7 +117,7 @@
     background-color: #C4C4C4;
     border: none;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: bold;
     border-radius: 10px;
     text-align: right;
     margin: 21px;
@@ -124,22 +134,67 @@
     background-color: #99FF99;
 }
 
-.nameChange, .gradeChange, .profileChange,.phoneChange{
-    margin: 11px;
+.nameChange, .gradeChange, .profileChange,.phoneChange, .emailChange, .majorChange{
+    margin: 22px;
+
+
 
 }
 
-.nameChangeInput, .gradeChangeInput, .profileChangeInput, .phoneChangeInput{
-    height: 20px;
-    width: 400px;
-    background-color: #F4F4F4;
+.profileChangeInput, .phoneChangeInput, .emailChangeInput{
+    height: 30px;
+    width: 300px;
+    background-color: white;
     border: solid #C2C2C2 1px;
 }
 
-.nameChangeText, .gradeChangeText, .profileChangeText, .phoneChangeText{
+.majorInput{
+    height: 34px;
+    width: 307px;
+    border: solid #C2C2C2 1px;
+}
+
+.nameChangeInput, .gradeChangeInput{
+    height: 20px;
+    width: 60px;
+    background-color: #F4F4F4;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.nameChangeText, .gradeChangeText, .profileChangeText, .phoneChangeText, .emailChangeText, .majorChangeText{
     width: 80px;
     height: 30px;
     display: inline-block;
     font-size: 18px;
-    text-align: left;
+    text-align: right;
+    margin-left: 100px;
+    margin-right: 66px;
+    font-weight: bold;
 }
+
+.lockedScreen{
+    background-color:rgba(196,196,196,0.44);
+    position: absolute;
+    width:633px;
+    height:380px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 580px;
+    color: rgba(92,92,92,1);
+
+
+}
+
+.lockImg{
+    width: 80px;
+    opacity: 60%;
+    position: absolute;
+    top: 40%;
+    left: 276px;
+
+}
+

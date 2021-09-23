@@ -26,3 +26,56 @@
     text-align: center;
     height: 570px;
 }
+
+.profilePreview{
+    width: 250px;
+    height: 250px;
+    border-radius: 70%;
+    overflow: hidden;
+    border: solid #E4E4E4 1px;
+    margin:60px;
+    display: inline-block;
+    line-height: 250px;
+    font-size: 13px;
+
+}
+
+.namePreview, .gradePreview{
+    height: 20px;
+    width: 400px;
+    background-color: #F4F4F4;
+    border: solid #C2C2C2 1px;
+}
+
+.namePreviewText, .gradePreviewText{
+    width: 80px;
+    height: 30px;
+    display: inline-block;
+    font-size: 18px;
+    text-align: left;
+}
+
+.studentDetail{
+    border: solid #D3D3D3 1px;
+    text-align: center;
+    height: 653px;
+}
+
+
+.selectedScreen{
+    visibility: hidden;
+
+}
+
+.selectedScreenHidden{
+    visibility: visible;
+    position: absolute;
+    width: 622px;
+    height: 652px;
+    background-color: white;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 652px;
+    z-index: 0;
+
+}

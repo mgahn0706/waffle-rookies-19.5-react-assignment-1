@@ -9,7 +9,7 @@ const dummyData = [
         "email": "test@waffle.hs.kr",
         "phone": "000-0000-0000",
         "major": "frontend",
-        "locked": true
+        "locked": false,
     }
 ]
 

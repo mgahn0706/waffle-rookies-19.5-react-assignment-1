@@ -27,18 +27,18 @@ const StudentDetail = () => {
                 <div className="detailButtonWrapper">
                     <img className="detailButton" onClick={()=>handleDetailButton()} src={detailView} alt="상세 보기"/>
                 </div>
-                <div className="profileBox">
+                <div className="profilePreview">
                     <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
                 </div>
                 <div className="detailInformation">
                     <div className="nameChange">
-                        <span className="nameChangeText">이름</span>
-                        <input className="nameChangeInput" value={selectedStudent.name || ''} disabled />
+                        <span className="namePreviewText">이름</span>
+                        <input className="namePreview" value={selectedStudent.name || ''} disabled />
                     </div>
 
                     <div className="gradeChange">
-                        <span className="gradeChangeText">학년</span>
-                        <input className="gradeChangeInput" value={selectedStudent.grade || ''} disabled />
+                        <span className="gradePreviewText">학년</span>
+                        <input className="gradePreview" value={selectedStudent.grade || ''} disabled />
                     </div>
                 </div>
             </div>
