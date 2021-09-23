@@ -65,15 +65,18 @@ const StudentPage = () => {
         return (
 
             <div className="studentPage">
+                <div className="pageHeader">
+                    <button className="homeButton" onClick={() => handleHomeButton()}>← 학생 목록 페이지로</button>
+                </div>
+
                 <Confirm selectedStudent={selectedStudent} toggleConfirm={()=>toggleConfirm()} isConfirmVisible={isConfirmVisible}/>
 
-                <div className="PageButton">
+                <div className="pageButton">
+                    <button className="lockButton" onClick={() => handleSaveButton()}>잠금</button>
                     <button className="saveButton" onClick={() => handleSaveButton()}>저장</button>
                     <button className="deleteButton" onClick={() => toggleConfirm()}>삭제</button>
-                    <button className="homeButton" onClick={() => handleHomeButton()}>학생 목록 페이지로</button>
-
                 </div>
-                <div className="PageContent">
+                <div className="pageContent">
                     <div className="profileBox">
                         <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
                     </div>

@@ -1,0 +1,28 @@
+
+.detailButtonWrapper{
+    margin-left: 11px;
+    margin-right: 11px;
+    display: flex;
+    justify-content: right;
+    height: 65px;
+
+}
+
+.detailButton{
+    width: 37px;
+    height: 37px;
+    margin: 10px;
+    transition: all 0.2s;
+}
+
+.detailButton:hover{
+    width: 42px;
+    height: 42px;
+
+}
+
+.detailContent{
+    width:100%;
+    text-align: center;
+    height: 570px;
+}

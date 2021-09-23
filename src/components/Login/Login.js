@@ -20,7 +20,7 @@ const Login = () => {
                 Username or email address
                 <input className="userName"/>
                 Password
-                <input className="password"/>
+                <input className="password" type="password"/>
 
                 <button className="signIn" onClick={()=>handleSignInButton()}>Sign in</button>
             </div>

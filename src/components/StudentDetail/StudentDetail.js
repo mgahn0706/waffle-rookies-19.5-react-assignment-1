@@ -1,5 +1,5 @@
 import "./StudentDetail.css";
-import {useEffect, useState} from "react";
+import detailView from "../../image/DetailView.png"
 import {useHistory} from "react-router-dom";
 import {useSelectedStudentContext} from "../../Context/StudentContext";
 
@@ -24,8 +24,8 @@ const StudentDetail = () => {
             </div>
 
             <div className="detailContent">
-                <div className="detailButton">
-                        <button className="deleteButton" onClick={handleDetailButton}> detail </button>
+                <div className="detailButtonWrapper">
+                    <img className="detailButton" onClick={()=>handleDetailButton()} src={detailView} alt="상세 보기"/>
                 </div>
                 <div className="profileBox">
                     <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
