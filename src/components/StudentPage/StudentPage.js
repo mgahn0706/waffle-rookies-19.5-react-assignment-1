@@ -5,18 +5,13 @@ import {useHistory, useParams} from "react-router-dom";
 
 
 const StudentPage = () => {
-    const {selectedStudent, setSelectedStudent} = useSelectedStudentContext();
-    const {studentList,setStudentList} = useStudentContext();
     const params = useParams();
-
+    const {studentList,setStudentList} = useStudentContext();
     const history = useHistory();
+    const selectedStudentMatch = studentList.filter(item => String(item.id)===params.id); /*주소창 직접 입력시 string 으로 저장되므로 String 으로 바꿔줌*/
+    const selectedStudent = selectedStudentMatch[0]
 
-    const [newName, setNewName] = useState('');
-    const [newGrade, setNewGrade] = useState('');
-    const [newProfile, setNewProfile] = useState('');
-    useEffect(()=>{setNewName(selectedStudent.name)},[selectedStudent])
-    useEffect(()=>{setNewGrade(selectedStudent.grade)},[selectedStudent])
-    useEffect(()=>{setNewProfile(selectedStudent.profile_img)},[selectedStudent])
+
 
     const nullStudent = {
         "id": null,
@@ -30,6 +25,18 @@ const StudentPage = () => {
     }
 
 
+
+    /*주소창에 id를 직접 입력하는 경우를 대비하여 selectedStudent 에서 가져오지 않고 id 에서 useParams 를 이용*/
+
+
+
+
+    const [newProfile, setNewProfile] = useState('');
+    const [newPhone, setNewPhone] = useState('');
+    useEffect(()=>setNewProfile(selectedStudent.profile_img),[selectedStudent]);
+
+
+
     const deleteStudent = (id) => {
         const newStudentList = studentList.filter(item => item.id !== id);
         setStudentList(newStudentList);
@@ -39,7 +46,7 @@ const StudentPage = () => {
     const changeStudent = (changedStudent) => {
         const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
         const newStudentList = studentList.slice();
-        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profileImg}
+        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profile_img}
         newStudentList.splice(targetIndex, 1, changedItem)
         setStudentList(newStudentList);
 
@@ -54,38 +61,11 @@ const StudentPage = () => {
 
         const changedStudent = {
             id: selectedStudent.id,
-            name: newName,
-            grade: newGrade,
-            profileImg: newProfile,
+            name: selectedStudent.name,
+            grade: selectedStudent.grade,
+            profile_img: newProfile,
         }
 
-        const sameName = studentList.find(item => item.name === changedStudent.name);
-
-        if((newName.length!==2 && newName.length!==3)|| !(newGrade in [1,2,3,"1","2","3"])){
-            window.alert("이름 또는 학년이 올바르지 않습니다.");
-            /*입력 형식이 잘못된 경우*/
-        }
-
-        else if (sameName === undefined) {
-            /*값을 변경한 경우는 string, 변경하지 않은 경우는 int 로 인식해서 2가지 경우 다 올바른 입력으로 넣*/
-
-            changeStudent(changedStudent);
-
-
-        } /* 이름이 같은 사람이 없고 입력이 정확한 경우 change 해준다.*/
-        else if (sameName.grade === changedStudent.grade || sameName.grade === Number(changedStudent.grade)) {
-            window.alert("이미 " + sameName.grade + "학년에 동명이인이 있습니다.");
-        } /*이름이 같고 학년도 같아서 동명이인이 있는 경우*/
-
-        else if ((newName.length === 2 || newName.length === 3) && (newGrade in [1, 2, 3, "1", "2", "3"])) {
-            changeStudent(changedStudent);
-        } /*이름이 같지만 학년이 같지 않고 입력이 올바른 경우*/
-
-        else {
-
-            window.alert("이름 또는 학년이 올바르지 않습니다.");
-            /*입력 형식이 잘못된 경우*/
-        }
     }
 
     const handleDeleteButton = () => {
@@ -96,41 +76,50 @@ const StudentPage = () => {
 
 
 
+        return (
 
-    return (
+            <div className="studentPage">
 
-        <div className="studentDetail">
-
-            <div className="detailButton">
-                <button className="saveButton" onClick={()=>handleSaveButton()}>저장</button>
-                <button className="deleteButton" onClick={()=>handleDeleteButton()}>삭제</button>
-
-            </div>
-            <div className="detailContent">
-                <div className="profileBox">
-                    <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
-                </div>
-                <div className="detailInformation">
-                    <div className="nameChange">
-                        <span className="nameChangeText">이름</span>
-                        <input className="nameChangeInput" value={newName || ''} onChange={(e)=>setNewName(e.target.value)} />
-                    </div>
-
-                    <div className="gradeChange">
-                        <span className="gradeChangeText">학년</span>
-                        <input className="gradeChangeInput" value={newGrade || ''} onChange={(e)=>setNewGrade(e.target.value)} />
-                    </div>
-
-                    <div className="profileChange">
-                        <span className="profileChangeText">프로필</span>
-                        <input className="profileChangeInput" value={newProfile || ''} onChange={(e)=>setNewProfile(e.target.value)} />
-                    </div>
-
+                <div className="PageButton">
+                    <button className="saveButton" onClick={() => handleSaveButton()}>저장</button>
+                    <button className="deleteButton" onClick={() => handleDeleteButton()}>삭제</button>
+                    <button className="homeButton" onClick={() => handleHomeButton()}>학생 목록 페이지로</button>
 
                 </div>
+                <div className="PageContent">
+                    <div className="profileBox">
+                        <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
+                    </div>
+                    <div className="detailInformation">
+                        <div className="nameChange">
+                            <span className="nameChangeText">이름</span>
+                            <input className="nameChangeInput" value={selectedStudent.name || ''} disabled/>
+                        </div>
+
+                        <div className="gradeChange">
+                            <span className="gradeChangeText">학년</span>
+                            <input className="gradeChangeInput" value={selectedStudent.grade || ''} disabled/>
+                        </div>
+
+                        <div className="profileChange">
+                            <span className="profileChangeText">프로필</span>
+                            <input className="profileChangeInput" value={newProfile || ''}
+                                   onChange={(e) => setNewProfile(e.target.value)}/>
+                        </div>
+
+                        <div className="phoneChange">
+                            <span className="phoneChangeText">전화번호</span>
+                            <input className="phoneChangeInput" value={newPhone || ''}
+                                   onChange={(e) => setNewPhone(e.target.value)}/>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+
+
 }
 
 export default StudentPage;

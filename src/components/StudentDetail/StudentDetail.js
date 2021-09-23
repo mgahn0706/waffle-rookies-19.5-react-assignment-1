@@ -7,13 +7,13 @@ import {useSelectedStudentContext} from "../../Context/StudentContext";
 const StudentDetail = () => {
 
     const history=useHistory();
-    const {selectedStudent,setSelectedStudent} = useSelectedStudentContext();
+    const {selectedStudent} = useSelectedStudentContext();
 
 
     const handleDetailButton = () => {
-
+        const url = '/student/'+selectedStudent.id; /*url 뒤에 선택된 학생의 id를 붙여줌. 아직은 숫자만 있어서 오류는 안나는데 불확실*/
         return(
-            history.push('/student/${selectedStudent.id}')
+            history.push(url)
         );
     }
     return (
@@ -33,12 +33,12 @@ const StudentDetail = () => {
                 <div className="detailInformation">
                     <div className="nameChange">
                         <span className="nameChangeText">이름</span>
-                        <input className="nameChangeInput" value={selectedStudent.name || ''} readOnly />
+                        <input className="nameChangeInput" value={selectedStudent.name || ''} disabled />
                     </div>
 
                     <div className="gradeChange">
                         <span className="gradeChangeText">학년</span>
-                        <input className="gradeChangeInput" value={selectedStudent.grade || ''} readOnly />
+                        <input className="gradeChangeInput" value={selectedStudent.grade || ''} disabled />
                     </div>
                 </div>
             </div>

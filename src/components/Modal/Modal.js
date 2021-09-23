@@ -20,10 +20,15 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
     const handleAddButton = () => {
         const newStudent = {
-            id: Math.random(),
-            name: addedName,
-            grade: addedGrade,
-            profileImg: addedProfile,
+            "id": Math.random(),
+            "name": addedName,
+            "grade": addedGrade,
+            "profile_img": null,
+            "email": null,
+            "phone": null,
+            "major": null,
+            "locked": false
+
         }
 
         const sameName = studentList.find(item=>item.name===newStudent.name);
