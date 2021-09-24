@@ -1,6 +1,10 @@
 import "./Confirm.css"
 import {useSelectedStudentContext, useStudentContext} from "../../../Context/StudentContext";
 import {useHistory} from "react-router-dom";
+import WarningIcon from "../../../image/Warning.png"
+import DeleteIcon from "../../../image/Delete.png"
+import CancelIcon from "../../../image/Cancel.png"
+
 
 const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
 
@@ -42,9 +46,28 @@ const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
     return (
         <div className={"confirmModalWrapper"+(isConfirmVisible ? "visible" : "")}>
             <div className="confirmModal">
-                삭제하시겠습니까?
-                <button className="cancelButton" onClick={()=>handleCancelButton()}>취소</button>
-                <button className="confirmButton" onClick={()=>handleDeleteButton()}>삭제</button>
+                <div className="confirmHeader">
+                    <img className="warningIcon" src={WarningIcon}/>
+                    <span className="deleteStudentText">
+                          학생을 삭제합니다.
+                    </span>
+
+                </div>
+                <div className="warningText">
+                    이 작업은 되돌릴 수 없습니다.
+                </div>
+
+
+                <div className="confirmModalButton">
+                    <button className="cancelButton" onClick={()=>handleCancelButton()}>
+                        <img src={CancelIcon} alt="취소아이콘" className="cancelIcon"/>
+                        취소
+                    </button>
+                    <button className="confirmButton" onClick={()=>handleDeleteButton()}>
+                        <img src={DeleteIcon} alt="삭제아이콘" className="confirmIcon"/>
+                        삭제
+                    </button>
+                </div>
             </div>
         </div>
     )

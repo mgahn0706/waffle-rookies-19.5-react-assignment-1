@@ -1,6 +1,6 @@
 import "./StudentPage.css";
 import {useEffect, useState} from "react";
-import {useStudentContext} from "../../Context/StudentContext";
+import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
 import {useHistory, useParams} from "react-router-dom";
 import Confirm from "./Confirm/Confirm";
 import DeleteIcon from "../../image/Delete.png"
@@ -12,6 +12,7 @@ const StudentPage = () => {
     const params = useParams();
     const {studentList,setStudentList} = useStudentContext();
     const history = useHistory();
+    const {setSelectedStudent} = useSelectedStudentContext();
     const selectedStudentMatch = studentList.filter(item => String(item.id)===params.id); /*주소창 직접 입력시 string 으로 저장되므로 String 으로 바꿔줌*/
     const selectedStudent = selectedStudentMatch[0]
 
@@ -27,7 +28,7 @@ const StudentPage = () => {
 
     const formatEmail = (email) =>{
         if(!email){
-            return "";
+            return ""; /*email 안정해진 경우 그냥 빈칸 출력*/
         }
         else{
             return selectedStudent.email.slice(0,selectedStudent.email.indexOf("@"));
@@ -50,6 +51,8 @@ const StudentPage = () => {
         const newStudentList = studentList
         newStudentList.splice(targetIndex,1,changedStudent)
         setStudentList(newStudentList);
+        setSelectedStudent(changedStudent);
+
 
     } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
 

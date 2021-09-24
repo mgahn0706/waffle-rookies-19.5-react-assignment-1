@@ -28,19 +28,107 @@
 .confirmModal{
 
     background-color: white;
-    width: 670px;
-    height: 280px;
+    width: 636px;
+    height: 333px;
     top: 366px;
     left: 383px;
     font-size: 18px;
-    font-family: Abel;
     display: block;
     position: fixed;
-    padding-top: 22px;
-    padding-left: 28px;
-    border: solid black 1px;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
     z-index: 3; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
 
 
 
+}
+
+.deleteStudentText{
+    position: absolute;
+    top:60px;
+}
+
+.warningIcon{
+    width:55px;
+    margin-right: 50px;
+}
+
+.confirmHeader{
+    width:100%;
+    font-size: 24px;
+    font-weight: bold;
+    height: 50px;
+
+}
+
+.warningText{
+    height:200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.confirmModalButton{
+    position: absolute;
+    bottom: 17px;
+    right: 22px;
+}
+
+
+
+
+.confirmButton{
+    width: 100px;
+    height: 50px;
+    background-color: #FDE4E4;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+
+}
+
+.confirmButton:hover{
+    background-color: #FF9999;
+}
+
+
+.cancelButton{
+    width: 100px;
+    height: 50px;
+    background-color: #D3EAFF;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+
+}
+
+.cancelButton:hover{
+    background-color: #63C5DA;
+}
+
+.cancelIcon{
+    width: 20px;
+    position: absolute;
+    top:35px;
+    left: 35px;
+}
+
+.confirmIcon{
+    position: absolute;
+    top: 33px;
+    left: 180px;
+    width:18px;
+    height: 24px;
 }
