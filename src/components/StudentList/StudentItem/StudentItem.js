@@ -2,7 +2,7 @@ import "./StudentItem.css"
 import {useEffect, useState} from "react";
 
 const StudentItem = ({item, showDetail, isSelected}) => {
-    const [isChecked,setChecked] = useState(isSelected); /*anti-pattern 수정중임*/
+    const [isChecked,setChecked] = useState(isSelected);
     const nullStudent = {
         "id": null,
         "name": null,

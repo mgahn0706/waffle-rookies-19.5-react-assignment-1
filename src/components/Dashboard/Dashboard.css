@@ -8,3 +8,10 @@
     width: 1352px;
     align-items: center;
 }
+
+.totalStudent{
+    position: absolute;
+    top: 180px;
+    left: 1000px;
+    font-size: 18px;
+}

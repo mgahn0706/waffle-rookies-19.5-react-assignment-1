@@ -4,9 +4,9 @@ import {useSelectedStudentContext, useStudentContext} from "../../Context/Studen
 
 
 
-const StudentList = ({filteredStudentList, showDetail, selectedStudentID}) => {
+const StudentList = ({filteredStudentList, showDetail}) => {
 const {studentList} = useStudentContext();
-const {selectedStudent,setSelectedStudent} = useSelectedStudentContext();
+const {selectedStudent} = useSelectedStudentContext();
 
     if(studentList.length===0){
         return (
@@ -17,7 +17,7 @@ const {selectedStudent,setSelectedStudent} = useSelectedStudentContext();
                     <tr className="listHeader">
                         <th className="nameHeader">이름</th>
                         <th className="gradeHeader">학년</th>
-                        <th className="blankHeader"></th>
+                        <th className="blankHeader"/>
                     </tr>
                     </thead>
 
@@ -39,7 +39,7 @@ const {selectedStudent,setSelectedStudent} = useSelectedStudentContext();
                     <tr className="listHeader">
                         <th className="nameHeader">이름</th>
                         <th className="gradeHeader">학년</th>
-                        <th className="blankHeader"></th>
+                        <th className="blankHeader"/>
                     </tr>
                     </thead>
                     <tbody>

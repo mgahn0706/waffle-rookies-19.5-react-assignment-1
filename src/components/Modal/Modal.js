@@ -17,6 +17,11 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
         toggleModal(); /*Modal status update */
     }
 
+    const resetInput = () => {
+        setName('');
+        setGrade('');
+    }
+
     const handleAddButton = () => {
         const newStudent = {
             "id": Math.random(),
@@ -45,8 +50,7 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
         else if(sameName===undefined){
 
             addStudent(newStudent);
-            setName('');
-            setGrade('');
+            resetInput();
             toggleModal(); /* addStudent 에 newStudent 를 보냄 + 입력창 초기화 및 Modal state 를 변경. */
             } /*이름 같은 사람이 아예없고 입력도 적절한 경우*/
 
@@ -57,8 +61,7 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
         else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3",1,2,3])){
             addStudent(newStudent);
-            setName('');
-            setGrade('');
+            resetInput();
             toggleModal();
         } /*이름은 같지만 동명이인이 아니고 입력이 적절한 경우*/
 

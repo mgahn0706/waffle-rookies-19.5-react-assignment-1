@@ -36,7 +36,7 @@ const StudentPage = () => {
     }
 
 
-    useEffect(()=>setLocked(!selectedStudent.locked),[]); /*state 가 바뀌어야만 render 가 됨. 왤까?*/
+    useEffect(()=>setLocked(!selectedStudent.locked),[selectedStudent.locked]); /*state 가 바뀌어야만 render 가 됨. 왤까?*/
 
     useEffect(()=>setNewProfile(selectedStudent.profile_img),[selectedStudent]);
     useEffect(()=>setNewPhone(selectedStudent.phone),[selectedStudent]);

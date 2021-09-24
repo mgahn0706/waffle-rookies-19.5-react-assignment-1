@@ -47,7 +47,7 @@ const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
         <div className={"confirmModalWrapper"+(isConfirmVisible ? "visible" : "")}>
             <div className="confirmModal">
                 <div className="confirmHeader">
-                    <img className="warningIcon" src={WarningIcon}/>
+                    <img className="warningIcon" src={WarningIcon} alt="경고아이콘"/>
                     <span className="deleteStudentText">
                           학생을 삭제합니다.
                     </span>

@@ -6,7 +6,7 @@ import {useFilterContext} from "../../Context/StudentContext";
 
 const Search = ({filterStudent}) => {
 
-    const {filter, setFilter} = useFilterContext();
+    const {setFilter} = useFilterContext();
 
     const handleFilter = (e) => {
 

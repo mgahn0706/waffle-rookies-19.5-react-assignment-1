@@ -14,7 +14,6 @@ import {useSelectedStudentContext, useStudentContext} from "../../Context/Studen
 const Main = () => {
     const {selectedStudent, setSelectedStudent} = useSelectedStudentContext();
     const {studentList, setStudentList} = useStudentContext();
-    const nullStudentInfo = [null,null,null,null];
     const [filteredStudents, setFilteredStudents] = useState(studentList);
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +32,7 @@ const Main = () => {
     const filterStudent = (filter) => {
 
         setFilteredStudents(filter ? studentList.filter((student)=>student.name.includes(filter)) : studentList)
-        
+
     } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
 
     const toggleModal = () => {
@@ -51,7 +50,9 @@ const Main = () => {
 
 
     const showDetail = (selectedStudent) => {
-        if(selectedStudent.id===null){
+
+
+        if(!selectedStudent.id){
             setSelectedStudent(nullStudent);
 
         } /*아무도 선택되지 않은 경우*/
