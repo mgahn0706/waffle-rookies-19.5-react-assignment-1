@@ -1,7 +1,8 @@
 .loginWrapper{
-    text-align: center;
+
     font-size: 25px;
     font-weight: 100;
+    text-align: center;
 
 
 }
@@ -14,6 +15,7 @@
     border: solid rgb(216 222 228) 1px;
     position: absolute;
     left:36.5%;
+    top: 120px;
     margin:50px;
     background-color: #f6f8fa;
     padding-left: 20px;
@@ -31,7 +33,7 @@
 
 .signUpBox{
     position: absolute;
-    top:450px;
+    top:530px;
     font-size: 17px;
     font-weight: 400;
     left:36.5%;
@@ -56,6 +58,17 @@
     margin-top: 10px;
 }
 
+.signInTitle{
+    margin-top: 20px;
+    position: absolute;
+    left: 43%;
+    top: 80px;
+}
+
+.signInHeader{
+
+}
+
 .signInButton{
     background-color: #2da44e;
     width: 370px;
@@ -76,7 +89,7 @@
 
 .footer{
     position: absolute;
-    top:700px;
+    top:750px;
     left:40%;
     width: 400px;
     display: flex;

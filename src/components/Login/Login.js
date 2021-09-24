@@ -18,8 +18,16 @@ const Login = () => {
 
     return(
 
+
+
         <div className="loginWrapper">
-            Sign in to WaffleHighSchool
+
+            <a href="https://wafflestudio.com" target="_blank" rel="noreferrer" className="signInHeader">
+                <img src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75" alt="waffleLogo" className="waffleLogo"/>
+            </a>
+            <div className="signInTitle">
+                Sign in to WaffleHighSchool
+            </div>
             <div className="loginBox">
                 <div className="usernameText">
                     Username or email address

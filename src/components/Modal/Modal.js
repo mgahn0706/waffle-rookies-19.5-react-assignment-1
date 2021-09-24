@@ -8,13 +8,12 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
     const {studentList} = useStudentContext();
     const [addedName, setName] = useState('');
     const [addedGrade, setGrade] = useState('');
-    const [addedProfile, setProfile] = useState('');
+
 
 
     const handleCloseButton = () => {
         setName('');
         setGrade('');
-        setProfile('');
         toggleModal(); /*Modal status update */
     }
 
@@ -33,7 +32,13 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
 
         const sameName = studentList.find(item=>item.name===newStudent.name);
 
-        if(!(addedGrade in ["1","2","3",1,2,3]) || (addedName.length!==2 && addedName.length!==3)){
+        const regex = /^[가-힣|]+$/;
+
+        if(!regex.test(addedName)){
+            window.alert("이름은 온전한 한글로만 입력 가능합니다.");
+        } /*영어나 자음만 입력할 경우 걸러줌*/
+
+        else if(!(addedGrade in ["1","2","3",1,2,3]) || (addedName.length!==2 && addedName.length!==3)){
             window.alert("이름 또는 학년이 올바르지 않습니다.");
         }
 
@@ -42,7 +47,6 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
             addStudent(newStudent);
             setName('');
             setGrade('');
-            setProfile('');
             toggleModal(); /* addStudent 에 newStudent 를 보냄 + 입력창 초기화 및 Modal state 를 변경. */
             } /*이름 같은 사람이 아예없고 입력도 적절한 경우*/
 
@@ -55,7 +59,6 @@ const Modal = ({toggleModal, addStudent, modalVisible}) => {
             addStudent(newStudent);
             setName('');
             setGrade('');
-            setProfile('');
             toggleModal();
         } /*이름은 같지만 동명이인이 아니고 입력이 적절한 경우*/
 

@@ -31,17 +31,9 @@ const Main = () => {
     }
 
     const filterStudent = (filter) => {
-        if(filter===''){
-            setFilteredStudents(studentList);
 
-        }
-        else{
-            const filteredStudents =studentList.filter((student)=>student.name.includes(filter))
-            setFilteredStudents(filteredStudents);
-
-        }
-
-
+        setFilteredStudents(filter ? studentList.filter((student)=>student.name.includes(filter)) : studentList)
+        
     } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
 
     const toggleModal = () => {
