@@ -25,12 +25,21 @@ const StudentPage = () => {
     const [isConfirmVisible, setConfirmVisible] = useState(false);
     const [isLocked, setLocked] = useState(false); /*일일히 .locked 치기도 번거로우며 렌더가 잘 안돼서 따로 뺐음*/
 
+    const formatEmail = (email) =>{
+        if(!email){
+            return "";
+        }
+        else{
+            return selectedStudent.email.slice(0,selectedStudent.email.indexOf("@"));
+        }
+    }
+
 
     useEffect(()=>setLocked(!selectedStudent.locked),[]); /*state 가 바뀌어야만 render 가 됨. 왤까?*/
 
     useEffect(()=>setNewProfile(selectedStudent.profile_img),[selectedStudent]);
     useEffect(()=>setNewPhone(selectedStudent.phone),[selectedStudent]);
-    useEffect(()=>setNewEmail(selectedStudent.email.slice(0,selectedStudent.email.indexOf("@"))),[selectedStudent]);
+    useEffect(()=>setNewEmail(formatEmail(selectedStudent.email)),[selectedStudent]);
     useEffect(()=>setNewMajor(selectedStudent.major),[selectedStudent]);
 
 
@@ -38,11 +47,9 @@ const StudentPage = () => {
 
     const changeStudent = (changedStudent) => {
         const targetIndex = studentList.findIndex(item=>item.id === changedStudent.id);
-        const newStudentList = studentList.slice();
-        const changedItem = {...studentList[targetIndex], name: changedStudent.name, grade: changedStudent.grade, profileImg: changedStudent.profile_img}
-        newStudentList.splice(targetIndex, 1, changedItem)
+        const newStudentList = studentList
+        newStudentList.splice(targetIndex,1,changedStudent)
         setStudentList(newStudentList);
-        
 
     } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */
 
@@ -52,7 +59,6 @@ const StudentPage = () => {
     }
 
     const handleSaveButton = () => {
-
 
         const changedStudent = {
             "id": selectedStudent.id,
@@ -69,6 +75,7 @@ const StudentPage = () => {
         changeStudent(changedStudent);
 
     }
+
 
     const toggleConfirm = () => {
         setConfirmVisible(!isConfirmVisible);
@@ -156,7 +163,7 @@ const StudentPage = () => {
                 <div className="infoWrapper">
                     <div className="pageContent">
                         <div className="profileBox">
-                            <img className="profileImage" src={selectedStudent.profile_img} alt="프로필 이미지를 찾을 수 없습니다."/>
+                            <img className="profileImage" src={newProfile} alt="프로필 이미지를 찾을 수 없습니다."/>
                         </div>
                         <div className="immutableInformation">
                             <div className="nameChange">

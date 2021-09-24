@@ -8,7 +8,7 @@
     transition: all 0.3s;
     visibility: hidden;
     opacity:0%;
-    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+    z-index: 2; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
 }
 
 .confirmModalWrappervisible{
@@ -20,7 +20,7 @@
     height:100vh;
     transition: all 0.3s;
     visibility: visible;
-    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+    z-index: 2; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
 
 
 }
@@ -39,7 +39,7 @@
     padding-top: 22px;
     padding-left: 28px;
     border: solid black 1px;
-    z-index: 2; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+    z-index: 3; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
 
 
 
