@@ -12,20 +12,45 @@ const Login = () => {
         history.replace('/students')
     }
 
+    const handleNotUpdated = () =>{
+        window.alert('Not updated yet :(')
+    }
+
     return(
 
         <div className="loginWrapper">
             Sign in to WaffleHighSchool
             <div className="loginBox">
-                Username or email address
-                <input className="userName"/>
-                Password
-                <input className="password" type="password"/>
+                <div className="usernameText">
+                    Username or email address
+                </div>
+                <input className="usernameInput"/>
+                <div className="passwordText">
+                    <span>Password</span>
+                    <span className="forgotPasswordLink" onClick={()=>handleNotUpdated()}>Forgot Password?</span>
+                </div>
+                <input className="passwordInput" type="password"/>
+                <div className="signInButtonWrapper">
+                    <button className="signInButton" onClick={()=>handleSignInButton()}>Sign in</button>
+                </div>
 
-                <button className="signIn" onClick={()=>handleSignInButton()}>Sign in</button>
             </div>
 
+            <div className="signUpBox">
+                <span>New to Waffle High school?</span>
+                <span className="createAccountLink" onClick={()=>handleNotUpdated()}>Create an account.</span>
+            </div>
+
+            <footer className="footer">
+                <span>Terms</span>
+                <span>Privacy</span>
+                <span>Security</span>
+                <span>Contact</span>
+            </footer>
+
         </div>
+
+
 
 
     );
