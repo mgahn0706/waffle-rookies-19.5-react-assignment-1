@@ -42,7 +42,7 @@ JetBrain Webstorm  2021.2 <br>
 </ul>
 
 
-</ul>
+
 
 ###Screenshots
 
@@ -52,7 +52,7 @@ JetBrain Webstorm  2021.2 <br>
 ![screenshot](./img/screenshot(selected).png)
 메인화면(선택됨)
 
-![screenshot](./img/detail.png)
+![screenshot](./img/detail.PNG)
 학생 세부 정보화면
 
 ![screenshot](./img/locked.PNG)
