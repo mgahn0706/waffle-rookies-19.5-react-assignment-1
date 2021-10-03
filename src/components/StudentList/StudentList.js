@@ -4,7 +4,7 @@ import {useSelectedStudentContext, useStudentContext} from "../../Context/Studen
 
 
 
-const StudentList = ({filteredStudentList, showDetail}) => {
+const StudentList = ({filteredStudentList, handleSelectStudent}) => {
 const {studentList} = useStudentContext();
 const {selectedStudent} = useSelectedStudentContext();
 
@@ -44,11 +44,9 @@ const {selectedStudent} = useSelectedStudentContext();
                     </thead>
                     <tbody>
                     {filteredStudentList.map((item) => (
-                        (selectedStudent === item ?
-                            <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={true}/>
-                            : <StudentItem key={item.id} item={item} showDetail={showDetail} isSelected={false}/>)
+                         <StudentItem key={item.id} item={item} handleSelectStudent={handleSelectStudent} isSelected={selectedStudent===item}/>)
                         /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
-                    ))}
+                    )}
 
                     </tbody>
                 </table>

@@ -66,7 +66,12 @@ const Main = () => {
     useEffect(()=>{},[selectedStudent]); /*선택하자마자 info 를 보여주도록 하는 useEffect*/
 
 
+    const handleSelectStudent = (student) => {
 
+        const isChecked = (selectedStudent.id) && (selectedStudent.id === student.id);
+        isChecked ? showDetail(nullStudent) : showDetail(student)
+
+    } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
 
 
@@ -84,7 +89,7 @@ const Main = () => {
                         <StudentAdder toggleModal={toggleModal} />
                     </div>
                     <div className="studentList">
-                        <StudentList filteredStudentList={filteredStudents} showDetail={showDetail} />
+                        <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} />
                     </div>
                 </div>
                 <div className="verticalBorder">
