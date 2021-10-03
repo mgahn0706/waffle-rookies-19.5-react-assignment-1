@@ -7,6 +7,7 @@ import DeleteIcon from "../../image/Delete.png"
 import LockIcon from "../../image/Lock.png"
 import SaveIcon from "../../image/Save.png"
 import UnlockIcon from "../../image/Unlock.png"
+import {toast} from "react-toastify";
 
 const StudentPage = () => {
     const params = useParams();
@@ -52,6 +53,17 @@ const StudentPage = () => {
         newStudentList.splice(targetIndex,1,changedStudent)
         setStudentList(newStudentList);
         setSelectedStudent(changedStudent);
+
+        toast.success('변경사항이 저장되었습니다.', {
+            position: "bottom-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark"
+        });
 
 
     } /*바뀐 student 정보를 받아서 해당 학생과 id가 일치하는 학생 정보를 갱신함 */

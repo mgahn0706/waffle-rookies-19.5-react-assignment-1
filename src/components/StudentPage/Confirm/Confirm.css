@@ -91,7 +91,7 @@
     margin: 21px;
     padding: 16px;
     line-height: 13px;
-
+    cursor: pointer;
 }
 
 .confirmButton:hover{
@@ -111,7 +111,7 @@
     margin: 21px;
     padding: 16px;
     line-height: 13px;
-
+    cursor: pointer;
 }
 
 .cancelButton:hover{
