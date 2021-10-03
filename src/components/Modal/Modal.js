@@ -1,42 +1,56 @@
 import "./Modal.css";
 import {useState} from "react";
+import {useStudentContext} from "../../Context/StudentContext";
 
 
 
-const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
-
+const Modal = ({toggleModal, addStudent, modalVisible}) => {
+    const {studentList} = useStudentContext();
     const [addedName, setName] = useState('');
     const [addedGrade, setGrade] = useState('');
-    const [addedProfile, setProfile] = useState('');
+
 
 
     const handleCloseButton = () => {
         setName('');
         setGrade('');
-        setProfile('');
         toggleModal(); /*Modal status update */
+    }
+
+    const resetInput = () => {
+        setName('');
+        setGrade('');
     }
 
     const handleAddButton = () => {
         const newStudent = {
-            id: Math.random(),
-            name: addedName,
-            grade: addedGrade,
-            profileImg: addedProfile,
+            "id": Math.random(),
+            "name": addedName,
+            "grade": addedGrade,
+            "profile_img": null,
+            "email": null,
+            "phone": null,
+            "major": null,
+            "locked": false
+
         }
 
         const sameName = studentList.find(item=>item.name===newStudent.name);
 
-        if(!(addedGrade in ["1","2","3"]) || (addedName.length!==2 && addedName.length!==3)){
+        const regex = /^[가-힣|]+$/;
+
+        if(!regex.test(addedName)){
+            window.alert("이름은 온전한 한글로만 입력 가능합니다.");
+        } /*영어나 자음만 입력할 경우 걸러줌*/
+
+        else if(!(addedGrade in ["1","2","3",1,2,3]) || (addedName.length!==2 && addedName.length!==3)){
             window.alert("이름 또는 학년이 올바르지 않습니다.");
         }
 
         else if(sameName===undefined){
 
             addStudent(newStudent);
-            setName('');
-            setGrade('');
-            setProfile('');
+            resetInput();
             toggleModal(); /* addStudent 에 newStudent 를 보냄 + 입력창 초기화 및 Modal state 를 변경. */
             } /*이름 같은 사람이 아예없고 입력도 적절한 경우*/
 
@@ -45,11 +59,9 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
             window.alert("이미 "+sameName.grade+"학년에 동명이인이 있습니다.");
         }
 
-        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3"])){
+        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3",1,2,3])){
             addStudent(newStudent);
-            setName('');
-            setGrade('');
-            setProfile('');
+            resetInput();
             toggleModal();
         } /*이름은 같지만 동명이인이 아니고 입력이 적절한 경우*/
 
@@ -70,11 +82,7 @@ const Modal = ({toggleModal, addStudent, modalVisible, studentList}) => {
                     <span className="textGrade"> 학년 </span>
                     <input value={addedGrade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
                 </div>
-                <div className="modalProfile">
-                    <span className="textProfile"> 프로필 </span>
 
-                    <input value={addedProfile} onChange={(e)=>setProfile(e.target.value)} className="inputProfile"/>
-                </div>
 
                 <div className="modalButton">
                     <button className="closeButton" onClick={handleCloseButton}>닫기</button>

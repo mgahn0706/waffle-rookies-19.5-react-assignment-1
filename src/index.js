@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {StudentProvider} from "./Context/StudentContext";
 
 ReactDOM.render(
+
   <React.StrictMode>
+      <StudentProvider>
     <App />
+      </StudentProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

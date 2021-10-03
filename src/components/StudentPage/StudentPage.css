@@ -1,0 +1,272 @@
+.studentPage{
+    margin-left: 60px;
+    margin-right: 60px;
+
+}
+
+.homeButton{
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+.homeButton:hover{
+    background-color: lightgray;
+
+}
+
+.profileImage{
+    width:100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+
+.profileBox{
+    width: 250px;
+    height: 250px;
+    border-radius: 70%;
+    overflow: hidden;
+    border: solid #E4E4E4 1px;
+    display: inline-block;
+    line-height: 250px;
+    font-size: 13px;
+    float: left;
+
+
+}
+
+.immutableInformation{
+    float: left;
+    height: 310px;
+    line-height: 100px;
+}
+
+
+.informationIcon, .commentIcon{
+    clear: both;
+    background-color: #C4C4C4;
+    width: 104px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.informationSection{
+    clear: both;
+    border: solid black 1px;
+    width: 633px;
+    height: 380px;
+
+
+}
+
+.pageButton{
+    display: flex;
+    justify-content: right;
+    width:1300px;
+    margin-left: 63px;
+    margin-right: 63px;
+}
+
+.saveButton{
+    width: 100px;
+    height:50px;
+    background-color: #ECFFEB;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+    font-weight: bold;
+}
+
+.deleteButton{
+    width: 100px;
+    height: 50px;
+    background-color: #FDE4E4;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+
+}
+
+.deleteButton:hover{
+    background-color: #FF9999;
+}
+
+
+.lockButton{
+    width: 100px;
+    height: 50px;
+    background-color: #C4C4C4;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+
+}
+
+.lockButton:hover{
+    background-color: #ACACAC;
+}
+
+.saveButton:hover{
+    background-color: #99FF99;
+}
+
+.profileChange,.phoneChange, .emailChange, .majorChange{
+    margin: 22px;
+}
+
+.nameChange, .gradeChange{
+    margin: 0;
+}
+
+.profileChangeInput, .phoneChangeInput, .emailChangeInput{
+    height: 30px;
+    width: 300px;
+    background-color: white;
+    border: solid #C2C2C2 1px;
+}
+
+.majorInput{
+    height: 34px;
+    width: 307px;
+    border: solid #C2C2C2 1px;
+}
+
+.nameChangeInput, .gradeChangeInput{
+    height: 20px;
+    width: 60px;
+    background-color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+
+.nameChangeText, .gradeChangeText, .profileChangeText, .phoneChangeText, .emailChangeText, .majorChangeText{
+    width: 80px;
+    height: 30px;
+    display: inline-block;
+    font-size: 18px;
+    text-align: right;
+    margin-left: 100px;
+    margin-right: 66px;
+    font-weight: bold;
+}
+
+.lockedScreen{
+    background-color:rgba(196,196,196,0.44);
+    position: absolute;
+    width:633px;
+    height:380px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 580px;
+    color: rgba(92,92,92,1);
+
+
+}
+
+.lockImg{
+    width: 80px;
+    opacity: 60%;
+    position: absolute;
+    top: 40%;
+    left: 276px;
+
+}
+
+.commentSection{
+
+    width: 100px;
+    margin-left: 75px;
+    margin-top: 20px;
+}
+
+.infoWrapper{
+    display: flex;
+
+}
+
+.commentList{
+    border: solid black 1px;
+    width: 633px;
+    height: 670px;
+    text-align: center;
+    line-height: 670px;
+}
+
+.disabledButton{
+    width: 100px;
+    height:50px;
+    background-color: #D3D3D3;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    text-align: right;
+    margin: 21px;
+    padding: 16px;
+    line-height: 13px;
+    font-weight: bold;
+}
+
+.disabledButton:hover{
+    background-color: #ACACAC;
+}
+
+.deleteIcon{
+    position: absolute;
+    top: 102px;
+    left: 1220px;
+    width:18px;
+    height: 24px;
+}
+
+.saveIcon{
+    position: absolute;
+    top: 102px;
+    left: 1355px;
+    width:24px;
+    height: 24px;
+}
+
+
+.lockIcon{
+    position: absolute;
+    top: 102px;
+    left: 1076px;
+    width: 20px;
+    height: 24px;
+}
+
+.emailSuffix{
+    position: absolute;
+    z-index: 1;
+    margin-left: 185px;
+    margin-top:5px;
+    color: #979797;
+    font-size: 18px;
+    background-color: transparent;
+}
+

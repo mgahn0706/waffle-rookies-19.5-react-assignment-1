@@ -6,6 +6,8 @@
 ### 개발환경
 JetBrain Webstorm  2021.2 <br>
 
+###배포
+<a href="https://dmmf4m1rp4w0q.cloudfront.net">dmmf4m1rp4w0q.cloudfront.net</a>
 
 ###Components (Used States)
 <ul> 
@@ -14,20 +16,31 @@ JetBrain Webstorm  2021.2 <br>
     <li> Modal (name, grade, profile: 추가하는 학생의 정보)</li>
     <li> Search</li>
     <li> StudentAdder</li>
-    <li> StudentDetail (newName, newGrade, newProfile: 변경된 학생의 정보</li>
+    <li> StudentDetail</li>
     <li> StudentList
         <ul>
             <li>StudentItem (isChecked: 선택버튼을 눌렀는지에 대한 상태)</li>
         </ul>
     </li>
-    <ul>Status in App.js
-        <li> (filter: Search 에서 가져온 filter 상태) </li>
-        <li> (studentList: 데이터에 존재하는 학생 상태) </li>
-        <li> (filteredStudents: filterStudent()함수가 완료된 학생 목록) </li>
-        <li> (modalVisible: modal 이 보이는지에 대한 상태) </li>
-        <li> (selectedStudentInfo: 선택된 학생의 정보) </li>
-        <li> (selectedStudentID: 선택된 학생의 ID로 버튼을 안누르고 "선택"상태로 만들기 위함) </li>
-    </ul>
+    <li> StudentPage
+<ul>
+            <li>Confirm (isChecked: 선택버튼을 눌렀는지에 대한 상태)</li>
+        </ul></li> (newProfile, newPhone, newEmail, newMajor: 변경 상태)
+(isLocked: 잠금 여부를 편하게 관리)
+(isConfirmVisible: 삭제 modal 관리)
+<li> </li>
+
+</ul>
+
+###Context
+
+<ul>
+    <li>StudentContext</li> (학생 리스트 관리)
+    <li>FilterContext</li> (필터를 저장)
+    <li>SelectedStudentContext</li> (선택된 학생의 정보를 저장)
+    <li>LoginContext</li> (로그인 여부를 저장함)
+</ul>
+
 
 </ul>
 
@@ -39,12 +52,16 @@ JetBrain Webstorm  2021.2 <br>
 ![screenshot](./img/screenshot(selected).png)
 메인화면(선택됨)
 
-![screenshot](./img/screenshot(modal).png)
-학생 추가화면(modal)
+![screenshot](./img/detail.png)
+학생 세부 정보화면
 
-###Notice
-제출 직전 Issue 확인 결과 anti-pattern을 몇가지 발견함. (ex. isChecked는 isSelected라는 prop을 초기값으로 함)
-assignment 2 시작 전에 점차 고쳐나갈 것이기 때문에 일부 State의 구성요소가 달라질 수 있습니다.
+![screenshot](./img/locked.PNG)
+학생 세부 정보화면(잠김)
+
+![screenshot](./img/delete.PNG)
+삭제 modal
+
+
 
 
 
