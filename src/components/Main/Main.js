@@ -43,10 +43,10 @@ const Main = () => {
     const addStudent = (newStudent) => {
         setStudentList([...studentList,newStudent]);
         setSelectedStudent(newStudent);
+        
 
     }; /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
     useEffect(()=>{filterStudent('')},[studentList]); /*학생이 추가되었을 때 바로 list 에 띄우는 useEffect*/
-
 
 
     const showDetail = (selectedStudent) => {
@@ -63,7 +63,7 @@ const Main = () => {
         }
 
     } /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
-    useEffect(()=>{},[selectedStudent]); /*선택하자마자 info 를 보여주도록 하는 useEffect*/
+
 
 
     const handleSelectStudent = (student) => {
@@ -72,8 +72,6 @@ const Main = () => {
         isChecked ? showDetail(nullStudent) : showDetail(student)
 
     } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
-
-
 
 
 
