@@ -1,5 +1,5 @@
 import axios from "axios";
 
-const API = axios.create({
+const request = axios.create({baseURL:"https://p04fpgjlo3.execute-api.ap-northeast-2.amazonaws.com/v1"});
 
-})
+export default request;
