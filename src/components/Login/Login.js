@@ -19,7 +19,7 @@ const Login = () => {
             .then((response)=>{
 
                 localStorage.setItem('token',response.data.access_token)
-                setLogin(true);
+                //setLogin(true);
                 request.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
                 history.replace('/students')
 
@@ -51,7 +51,15 @@ const Login = () => {
     }
 
     const handleNotUpdated = () =>{
-
+        toast.error('아직 준비되지 않은 기능입니다.', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     return(
