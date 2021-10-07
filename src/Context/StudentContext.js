@@ -39,7 +39,6 @@ export const StudentProvider = ({children}) => {
 
 
 
-
     return (
         <StudentContext.Provider value={{studentList,setStudentList}}>
             <FilterContext.Provider value={{filter,setFilter}}>
