@@ -7,16 +7,19 @@ import StudentList from "../StudentList/StudentList";
 import {useEffect, useState} from "react";
 import StudentDetail from "../StudentDetail/StudentDetail";
 import Modal from "../Modal/Modal";
-import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
-
+import {useSelectedStudentContext} from "../../Context/StudentContext";
+import request from "../../API/API";
+import {toast} from "react-toastify";
 
 
 const Main = () => {
     const {selectedStudent, setSelectedStudent} = useSelectedStudentContext();
-    const {studentList, setStudentList} = useStudentContext();
+    const [studentList, setStudentList] = useState([]);
     const [filteredStudents, setFilteredStudents] = useState(studentList);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
-    const [modalVisible, setModalVisible] = useState(false);
+
 
     const nullStudent = {
         "id": null,
@@ -29,24 +32,91 @@ const Main = () => {
         "locked": false
     }
 
+
+    useEffect(()=>{
+            setLoading(true);
+            request.get('/student')
+                .then((response)=>{
+                    setStudentList(response.data);
+                    setLoading(false);
+
+                })
+                .catch(()=>
+                {
+                    toast.error('학생 리스트를 불러오지 못했습니다.', {
+                        position: "bottom-right",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    setLoading(false);
+                })
+
+    },[])
+
+
     const filterStudent = (filter) => {
 
         setFilteredStudents(filter ? studentList.filter((student)=>student.name.includes(filter)) : studentList)
 
+
     } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
+    useEffect(()=>{filterStudent()},[studentList])
 
     const toggleModal = () => {
-        setModalVisible(!modalVisible);
+        setModalVisible(!isModalVisible);
     }; /*Modal 상태 변경*/
 
 
     const addStudent = (newStudent) => {
-        setStudentList([...studentList,newStudent]);
-        setSelectedStudent(newStudent);
+
+        request.post('/student',
+            {
+                "name":newStudent.name,
+                "grade":Number(newStudent.grade),
+            })
+            .then((response)=>{
+                toast.success(`${newStudent.name}(${newStudent.grade}학년) 학생이 성공적으로 추가되었습니다.`, {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark"
+                });
+
+                const addedStudent = {
+                    "id": response.data.id,
+                    "name": newStudent.name,
+                    "grade": newStudent.grade,
+                }
+                setStudentList([...studentList,addedStudent]); /*서버 사용으로 의미는 없지만 추가하자마자 리스트에 생성되도록 함*/
+                setSelectedStudent(addedStudent);
+
+            })
+            .catch((err)=>{
+                toast.error(err.message, {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+
+
+
         
 
     }; /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
-    useEffect(()=>{filterStudent('')},[studentList]); /*학생이 추가되었을 때 바로 list 에 띄우는 useEffect*/
+
 
 
     const showDetail = (selectedStudent) => {
@@ -79,16 +149,17 @@ const Main = () => {
         <div className="App">
             <Header />
             <Dashboard />
-            <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={modalVisible}/>
-            <div className={"studentManage"}>
+            <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={isModalVisible} studentList={studentList}/>
+            <div className="studentManage">
                 <div className={"leftScreen"}>
                     <div className="inputSection">
                         <Search filterStudent={filterStudent}/>
                         <StudentAdder toggleModal={toggleModal} />
                     </div>
-                    <div className="studentList">
+                    {isLoading ? <h1>Loading...</h1> : <div className="studentList">
                         <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} />
-                    </div>
+                    </div>}
+
                 </div>
                 <div className="verticalBorder">
                 </div>

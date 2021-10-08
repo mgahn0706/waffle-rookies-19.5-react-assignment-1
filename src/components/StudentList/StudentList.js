@@ -10,7 +10,7 @@ const {selectedStudent} = useSelectedStudentContext();
 
     if(studentList.length===0){
         return (
-            <div className={"listSection"}>
+            <div className="listSection">
 
                 <table className="studentListSection">
                     <thead>
@@ -32,7 +32,7 @@ const {selectedStudent} = useSelectedStudentContext();
     }
     else {
         return (
-            <div className={"listSection"}>
+            <div className="listSection">
 
                 <table className="studentListSection">
                     <thead>
@@ -44,7 +44,7 @@ const {selectedStudent} = useSelectedStudentContext();
                     </thead>
                     <tbody>
                     {filteredStudentList.map((item) => (
-                         <StudentItem key={item.id} item={item} handleSelectStudent={handleSelectStudent} isSelected={selectedStudent===item}/>)
+                         <StudentItem key={item.id} item={item} handleSelectStudent={handleSelectStudent} isSelected={selectedStudent.id===item.id}/>)
                         /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
                     )}
 

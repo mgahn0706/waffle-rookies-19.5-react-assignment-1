@@ -3,24 +3,24 @@ import Main from "../Main/Main";
 import StudentPage from "../StudentPage/StudentPage";
 import Login from "../Login/Login"
 import {useLoginContext} from "../../Context/StudentContext";
-import {useEffect, useState} from "react";
+import request from "../../API/API";
+
 
 
 const Routes = () => {
 
-
-
-    const token = localStorage.getItem('token')
-
-
-
+    const {userToken, setUserToken} = useLoginContext();
+    setUserToken(localStorage.getItem('token')); //앱이 새롭게 켜졌을 때를 대비함
+    if(userToken){
+        request.defaults.headers.common['Authorization'] = `Bearer ${userToken}`
+    }
 
     return (
         <BrowserRouter>
             <Switch>
-                {token? <Route path="/students" component={Main} /> : <Route path="/login" component={Login}/>}
-                {token? <Route path="/student/:id" component={StudentPage}/> : <Redirect to="/login"/>}
-                {token? <Redirect to="/students"/> : <Route path="/login" component={Login}/>}
+                {userToken? <Route path="/students" component={Main} /> : <Route path="/login" component={Login}/>}
+                {userToken? <Route path="/student/:id" component={StudentPage}/> : <Redirect to="/login"/>}
+                {userToken? <Redirect to="/students"/> : <Route path="/login" component={Login}/>}
 
             </Switch>
         </BrowserRouter>

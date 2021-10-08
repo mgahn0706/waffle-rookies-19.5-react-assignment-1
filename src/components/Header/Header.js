@@ -1,13 +1,11 @@
 import "./Header.css";
-import request from "../../API/API";
-import {useEffect} from "react";
-import {useHistory} from "react-router-dom";
+import {useLoginContext} from "../../Context/StudentContext";
+
 const Header = () => {
-    const history = useHistory();
+
+    const {logout} = useLoginContext();
     const handleLogOutButton = () => {
-        delete request.defaults.headers.common['Authorization'];
-        localStorage.removeItem('token');
-        history.push('/login');
+        logout();
     }
 
 

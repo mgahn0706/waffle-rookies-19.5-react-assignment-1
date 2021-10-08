@@ -4,11 +4,11 @@ import {useHistory} from "react-router-dom";
 import WarningIcon from "../../../image/Warning.png"
 import DeleteIcon from "../../../image/Delete.png"
 import CancelIcon from "../../../image/Cancel.png"
-
+import request from "../../../API/API";
+import {toast} from "react-toastify";
 
 const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
 
-    const {studentList, setStudentList} = useStudentContext();
     const {setSelectedStudent} = useSelectedStudentContext();
     const history = useHistory();
     const nullStudent = {
@@ -24,8 +24,32 @@ const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
 
 
     const deleteStudent = (id) => {
-        const newStudentList = studentList.filter(item => item.id !== id);
-        setStudentList(newStudentList);
+
+        request.delete(`/student/${id}`)
+            .then(()=>{
+                toast.success('성공적으로 삭제되었습니다.', {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark"
+                });
+            })
+            .catch((err)=>{
+                toast.error(err.message, {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+
         setSelectedStudent(nullStudent);
 
     } /*id를 받아서 해당 학생을 list 에서 삭제*/

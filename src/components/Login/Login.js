@@ -1,43 +1,20 @@
 import './Login.css';
 import {useLoginContext} from "../../Context/StudentContext"
-import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {toast} from "react-toastify";
-import request from "../../API/API";
+
 
 const Login = () => {
 
-    const history = useHistory();
-    const {isLogin, setLogin} = useLoginContext();
+
+    const {login} = useLoginContext();
 
     const handleSignInButton  = () => {
-
-        request.post('/auth/login',{
-            "username" : usernameInput,
-            "password" : passwordInput,
-        })
-            .then((response)=>{
-
-                localStorage.setItem('token',response.data.access_token)
-                //setLogin(true);
-                request.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
-                history.replace('/students')
-
-
-            })
-            .catch(()=>{
-                toast.error('유저네임이나 비밀번호가 잘못되었습니다.', {
-                    position: "bottom-right",
-                    autoClose: 4000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            })
-
+        login(usernameInput,passwordInput);
     }
+
+
+
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
 

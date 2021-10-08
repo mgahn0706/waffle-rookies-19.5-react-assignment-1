@@ -71,7 +71,7 @@
 .selectedScreenHidden{
     visibility: visible;
     position: absolute;
-    width: 622px;
+    width: 620px;
     height: 652px;
     background-color: white;
     font-size: 24px;

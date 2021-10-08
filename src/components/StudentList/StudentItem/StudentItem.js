@@ -1,11 +1,6 @@
 import "./StudentItem.css"
-import {useEffect, useState} from "react";
 
 const StudentItem = ({item, handleSelectStudent, isSelected}) => {
-
-
-
-
 
     return(
 

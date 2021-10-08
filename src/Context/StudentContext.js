@@ -1,4 +1,7 @@
 import {createContext, useContext, useState} from "react";
+import request from "../API/API";
+import {toast} from "react-toastify";
+import {useHistory} from "react-router-dom";
 
 const dummyData = [
     {
@@ -27,14 +30,42 @@ const nullStudent = {
 const StudentContext = createContext(dummyData);
 const FilterContext = createContext('');
 const SelectedStudentContext = createContext(nullStudent);
-const LoginContext = createContext(false);
+const LoginContext = createContext(null);
 
 export const StudentProvider = ({children}) => {
     const [filter,setFilter] = useState("");
     const [studentList, setStudentList] = useState(dummyData);
     const [selectedStudent,setSelectedStudent] = useState(nullStudent);
-    const [isLogin, setLogin] = useState(false);
+    const [userToken, setUserToken] = useState(null);
+    const login = (usernameInput, passwordInput) => {
+        request.post('/auth/login',{
+            "username" : usernameInput,
+            "password" : passwordInput,
+        })
+            .then((response)=>{
+                const temp = response.data.access_token;
+                localStorage.setItem('token',temp);
+                setUserToken(temp);
+                request.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
 
+            })
+            .catch(()=>{
+                toast.error('유저네임이나 비밀번호가 잘못되었습니다.', {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+    }
+
+    const logout = () => {
+        delete request.defaults.headers.common['Authorization'];
+        localStorage.removeItem('token');
+    }
 
 
 
@@ -43,7 +74,7 @@ export const StudentProvider = ({children}) => {
         <StudentContext.Provider value={{studentList,setStudentList}}>
             <FilterContext.Provider value={{filter,setFilter}}>
                 <SelectedStudentContext.Provider value={{selectedStudent,setSelectedStudent}}>
-                    <LoginContext.Provider value={{isLogin, setLogin}}>
+                    <LoginContext.Provider value={{userToken, login, logout, setUserToken}}>
                         {children}
                     </LoginContext.Provider>
 

@@ -42,6 +42,7 @@
     position: absolute;
     bottom: 40px;
     right: 40px;
+
 }
 
 .addButton{
@@ -53,6 +54,7 @@
     margin-left: 11px;
     border:none;
     background-color: #BFF8C5;
+    cursor: pointer;
 
 }
 .closeButton{
@@ -63,6 +65,7 @@
     margin-right: 11px;
     background-color: #CACACA;
     border: none;
+    cursor: pointer;
 }
 
 .modalWrapper{
