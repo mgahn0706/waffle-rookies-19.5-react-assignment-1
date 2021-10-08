@@ -1,6 +1,6 @@
 import "./StudentPage.css";
 import {useEffect, useState} from "react";
-import {useSelectedStudentContext, useStudentContext} from "../../Context/StudentContext";
+import {useSelectedStudentContext} from "../../Context/StudentContext";
 import {useHistory, useParams} from "react-router-dom";
 import Confirm from "./Confirm/Confirm";
 import DeleteIcon from "../../image/Delete.png"
@@ -12,7 +12,6 @@ import request from "../../API/API";
 
 const StudentPage = () => {
     const params = useParams();
-    const {studentList,setStudentList} = useStudentContext();
     const history = useHistory();
     const {setSelectedStudent} = useSelectedStudentContext();
 
@@ -75,6 +74,7 @@ const StudentPage = () => {
 
     const handleHomeButton = () => {
         history.goBack();
+  
     }
 
     const handleSaveButton = () => {
@@ -98,6 +98,16 @@ const StudentPage = () => {
                     progress: undefined,
                     theme: "dark"
                 });
+                
+                setSelectedStudent(
+                    {
+                        "name": selectedStudent.name,
+                        "grade": selectedStudent.grade,
+                        "id": selectedStudent.id,
+                        "profile_img": newProfile,
+                    } /*프로필 사진이 바뀐 걸 뒤로갔을 때 바로 볼 수 있도록 함*/
+                )
+                
             })
             .catch((err)=>{
                 toast.error(err.message, {
@@ -224,7 +234,7 @@ const StudentPage = () => {
                                     </div>
 
 
-                                    : <div></div>}
+                                    : <div> </div>}
 
                                 <div className="phoneChange">
                                     <span className="phoneChangeText">전화번호</span>

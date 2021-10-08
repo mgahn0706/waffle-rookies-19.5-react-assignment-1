@@ -1,11 +1,14 @@
 import "./Header.css";
 import {useLoginContext} from "../../Context/StudentContext";
+import {useHistory} from "react-router-dom";
 
 const Header = () => {
 
+    const history = useHistory();
     const {logout} = useLoginContext();
     const handleLogOutButton = () => {
         logout();
+        history.replace('/login')
     }
 
 

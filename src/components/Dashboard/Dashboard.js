@@ -1,16 +1,11 @@
 import "./Dashboard.css";
-import {useStudentContext} from "../../Context/StudentContext";
 import {PieChart, Pie, ResponsiveContainer} from "recharts";
-import {useEffect} from "react";
 
 
 
 
-const Dashboard = () => {
 
-    const {studentList} = useStudentContext();
-
-
+const Dashboard = ({studentList}) => {
 
     const countStudent = (targetGrade) => {
         return studentList.filter(item => item.grade === targetGrade).length;

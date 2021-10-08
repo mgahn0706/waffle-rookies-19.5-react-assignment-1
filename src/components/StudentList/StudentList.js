@@ -4,8 +4,7 @@ import {useSelectedStudentContext, useStudentContext} from "../../Context/Studen
 
 
 
-const StudentList = ({filteredStudentList, handleSelectStudent}) => {
-const {studentList} = useStudentContext();
+const StudentList = ({filteredStudentList, handleSelectStudent, studentList}) => {
 const {selectedStudent} = useSelectedStudentContext();
 
     if(studentList.length===0){

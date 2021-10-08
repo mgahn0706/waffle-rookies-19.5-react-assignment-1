@@ -94,6 +94,7 @@ const Main = () => {
                     "id": response.data.id,
                     "name": newStudent.name,
                     "grade": newStudent.grade,
+                    "profile_img": null
                 }
                 setStudentList([...studentList,addedStudent]); /*서버 사용으로 의미는 없지만 추가하자마자 리스트에 생성되도록 함*/
                 setSelectedStudent(addedStudent);
@@ -148,7 +149,7 @@ const Main = () => {
     return (
         <div className="App">
             <Header />
-            <Dashboard />
+            <Dashboard studentList = {studentList}/>
             <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={isModalVisible} studentList={studentList}/>
             <div className="studentManage">
                 <div className={"leftScreen"}>
@@ -157,7 +158,7 @@ const Main = () => {
                         <StudentAdder toggleModal={toggleModal} />
                     </div>
                     {isLoading ? <h1>Loading...</h1> : <div className="studentList">
-                        <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} />
+                        <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} studentList={studentList} />
                     </div>}
 
                 </div>

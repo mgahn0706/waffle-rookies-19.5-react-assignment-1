@@ -27,7 +27,7 @@ const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
 
         request.delete(`/student/${id}`)
             .then(()=>{
-                toast.success('성공적으로 삭제되었습니다.', {
+                toast.success(`${selectedStudent.name}(${selectedStudent.grade}학년)학생이 성공적으로 삭제되었습니다.`, {
                     position: "bottom-right",
                     autoClose: 4000,
                     hideProgressBar: false,

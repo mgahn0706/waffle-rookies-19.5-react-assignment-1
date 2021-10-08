@@ -37,6 +37,7 @@ export const StudentProvider = ({children}) => {
     const [studentList, setStudentList] = useState(dummyData);
     const [selectedStudent,setSelectedStudent] = useState(nullStudent);
     const [userToken, setUserToken] = useState(null);
+
     const login = (usernameInput, passwordInput) => {
         request.post('/auth/login',{
             "username" : usernameInput,
@@ -65,6 +66,9 @@ export const StudentProvider = ({children}) => {
     const logout = () => {
         delete request.defaults.headers.common['Authorization'];
         localStorage.removeItem('token');
+        setUserToken(null);
+
+
     }
 
 

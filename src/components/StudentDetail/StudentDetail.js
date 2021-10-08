@@ -6,12 +6,14 @@ import {useSelectedStudentContext} from "../../Context/StudentContext";
 
 const StudentDetail = () => {
 
+
+
     const history=useHistory();
     const {selectedStudent} = useSelectedStudentContext();
 
 
     const handleDetailButton = () => {
-        const url = '/student/'+selectedStudent.id; /*url 뒤에 선택된 학생의 id를 붙여줌. 아직은 숫자만 있어서 오류는 안나는데 불확실*/
+        const url = '/student/'+selectedStudent.id;
         return(
             history.push(url)
         );
