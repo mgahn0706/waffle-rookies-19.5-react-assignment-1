@@ -4,13 +4,15 @@ import StudentPage from "../StudentPage/StudentPage";
 import Login from "../Login/Login"
 import {useLoginContext} from "../../Context/StudentContext";
 import request from "../../API/API";
+import {useEffect} from "react";
 
 
 
 const Routes = () => {
 
     const {userToken, setUserToken} = useLoginContext();
-    setUserToken(localStorage.getItem('token')); //앱이 새롭게 켜졌을 때를 대비함
+    useEffect(()=>{setUserToken(localStorage.getItem('token'))},[])
+     //앱이 새롭게 켜졌을 때를 대비함
     if(userToken){
         request.defaults.headers.common['Authorization'] = `Bearer ${userToken}`
     }

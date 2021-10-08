@@ -1,0 +1,29 @@
+.comment{
+    width: 560px;
+    height: 180px;
+    display: flex;
+    align-content: flex-start;
+    margin: 0;
+    border-radius: 5%;
+    transition: all 0.3s;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+.commentDate{
+    color: #5c5c5c;
+}
+
+.comment:hover{
+    background-color: #c2c2c2;
+}
+
+.commentContent{
+    width: 300px;
+    margin: 30px;
+    height: 100px;
+    word-break: break-all;
+
+}

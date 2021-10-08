@@ -9,6 +9,7 @@ import SaveIcon from "../../image/Save.png"
 import UnlockIcon from "../../image/Unlock.png"
 import {toast} from "react-toastify";
 import request from "../../API/API";
+import Comments from "./Comments/Comments";
 
 const StudentPage = () => {
     const params = useParams();
@@ -54,6 +55,7 @@ const StudentPage = () => {
     const [newMajor, setNewMajor] = useState('');
     const [isConfirmVisible, setConfirmVisible] = useState(false);
     const [isLocked, setLocked] = useState(false); /*일일히 .locked 치기도 번거로우며 렌더가 잘 안돼서 따로 뺐음*/
+    const [commentList, setCommentList] = useState([]);
 
     const formatEmail = (email) =>{
         if(!email){
@@ -70,6 +72,7 @@ const StudentPage = () => {
     useEffect(()=>setNewPhone(selectedStudent.phone),[selectedStudent]);
     useEffect(()=>setNewEmail(formatEmail(selectedStudent.email)),[selectedStudent]);
     useEffect(()=>setNewMajor(selectedStudent.major),[selectedStudent]);
+    useEffect(()=>handleComment(),[commentList])
 
 
     const handleHomeButton = () => {
@@ -131,7 +134,7 @@ const StudentPage = () => {
     }
 
     const handleLockButton = () => {
-        if(!isLocked) {
+        if (!isLocked) {
             setLocked(true);
             request.post(`student/${params.id}/lock`)
                 .catch((err) => {
@@ -145,8 +148,7 @@ const StudentPage = () => {
                         progress: undefined,
                     });
                 })
-        }
-        else{
+        } else {
             setLocked(false);
             request.post(`student/${params.id}/unlock`)
                 .catch((err) => {
@@ -160,14 +162,10 @@ const StudentPage = () => {
                         progress: undefined,
                     });
                 })
-        }
 
+        } /*잠금버튼 함수*/
 
-
-
-
-
-    } /*잠금버튼 함수*/
+    }
 
     const handlePhoneInput = (e) => {
         const formattedPhone = formatPhoneNumber(e.target.value);
@@ -194,8 +192,27 @@ const StudentPage = () => {
             return phone.slice(0,3)+"-"+phone.slice(3,7)+"-"+phone.slice(7);
         }
 
-
    }
+
+   const handleComment = () => {
+        request.get(`/student/${params.id}/comment`)
+            .then((response)=>{
+                setCommentList(response.data)
+            })
+            .catch((err) => {
+                    toast.error(err.message, {
+                        position: "bottom-right",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+            })
+    }
+
+
         if(isLoading){
             return <h1>Loading...</h1>
         }
@@ -308,7 +325,9 @@ const StudentPage = () => {
                                 코멘트
                             </div>
                             <div className="commentList">
-                                Comments will be here in Seminar 3 :)
+                                {commentList.map((item)=>
+                                    ( <Comments item={item} key={item.id}/>
+                                ))}
                             </div>
                         </div>
                     </div>

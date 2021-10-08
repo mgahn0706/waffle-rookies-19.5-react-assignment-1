@@ -9,6 +9,7 @@ import {toast} from "react-toastify";
 
 const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
 
+
     const {setSelectedStudent} = useSelectedStudentContext();
     const history = useHistory();
     const nullStudent = {
@@ -39,7 +40,7 @@ const Confirm = ({selectedStudent,toggleConfirm,isConfirmVisible}) => {
                 });
             })
             .catch((err)=>{
-                toast.error(err.message, {
+                toast.error(err.data.message, {
                     position: "bottom-right",
                     autoClose: 4000,
                     hideProgressBar: false,
