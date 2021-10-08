@@ -8,7 +8,7 @@ const Header = () => {
     const {logout} = useLoginContext();
     const handleLogOutButton = () => {
         logout();
-        history.replace('/login')
+        history.replace('/login') //logout 후 로그인 창 이동
     }
 
 

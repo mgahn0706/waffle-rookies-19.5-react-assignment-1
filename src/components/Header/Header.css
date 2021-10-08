@@ -5,7 +5,6 @@
 }
 
 .title{
-    font-family: Abel;
     margin: 15px;
     height: 50px;
     font-weight: bold;
@@ -19,3 +18,6 @@
     height: 50px;
 }
 
+.Header{
+    width: 1352px;
+}

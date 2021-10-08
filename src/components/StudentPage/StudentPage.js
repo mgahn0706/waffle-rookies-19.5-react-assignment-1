@@ -65,7 +65,7 @@ const StudentPage = () => {
     }
 
 
-    useEffect(()=>setLocked(!selectedStudent.locked),[selectedStudent.locked]);
+    useEffect(()=>setLocked(selectedStudent.locked),[selectedStudent.locked]);
     useEffect(()=>setNewProfile(selectedStudent.profile_img),[selectedStudent]);
     useEffect(()=>setNewPhone(selectedStudent.phone),[selectedStudent]);
     useEffect(()=>setNewEmail(formatEmail(selectedStudent.email)),[selectedStudent]);
@@ -87,7 +87,7 @@ const StudentPage = () => {
             "phone": newPhone,
             "major": newMajor
         })
-            .then((response)=>{
+            .then(()=>{
                 toast.success('변경사항이 저장되었습니다.', {
                     position: "bottom-right",
                     autoClose: 4000,
@@ -131,8 +131,42 @@ const StudentPage = () => {
     }
 
     const handleLockButton = () => {
-        setLocked(!isLocked);
-        selectedStudent.locked=isLocked;
+        if(!isLocked) {
+            setLocked(true);
+            request.post(`student/${params.id}/lock`)
+                .catch((err) => {
+                    toast.error(err.message, {
+                        position: "bottom-right",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+        }
+        else{
+            setLocked(false);
+            request.post(`student/${params.id}/unlock`)
+                .catch((err) => {
+                    toast.error(err.message, {
+                        position: "bottom-right",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+        }
+
+
+
+
+
+
     } /*잠금버튼 함수*/
 
     const handlePhoneInput = (e) => {
@@ -177,7 +211,7 @@ const StudentPage = () => {
 
                     <Confirm selectedStudent={selectedStudent} toggleConfirm={() => toggleConfirm()}
                              isConfirmVisible={isConfirmVisible}/>
-                    {!isLocked ? <div className="pageButton">
+                    {isLocked ? <div className="pageButton">
                             <button className="lockButton" onClick={() => handleLockButton()}>
                                 <img src={LockIcon} alt="잠금아이콘" className="lockIcon"/>
                                 해제
@@ -227,7 +261,7 @@ const StudentPage = () => {
 
                             <div className="informationSection">
 
-                                {selectedStudent.locked ?
+                                {isLocked ?
                                     <div className="lockedScreen">
                                         <img className="lockImg" src={LockIcon} alt="자물쇠 아이콘"/>
                                         수정하려면 잠금을 해제하세요.
