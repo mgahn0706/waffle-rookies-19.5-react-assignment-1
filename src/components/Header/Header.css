@@ -16,6 +16,17 @@
     float: right;
     width: 100px;
     height: 50px;
+    background-color: #5c5c5c;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logOutButton:hover{
+    background-color: #979797;
 }
 
 .Header{

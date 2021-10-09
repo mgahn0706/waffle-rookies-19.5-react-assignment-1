@@ -10,6 +10,7 @@ import Modal from "../Modal/Modal";
 import {useSelectedStudentContext} from "../../Context/StudentContext";
 import request from "../../API/API";
 import {toast} from "react-toastify";
+import PopUp from "../PopUp/PopUp";
 
 
 const Main = () => {
@@ -18,6 +19,7 @@ const Main = () => {
     const [filteredStudents, setFilteredStudents] = useState(studentList);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isLoading, setLoading] = useState(false);
+    const [filter, setFilter] = useState('');
 
 
 
@@ -58,13 +60,13 @@ const Main = () => {
     },[])
 
 
-    const filterStudent = (filter) => {
+    const filterStudent = () => {
 
         setFilteredStudents(filter ? studentList.filter((student)=>student.name.includes(filter)) : studentList)
 
 
     } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
-    useEffect(()=>{filterStudent()},[studentList])
+    useEffect(()=>{filterStudent()},[filter,studentList])
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -150,11 +152,12 @@ const Main = () => {
         <div className="App">
             <Header />
             <Dashboard studentList = {studentList}/>
+            <PopUp/>
             <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={isModalVisible} studentList={studentList}/>
             <div className="studentManage">
                 <div className={"leftScreen"}>
                     <div className="inputSection">
-                        <Search filterStudent={filterStudent}/>
+                        <Search filterStudent={filterStudent} setFilter={setFilter}/>
                         <StudentAdder toggleModal={toggleModal} />
                     </div>
                     {isLoading ? <h1>Loading...</h1> : <div className="studentList">
@@ -164,7 +167,7 @@ const Main = () => {
                 </div>
                 <div className="verticalBorder">
                 </div>
-                <div className={"rightScreen"}>
+                <div className="rightScreen">
                     <StudentDetail />
                 </div>
             </div>

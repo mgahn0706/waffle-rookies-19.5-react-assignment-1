@@ -1,7 +1,7 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import request from "../API/API";
 import {toast} from "react-toastify";
-import {useHistory} from "react-router-dom";
+
 
 const dummyData = [
     {
@@ -36,7 +36,13 @@ export const StudentProvider = ({children}) => {
     const [filter,setFilter] = useState("");
     const [studentList, setStudentList] = useState(dummyData);
     const [selectedStudent,setSelectedStudent] = useState(nullStudent);
-    const [userToken, setUserToken] = useState(null);
+    const [userToken, setUserToken] = useState(undefined);
+
+
+
+    useEffect(()=>{
+        setUserToken(localStorage.getItem('token'));
+    },[])
 
     const login = (usernameInput, passwordInput) => {
         request.post('/auth/login',{
@@ -93,4 +99,3 @@ export const useStudentContext = () => useContext(StudentContext);
 export const useFilterContext = () => useContext(FilterContext);
 export const useSelectedStudentContext = () => useContext(SelectedStudentContext);
 export const useLoginContext = () => useContext(LoginContext);
-

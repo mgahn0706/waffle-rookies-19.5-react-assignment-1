@@ -1,5 +1,4 @@
 import "./Comments.css"
-import StudentItem from "../../StudentList/StudentItem/StudentItem";
 import dayjs from "dayjs";
 
 const Comments = ({item}) => {

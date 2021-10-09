@@ -19,6 +19,8 @@ const StudentPage = () => {
 
     const [selectedStudent, selectStudent] = useState([]);
     const [isLoading, setLoading] = useState(false);
+    const [originalData, setOriginalData]=useState([]);
+
 
     
 
@@ -27,6 +29,7 @@ const StudentPage = () => {
         request.get(`/student/${params.id}`)
             .then((response)=>{
                 selectStudent(response.data)
+                setOriginalData(response.data)
                 setLoading(false);
             })
             .catch(()=>
@@ -49,13 +52,14 @@ const StudentPage = () => {
     /*주소창에 id를 직접 입력하는 경우를 대비하여 selectedStudent 에서 가져오지 않고 id 에서 useParams 를 이용*/
 
 
-    const [newProfile, setNewProfile] = useState('');
-    const [newPhone, setNewPhone] = useState('');
-    const [newEmail, setNewEmail] = useState('');
-    const [newMajor, setNewMajor] = useState('');
+    const [newProfile, setNewProfile] = useState(null);
+    const [newPhone, setNewPhone] = useState(null);
+    const [newEmail, setNewEmail] = useState(null);
+    const [newMajor, setNewMajor] = useState(null);
     const [isConfirmVisible, setConfirmVisible] = useState(false);
     const [isLocked, setLocked] = useState(false); /*일일히 .locked 치기도 번거로우며 렌더가 잘 안돼서 따로 뺐음*/
     const [commentList, setCommentList] = useState([]);
+    const [comment, setComment] = useState('');
 
     const formatEmail = (email) =>{
         if(!email){
@@ -75,7 +79,11 @@ const StudentPage = () => {
     useEffect(()=>handleComment(),[commentList])
 
 
+
     const handleHomeButton = () => {
+
+
+
         history.goBack();
   
     }
@@ -84,11 +92,14 @@ const StudentPage = () => {
 
         const formattedEmail = (newEmail? newEmail+"@waffle.hs.kr" : null) //API 에 맞춰서 포매팅
 
+
+
+
         request.patch(`/student/${params.id}`,{
-            "profile_img": newProfile,
-            "email": formattedEmail,
-            "phone": newPhone,
-            "major": newMajor
+            ...(newProfile!==originalData.profile_img && {"profile_img": newProfile}),
+            ...(formattedEmail!==originalData.email && {"email": formattedEmail}),
+            ...(newPhone!==originalData.phone && {"phone": newPhone}),
+            ...(newMajor!==originalData.major && {"major": newMajor}), //바뀐 내용만 patch
         })
             .then(()=>{
                 toast.success('변경사항이 저장되었습니다.', {
@@ -212,6 +223,33 @@ const StudentPage = () => {
             })
     }
 
+    const handleWriteButton = () => {
+
+        setComment(''); /*입력값 초기화*/
+        request.post(`/student/${params.id}/comment`,{
+            "content": comment
+        })
+            .catch((err)=>{
+                toast.error(err.message, {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }) /*comment 를 post 로 보냄*/
+
+    }
+
+    const onKeyPress = (e) => {
+        if(e.key==='Enter'){
+            handleWriteButton();
+        }
+    } /*Enter 만 쳐도 댓글을 달 수 있게*/
+
+
 
         if(isLoading){
             return <h1>Loading...</h1>
@@ -329,6 +367,11 @@ const StudentPage = () => {
                                     ( <Comments item={item} key={item.id}/>
                                 ))}
                             </div>
+                            <div className="commentInputSection">
+                                <input className="commentInput" onKeyPress={onKeyPress} placeholder="댓글을 작성하세요." value={comment} onChange={(e)=>{setComment(e.target.value)}}/>
+                                <button className="commentButton" onClick={handleWriteButton} >작성</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
