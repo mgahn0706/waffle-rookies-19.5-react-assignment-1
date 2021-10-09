@@ -6,8 +6,8 @@ import {toast} from "react-toastify";
 
 
 const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
-    const [addedName, setName] = useState('');
-    const [addedGrade, setGrade] = useState('');
+    const [name, setName] = useState('');
+    const [grade, setGrade] = useState('');
 
     const resetInput = () => {
         setName('');
@@ -24,15 +24,15 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
 
     const handleAddButton = () => {
         const newStudent = {
-            "name": addedName,
-            "grade": addedGrade,
+            "name": name,
+            "grade": grade,
         }
 
-        const sameName = studentList.find(item=>item.name===newStudent.name);
+        const sameNameStudent = studentList.find(item=>item.name===newStudent.name);
 
         const regex = /^[가-힣|]+$/;
 
-        if(!regex.test(addedName)){
+        if(!regex.test(name)){
             toast.error("이름은 온전한 한글로만 입력할 수 있습니다.", {
                 position: "bottom-right",
                 autoClose: 4000,
@@ -44,7 +44,7 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
             });
         } /*영어나 자음만 입력할 경우 걸러줌*/
 
-        else if(!(addedGrade in ["1","2","3",1,2,3]) || (addedName.length!==2 && addedName.length!==3)){
+        else if(!(grade in ["1","2","3",1,2,3]) || (name.length!==2 && name.length!==3)){
             toast.error("이름 또는 학년이 올바르지 않습니다.", {
                 position: "bottom-right",
                 autoClose: 4000,
@@ -56,7 +56,7 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
             });
         }
 
-        else if(sameName===undefined){
+        else if(sameNameStudent===undefined){
 
             addStudent(newStudent);
             resetInput();
@@ -64,8 +64,8 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
         } /*이름 같은 사람이 아예없고 입력도 적절한 경우*/
 
 
-        else if(sameName.grade===Number(newStudent.grade) || sameName.grade===newStudent.grade){
-            toast.error(`이미 ${sameName.grade}학년에 동명이인이 있습니다.`, {
+        else if(sameNameStudent.grade===Number(newStudent.grade) || sameNameStudent.grade===newStudent.grade){
+            toast.error(`이미 ${sameNameStudent.grade}학년에 동명이인이 있습니다.`, {
                 position: "bottom-right",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -76,7 +76,7 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
             });
         }
 
-        else if((addedName.length===2 ||addedName.length===3)&&(addedGrade in ["1","2","3",1,2,3])){
+        else if((name.length===2 ||name.length===3)&&(grade in ["1","2","3",1,2,3])){
             addStudent(newStudent);
             resetInput();
             toggleModal();
@@ -104,11 +104,11 @@ const Modal = ({toggleModal, addStudent, modalVisible,studentList}) => {
             <div className="modal">
                 <div className="modalName">
                     <span className="textName"> 이름 </span>
-                    <input value={addedName} onChange={(e)=>setName(e.target.value)} className="inputName" />
+                    <input value={name} onChange={(e)=>setName(e.target.value)} className="inputName" />
                 </div>
                 <div className="modalGrade">
                     <span className="textGrade"> 학년 </span>
-                    <input value={addedGrade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
+                    <input value={grade} onChange={(e)=>setGrade(e.target.value)} className="inputGrade"/>
                 </div>
 
 

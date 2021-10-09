@@ -1,5 +1,5 @@
 import "./Header.css";
-import {useLoginContext} from "../../Context/StudentContext";
+import {useLoginContext} from "../../Context/AuthContext";
 import {useHistory} from "react-router-dom";
 
 const Header = () => {

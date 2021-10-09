@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {StudentProvider} from "./Context/StudentContext";
+import {LoginProvider} from "./Context/AuthContext";
 
 ReactDOM.render(
 
   <React.StrictMode>
       <StudentProvider>
-    <App />
+          <LoginProvider>
+                <App />
+          </LoginProvider>
       </StudentProvider>
   </React.StrictMode>,
   document.getElementById('root')

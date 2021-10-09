@@ -2,7 +2,7 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Main from "../Main/Main";
 import StudentPage from "../StudentPage/StudentPage";
 import Login from "../Login/Login"
-import {useLoginContext} from "../../Context/StudentContext";
+import {useLoginContext} from "../../Context/AuthContext"
 import request from "../../API/API";
 
 
@@ -10,7 +10,6 @@ import request from "../../API/API";
 const Routes = () => {
 
     const {userToken} = useLoginContext();
-    console.log(userToken)
     if(userToken){
         request.defaults.headers.common['Authorization'] = `Bearer ${userToken}`
     }

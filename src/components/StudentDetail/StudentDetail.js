@@ -1,15 +1,15 @@
 import "./StudentDetail.css";
 import detailView from "../../image/DetailView.png"
 import {useHistory} from "react-router-dom";
-import {useSelectedStudentContext} from "../../Context/StudentContext";
 
 
-const StudentDetail = () => {
+
+const StudentDetail = ({selectedStudent}) => {
 
 
 
     const history=useHistory();
-    const {selectedStudent} = useSelectedStudentContext();
+
 
 
     const handleDetailButton = () => {

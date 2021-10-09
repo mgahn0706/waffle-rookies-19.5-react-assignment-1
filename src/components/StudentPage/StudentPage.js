@@ -12,17 +12,18 @@ import request from "../../API/API";
 import Comments from "./Comments/Comments";
 
 const StudentPage = () => {
-    const params = useParams();
-    const history = useHistory();
+
     const {setSelectedStudent} = useSelectedStudentContext();
 
+    const params = useParams();
+    const history = useHistory();
 
-    const [selectedStudent, selectStudent] = useState([]);
+    const [selectedStudent, selectStudent] = useState({});
     const [isLoading, setLoading] = useState(false);
-    const [originalData, setOriginalData]=useState([]);
+    const [originalData, setOriginalData]=useState({});
 
 
-    
+
 
     useEffect(()=>{
         setLoading(true);
@@ -47,6 +48,10 @@ const StudentPage = () => {
             })
 
     },[])
+
+
+
+
 
 
     /*주소창에 id를 직접 입력하는 경우를 대비하여 selectedStudent 에서 가져오지 않고 id 에서 useParams 를 이용*/
@@ -78,24 +83,33 @@ const StudentPage = () => {
     useEffect(()=>setNewMajor(selectedStudent.major),[selectedStudent]);
     useEffect(()=>handleComment(),[commentList])
 
-
-
     const handleHomeButton = () => {
 
-
-
         history.goBack();
-  
     }
+
+    const sortComment = () => {
+        commentList.sort((a,b)=>{
+            if(a.datetime>b.datetime){
+                return 1;
+            }
+            else if(a.datetime<b.datetime){
+                return -1;
+            }
+            else{
+                return 0;
+            }
+        })
+    } //시간에 따라 sorting 하는 함수,
+
+    
 
     const handleSaveButton = () => {
 
+
         const formattedEmail = (newEmail? newEmail+"@waffle.hs.kr" : null) //API 에 맞춰서 포매팅
-
-
-
-
         request.patch(`/student/${params.id}`,{
+
             ...(newProfile!==originalData.profile_img && {"profile_img": newProfile}),
             ...(formattedEmail!==originalData.email && {"email": formattedEmail}),
             ...(newPhone!==originalData.phone && {"phone": newPhone}),
@@ -112,15 +126,30 @@ const StudentPage = () => {
                     progress: undefined,
                     theme: "dark"
                 });
-                
                 setSelectedStudent(
                     {
-                        "name": selectedStudent.name,
-                        "grade": selectedStudent.grade,
                         "id": selectedStudent.id,
+                        "grade": selectedStudent.grade,
+                        "name": selectedStudent.name,
                         "profile_img": newProfile,
-                    } /*프로필 사진이 바뀐 걸 뒤로갔을 때 바로 볼 수 있도록 함*/
+                    }
                 )
+
+                setOriginalData(
+                    {
+                        "id": params.id,
+                        "grade": selectedStudent.grade,
+                        "name": selectedStudent.name,
+                        "locked": isLocked,
+                        "major": newMajor,
+                        "phone": newPhone,
+                        "profile_img": newProfile,
+                        "email": formattedEmail
+                    }
+                )
+
+
+
                 
             })
             .catch((err)=>{
@@ -134,8 +163,6 @@ const StudentPage = () => {
                     progress: undefined,
                 });
             })
-
-
     }
 
 
@@ -209,6 +236,7 @@ const StudentPage = () => {
         request.get(`/student/${params.id}/comment`)
             .then((response)=>{
                 setCommentList(response.data)
+                sortComment();
             })
             .catch((err) => {
                     toast.error(err.message, {
@@ -364,7 +392,7 @@ const StudentPage = () => {
                             </div>
                             <div className="commentList">
                                 {commentList.map((item)=>
-                                    ( <Comments item={item} key={item.id}/>
+                                    ( <Comments item={item} key={item.datetime}/>
                                 ))}
                             </div>
                             <div className="commentInputSection">

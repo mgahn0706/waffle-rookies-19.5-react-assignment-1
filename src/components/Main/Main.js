@@ -11,10 +11,20 @@ import {useSelectedStudentContext} from "../../Context/StudentContext";
 import request from "../../API/API";
 import {toast} from "react-toastify";
 import PopUp from "../PopUp/PopUp";
+import StudentPage from "../StudentPage/StudentPage";
 
 
 const Main = () => {
-    const {selectedStudent, setSelectedStudent} = useSelectedStudentContext();
+
+    const nullStudent = {
+        "id": null,
+        "name": null,
+        "grade": null,
+        "profile_img": null,
+
+    }
+
+    const {selectedStudent, setSelectedStudent}=useSelectedStudentContext();
     const [studentList, setStudentList] = useState([]);
     const [filteredStudents, setFilteredStudents] = useState(studentList);
     const [isModalVisible, setModalVisible] = useState(false);
@@ -22,17 +32,6 @@ const Main = () => {
     const [filter, setFilter] = useState('');
 
 
-
-    const nullStudent = {
-        "id": null,
-        "name": null,
-        "grade": null,
-        "profile_img": null,
-        "email": null,
-        "phone": null,
-        "major": null,
-        "locked": false
-    }
 
 
     useEffect(()=>{
@@ -115,23 +114,20 @@ const Main = () => {
             })
 
 
-
-        
-
     }; /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
 
 
 
-    const showDetail = (selectedStudent) => {
+    const showDetail = (student) => {
 
 
-        if(!selectedStudent.id){
+        if(!student.id){
             setSelectedStudent(nullStudent);
 
         } /*아무도 선택되지 않은 경우*/
         else {
-            selectedStudent = studentList.filter((student) => (student.id === selectedStudent.id));
-            setSelectedStudent(selectedStudent[0]);
+            const selectedStudentList = studentList.filter((item) => (item.id === student.id));
+            setSelectedStudent(selectedStudentList[0]);
 
         }
 
@@ -146,29 +142,30 @@ const Main = () => {
 
     } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
-
+    const hideComponent = true;
 
     return (
         <div className="App">
+            {hideComponent? <div/> : <StudentPage handleSelection={handleSelectStudent}/> }
             <Header />
             <Dashboard studentList = {studentList}/>
             <PopUp/>
             <Modal toggleModal={toggleModal} addStudent={addStudent} modalVisible={isModalVisible} studentList={studentList}/>
             <div className="studentManage">
-                <div className={"leftScreen"}>
+                <div className="leftScreen">
                     <div className="inputSection">
                         <Search filterStudent={filterStudent} setFilter={setFilter}/>
                         <StudentAdder toggleModal={toggleModal} />
                     </div>
                     {isLoading ? <h1>Loading...</h1> : <div className="studentList">
-                        <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} studentList={studentList} />
+                        <StudentList filteredStudentList={filteredStudents} handleSelectStudent={handleSelectStudent} studentList={studentList} selectedStudent={selectedStudent}/>
                     </div>}
 
                 </div>
                 <div className="verticalBorder">
                 </div>
                 <div className="rightScreen">
-                    <StudentDetail />
+                    <StudentDetail selectedStudent={selectedStudent} />
                 </div>
             </div>
         </div>
