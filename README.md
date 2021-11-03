@@ -9,9 +9,18 @@ JetBrain Webstorm  2021.2 <br>
 ###배포
 <a href="https://dmmf4m1rp4w0q.cloudfront.net">dmmf4m1rp4w0q.cloudfront.net</a>
 
+###사용 라이브러리
+<ul>
+    <li>dayjs: Luxon이 time-zone 변경에 있어서 약간 빠르지만, dayjs가 통계적으로 더 많이 쓰이며, time-zone 변경은 사용하지 않았으므로 범용성이 있는 dayjs를 선택함</li>
+    <li>cookie-universal: react-cookie의 통합버전으로 cookie를 다루는 method가 편리하였음</li>
+</ul>
+
+
 ###Components (Used States)
 <ul> 
     <li> Header </li>
+    <li> PopUp </li>
+    <li> Routes </li>
     <li> DashBoard </li>
     <li> Modal (name, grade, profile: 추가하는 학생의 정보)</li>
     <li> Search</li>
@@ -35,32 +44,28 @@ JetBrain Webstorm  2021.2 <br>
 ###Context
 
 <ul>
-    <li>StudentContext</li> (학생 리스트 관리)
-    <li>FilterContext</li> (필터를 저장)
-    <li>SelectedStudentContext</li> (선택된 학생의 정보를 저장)
-    <li>LoginContext</li> (로그인 여부를 저장함)
+    <li>StudentContext</li> (선택 학생 관리, 단순 prop으로 변경 예정)
+    <li>AuthContext</li> (로그인 토큰, 로그인/로그아웃 함수를 저장)
 </ul>
 
 
-</ul>
 
-###Screenshots
 
-![screenshot](./img/screenshot1.png)
-메인화면
+###Screenshots (Seminar 3)
 
-![screenshot](./img/screenshot(selected).png)
-메인화면(선택됨)
+
+
 
 ![screenshot](./img/detail.png)
 학생 세부 정보화면
 
-![screenshot](./img/locked.PNG)
-학생 세부 정보화면(잠김)
+
+![screenshot](./img/popUp.png)
+24시간 팝업창
+
 
 ![screenshot](./img/delete.PNG)
 삭제 modal
-
 
 
 

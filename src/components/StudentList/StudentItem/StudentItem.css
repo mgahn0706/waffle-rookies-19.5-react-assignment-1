@@ -49,6 +49,7 @@
     transition: transform 0.2s;
     border: none;
     font-weight: bold;
+    cursor: pointer;
 
 
 }
@@ -60,6 +61,7 @@
 
 .studentRowselected button {
     visibility: visible;
+    cursor: pointer;
 }
 
 .studentRow:hover button {

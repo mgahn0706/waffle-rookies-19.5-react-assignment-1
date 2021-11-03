@@ -1,0 +1,62 @@
+.popUpWrapper{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    visibility: hidden;
+
+    opacity:0%;
+    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+}
+
+
+.popUpWrapperVisible{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    visibility: visible;
+    z-index: 1; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+
+}
+
+.popUp{
+
+    background-color: #ed8573 ;
+    width: 470px;
+    height: 320px;
+    top: 300px;
+    left: 500px;
+    font-size: 18px;
+    display: block;
+    position: fixed;
+    border: solid black 1px;
+    z-index: 2; /*absolute 로 style 한 element 보다 항상 위에 있도록 함 */
+
+
+}
+
+.closePopButton, .disableButton{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: #27181d;
+    color:white;
+    border-radius: 6px;
+    height: 25px;
+    cursor: pointer;
+    border: solid 1px white;
+
+}
+
+.closePopButton:hover, .disableButton:hover{
+    background-color: rgba(59, 44, 49);
+}
+
+.disableButton{
+    right: 70px;
+}
