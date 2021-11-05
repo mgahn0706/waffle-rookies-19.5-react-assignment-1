@@ -2,10 +2,10 @@ import './StudentList.css'
 import StudentItem from './StudentItem/StudentItem'
 
 const StudentList = ({
-  filteredStudentList,
   handleSelectStudent,
   studentList,
   selectedStudent,
+  filter,
 }) => {
   return studentList.length === 0 ? (
     <div className="listSection">
@@ -32,17 +32,19 @@ const StudentList = ({
           </tr>
         </thead>
         <tbody>
-          {filteredStudentList.map(
-            (item) => (
-              <StudentItem
-                key={item.id}
-                item={item}
-                handleSelectStudent={handleSelectStudent}
-                isSelected={selectedStudent.id === item.id}
-              />
-            )
-            /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
-          )}
+          {studentList
+            .filter((student) => student.name.includes(filter))
+            .map(
+              (item) => (
+                <StudentItem
+                  key={item.id}
+                  item={item}
+                  handleSelectStudent={handleSelectStudent}
+                  isSelected={selectedStudent.id === item.id}
+                />
+              )
+              /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
+            )}
         </tbody>
       </table>
     </div>

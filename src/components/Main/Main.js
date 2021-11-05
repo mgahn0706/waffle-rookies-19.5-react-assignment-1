@@ -23,7 +23,6 @@ const Main = () => {
 
   const { selectedStudent, setSelectedStudent } = useSelectedStudentContext()
   const [studentList, setStudentList] = useState([])
-  const [filteredStudents, setFilteredStudents] = useState(studentList)
   const [isModalVisible, setModalVisible] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [filter, setFilter] = useState('')
@@ -49,17 +48,6 @@ const Main = () => {
         setLoading(false)
       })
   }, [])
-
-  const filterStudent = () => {
-    setFilteredStudents(
-      filter
-        ? studentList.filter((student) => student.name.includes(filter))
-        : studentList
-    )
-  } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
-  useEffect(() => {
-    filterStudent()
-  }, [filter, studentList])
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible)
@@ -148,7 +136,7 @@ const Main = () => {
       <div className="studentManage">
         <div className="leftScreen">
           <div className="inputSection">
-            <Search filterStudent={filterStudent} setFilter={setFilter} />
+            <Search setFilter={setFilter} />
             <StudentAdder toggleModal={toggleModal} />
           </div>
           {isLoading ? (
@@ -156,7 +144,7 @@ const Main = () => {
           ) : (
             <div className="studentList">
               <StudentList
-                filteredStudentList={filteredStudents}
+                filter={filter}
                 handleSelectStudent={handleSelectStudent}
                 studentList={studentList}
                 selectedStudent={selectedStudent}
@@ -164,7 +152,7 @@ const Main = () => {
             </div>
           )}
         </div>
-        <div className="verticalBorder"></div>
+        <div className="verticalBorder" />
         <div className="rightScreen">
           <StudentDetail selectedStudent={selectedStudent} />
         </div>

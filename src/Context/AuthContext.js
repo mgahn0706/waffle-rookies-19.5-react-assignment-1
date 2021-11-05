@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 const LoginContext = createContext(null)
 
 export const LoginProvider = ({ children }) => {
-  const [userToken, setUserToken] = useState(undefined)
+  const [userToken, setUserToken] = useState()
 
   useEffect(() => {
     setUserToken(localStorage.getItem('token'))
