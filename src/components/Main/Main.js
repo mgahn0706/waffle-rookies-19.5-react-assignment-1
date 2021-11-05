@@ -109,7 +109,7 @@ const Main = () => {
           progress: undefined,
         })
       })
-  } /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
+  }
 
   const showDetail = (student) => {
     if (!student.id) {
