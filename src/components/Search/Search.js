@@ -1,16 +1,40 @@
 import './Search.css'
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const Search = ({ setFilter }) => {
-  const handleFilter = (e) => {
-    setFilter(e.target.value)
-    /*필터링 상태에서 studentList 가 변경될 경우 filter 를 바로 주어야하기 때문에 setter 를 부모에서 가져온다. */
-  } /*입력이 변할 때 마다 필터 해준다.*/
-  return (
-    <div>
-      <input className="search" placeholder={'이름'} />
-      <input className="search" placeholder={'학년'} />
+  const history = useHistory()
+  const [name, setName] = useState()
+  const [grade, setGrade] = useState() //url 설정을 위해 입력된 값을 저장하는 state
 
-      <button className="searchButton">검색</button>
+  const handleSearchButton = () => {
+    if (grade && name) {
+      history.push(`?name=${name}&grade=${grade}`)
+    } else if (!name && grade) {
+      history.push(`?grade=${grade}`)
+    } else if (!grade && name) {
+      history.push(`?name=${name}`)
+    } else {
+      history.push('/students')
+    }
+  }
+
+  return (
+    <div className="searchSection">
+      <input
+        className="search"
+        placeholder={'이름'}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        className="search"
+        placeholder={'학년'}
+        onChange={(e) => setGrade(e.target.value)}
+      />
+
+      <button className="searchButton" onClick={handleSearchButton}>
+        검색
+      </button>
     </div>
   )
 }

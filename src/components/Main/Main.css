@@ -4,8 +4,7 @@
 
 .inputSection{
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+
     float: left;
 
 
@@ -23,11 +22,11 @@
 .rightScreen{
     clear:both;
     width: 624px;
-    height: 642px;
+    height: 700px;
 }
 
 .verticalBorder{
-    height: 650px;
+    height: 700px;
     width: 0;
     border: 1px solid #E4E4E4;
 

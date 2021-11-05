@@ -1,13 +1,25 @@
 import './StudentList.css'
 import StudentItem from './StudentItem/StudentItem'
+import { useLocation } from 'react-router-dom'
 
-const StudentList = ({
-  handleSelectStudent,
-  studentList,
-  selectedStudent,
-  filter,
-}) => {
-  return studentList.length === 0 ? (
+const StudentList = ({ handleSelectStudent, studentList, selectedStudent }) => {
+  const { search } = useLocation()
+  const params = new URLSearchParams(search)
+
+  const name = params.get('name')
+  const grade = params.get('grade')
+
+  if (name) {
+    studentList = studentList.filter((student) => student.name.includes(name))
+  }
+
+  if (grade) {
+    studentList = studentList.filter((student) => {
+      return student.grade === parseInt(grade)
+    })
+  }
+
+  return studentList.length === 0 && !grade && !name ? (
     <div className="listSection">
       <table className="studentListSection">
         <thead>
@@ -32,19 +44,17 @@ const StudentList = ({
           </tr>
         </thead>
         <tbody>
-          {studentList
-            .filter((student) => student.name.includes(filter))
-            .map(
-              (item) => (
-                <StudentItem
-                  key={item.id}
-                  item={item}
-                  handleSelectStudent={handleSelectStudent}
-                  isSelected={selectedStudent.id === item.id}
-                />
-              )
-              /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
-            )}
+          {studentList.map(
+            (item) => (
+              <StudentItem
+                key={item.id}
+                item={item}
+                handleSelectStudent={handleSelectStudent}
+                isSelected={selectedStudent.id === item.id}
+              />
+            )
+            /*만약 새로 추가된 학생이라면 initial state 를 selected 되게 하도록 설정한다.*/
+          )}
         </tbody>
       </table>
     </div>
