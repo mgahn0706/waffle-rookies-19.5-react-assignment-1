@@ -12,8 +12,15 @@ import request from '../../API/API'
 import { toast } from 'react-toastify'
 import PopUp from '../PopUp/PopUp'
 import StudentPage from '../StudentPage/StudentPage'
-
+import { useLoginContext } from '../../Context/AuthContext'
+import { useLocation } from 'react-router-dom'
 const Main = () => {
+  const { isTokenExpired } = useLoginContext()
+
+  useEffect(() => {
+    isTokenExpired()
+  }, []) //토큰이 만료되면 로그아웃
+
   const nullStudent = {
     id: null,
     name: null,
@@ -36,15 +43,6 @@ const Main = () => {
         setLoading(false)
       })
       .catch(() => {
-        toast.error('학생 리스트를 불러오지 못했습니다.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
         setLoading(false)
       })
   }, [])
@@ -137,7 +135,6 @@ const Main = () => {
         <div className="leftScreen">
           <div className="inputSection">
             <Search setFilter={setFilter} />
-            <StudentAdder toggleModal={toggleModal} />
           </div>
           {isLoading ? (
             <h1>Loading...</h1>
@@ -151,6 +148,7 @@ const Main = () => {
               />
             </div>
           )}
+          <StudentAdder toggleModal={toggleModal} />
         </div>
         <div className="verticalBorder" />
         <div className="rightScreen">

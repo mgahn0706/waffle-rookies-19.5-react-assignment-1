@@ -81,10 +81,7 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
             <img src={CancelIcon} alt="취소아이콘" className="cancelIcon" />
             취소
           </button>
-          <button
-            className="confirmButton"
-            onClick={() => handleDeleteButton()}
-          >
+          <button className="confirmButton" onClick={handleDeleteButton}>
             <img src={DeleteIcon} alt="삭제아이콘" className="confirmIcon" />
             삭제
           </button>

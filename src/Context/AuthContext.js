@@ -11,6 +11,24 @@ export const LoginProvider = ({ children }) => {
     setUserToken(localStorage.getItem('token'))
   }, [])
 
+  const isTokenExpired = () => {
+    request
+      .get('/auth/check_token')
+      .then(() => {})
+      .catch(() => {
+        logout()
+        toast.error('로그인 후 10분이 지나 자동 로그아웃 되었습니다.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      })
+  }
+
   const login = (usernameInput, passwordInput) => {
     request
       .post('/auth/login', {
@@ -45,7 +63,9 @@ export const LoginProvider = ({ children }) => {
   }
 
   return (
-    <LoginContext.Provider value={{ userToken, login, logout, setUserToken }}>
+    <LoginContext.Provider
+      value={{ userToken, login, logout, setUserToken, isTokenExpired }}
+    >
       {children}
     </LoginContext.Provider>
   )

@@ -10,8 +10,14 @@ import UnlockIcon from '../../image/Unlock.png'
 import { toast } from 'react-toastify'
 import request from '../../API/API'
 import Comments from './Comments/Comments'
+import { useLoginContext } from '../../Context/AuthContext'
 
 const StudentPage = () => {
+  const { isTokenExpired } = useLoginContext()
+
+  useEffect(() => {
+    isTokenExpired()
+  }, [])
   const { setSelectedStudent } = useSelectedStudentContext()
 
   const params = useParams()
@@ -29,7 +35,6 @@ const StudentPage = () => {
         selectStudent(response.data)
         setOriginalData(response.data)
         setLoading(false)
-        console.log(response.data)
       })
       .catch(() => {
         toast.error('학생 정보를 불러오지 못했습니다.', {
