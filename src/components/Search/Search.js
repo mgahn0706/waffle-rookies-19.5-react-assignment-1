@@ -1,6 +1,7 @@
 import './Search.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 
 const Search = ({ setFilter }) => {
   const history = useHistory()
@@ -19,8 +20,12 @@ const Search = ({ setFilter }) => {
     }
   }
 
+  const SearchSection = styled.div`
+    width: 630px;
+  `
+
   return (
-    <div className="searchSection">
+    <SearchSection>
       <input
         className="search"
         placeholder={'이름'}
@@ -35,7 +40,7 @@ const Search = ({ setFilter }) => {
       <button className="searchButton" onClick={handleSearchButton}>
         검색
       </button>
-    </div>
+    </SearchSection>
   )
 }
 

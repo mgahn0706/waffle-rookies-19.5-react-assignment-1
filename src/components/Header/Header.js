@@ -1,4 +1,4 @@
-import './Header.css'
+import styles from './Header.module.scss'
 import { useLoginContext } from '../../Context/AuthContext'
 import { useHistory } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ const Header = () => {
   }
 
   return (
-    <div className="Header">
+    <div className={styles.Header}>
       <a href="https://wafflestudio.com" target="_blank" rel="noreferrer">
         <img
           src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75"
@@ -20,8 +20,8 @@ const Header = () => {
         />
       </a>
 
-      <span className="title">와플고등학교 명단 관리 프로그램 </span>
-      <button className="logOutButton" onClick={handleLogOutButton}>
+      <span className={styles.title}>와플고등학교 명단 관리 프로그램 </span>
+      <button className={styles.logOutButton} onClick={handleLogOutButton}>
         로그아웃
       </button>
     </div>

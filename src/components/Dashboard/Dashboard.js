@@ -1,4 +1,4 @@
-import styles from './Dashboard.module.css'
+import styles from './Dashboard.module.scss'
 import { PieChart, Pie, ResponsiveContainer } from 'recharts'
 import React, { useEffect, useState, useRef } from 'react'
 import request from '../../API/API'

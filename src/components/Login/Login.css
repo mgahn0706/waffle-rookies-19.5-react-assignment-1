@@ -107,3 +107,9 @@
     color: darkblue;
     cursor: pointer;
 }
+
+.waffleLogo{
+    width: 54px;
+    height: 58px;
+    vertical-align: middle;
+}
