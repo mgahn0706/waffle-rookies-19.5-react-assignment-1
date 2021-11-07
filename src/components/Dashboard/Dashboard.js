@@ -1,4 +1,4 @@
-import './Dashboard.css'
+import styles from './Dashboard.module.css'
 import { PieChart, Pie, ResponsiveContainer } from 'recharts'
 import React, { useEffect, useState, useRef } from 'react'
 import request from '../../API/API'
@@ -32,22 +32,9 @@ const Dashboard = ({ studentList }) => {
   } //Custom Hook
 
   useInterval(() => {
-    request
-      .get('/student/stat')
-      .then((response) => {
-        setStat(response.data.count)
-      })
-      .catch(() => {
-        toast.error('학생 통계를 불러오지 못했습니다.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      })
+    request.get('/student/stat').then((response) => {
+      setStat(response.data.count)
+    })
   }, 3000)
 
   const gradeStat = [
@@ -69,7 +56,7 @@ const Dashboard = ({ studentList }) => {
   ]
 
   return stat ? (
-    <div className="dashBoard">
+    <div className={styles.dashBoard}>
       <ResponsiveContainer>
         <PieChart>
           <Pie
@@ -85,16 +72,16 @@ const Dashboard = ({ studentList }) => {
           />
         </PieChart>
       </ResponsiveContainer>
-      <span className="totalStudent">총 {studentList.length}명</span>
+      <span className={styles.totalStudent}>총 {studentList.length}명</span>
 
-      <div className="statTable">
+      <div className={styles.statTable}>
         <span> 1학년: {stat['1']}명</span>
         <span> 2학년: {stat['2']}명</span>
         <span> 3학년: {stat['3']}명</span>
       </div>
     </div>
   ) : (
-    <div className="dashBoard">
+    <div className={styles.dashBoard}>
       <ResponsiveContainer>
         <PieChart>
           <Pie
@@ -110,8 +97,8 @@ const Dashboard = ({ studentList }) => {
           />
         </PieChart>
       </ResponsiveContainer>
-      <span className="totalStudent">총 {studentList.length}명</span>
-      <div className="statTable">Loading...</div>
+      <span className={styles.totalStudent}>총 {studentList.length}명</span>
+      <div className={styles.statTable}>Loading...</div>
     </div>
   )
 }

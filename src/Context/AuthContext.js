@@ -59,7 +59,7 @@ export const LoginProvider = ({ children }) => {
   const logout = () => {
     delete request.defaults.headers.common['Authorization']
     localStorage.removeItem('token')
-    setUserToken(null)
+    setUserToken(undefined)
   }
 
   return (

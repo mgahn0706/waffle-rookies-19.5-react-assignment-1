@@ -1,5 +1,5 @@
 import './StudentPage.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelectedStudentContext } from '../../Context/StudentContext'
 import { useHistory, useParams } from 'react-router-dom'
 import Confirm from './Confirm/Confirm'
@@ -14,6 +14,7 @@ import { useLoginContext } from '../../Context/AuthContext'
 
 const StudentPage = () => {
   const { isTokenExpired } = useLoginContext()
+  const scroller = useRef()
 
   useEffect(() => {
     isTokenExpired()
@@ -63,6 +64,7 @@ const StudentPage = () => {
     ) /*일일히 .locked 치기도 번거로우며 렌더가 잘 안돼서 따로 뺐음*/
   const [commentList, setCommentList] = useState([])
   const [comment, setComment] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
 
   const formatEmail = (email) => {
     if (!email) {
@@ -80,7 +82,9 @@ const StudentPage = () => {
     [selectedStudent]
   )
   useEffect(() => setNewMajor(selectedStudent.major), [selectedStudent])
-  useEffect(() => handleComment(), [])
+  useEffect(() => {
+    handleComment()
+  }, [])
 
   const handleHomeButton = () => {
     history.goBack()
@@ -184,6 +188,7 @@ const StudentPage = () => {
         })
       })
     } /*잠금버튼 함수*/
+    fetchComment()
   }
 
   const handlePhoneInput = (e) => {
@@ -210,10 +215,14 @@ const StudentPage = () => {
 
   const handleComment = () => {
     request
-      .get(`/student/${params.id}/comment`)
+      .get(`/student/${params.id}/comment`, {
+        params: { page: { currentPage } },
+      })
       .then((response) => {
         setCommentList(response.data.data)
-        sortComment()
+        if (response.data.next) {
+          setCurrentPage(response.data.next)
+        }
       })
       .catch((err) => {
         toast.error(err.message, {
@@ -228,8 +237,11 @@ const StudentPage = () => {
       })
   }
 
+  const [writtenComment, setWrittenComment] = useState('')
+
   const handleWriteButton = () => {
     setComment('') /*입력값 초기화*/
+    setWrittenComment(comment)
     request
       .post(`/student/${params.id}/comment`, {
         content: comment,
@@ -252,6 +264,49 @@ const StudentPage = () => {
       handleWriteButton()
     }
   } /*Enter 만 쳐도 댓글을 달 수 있게*/
+
+  const handleScroll = () => {
+    if (
+      scroller.current.scrollHeight -
+        scroller.current.scrollTop -
+        scroller.current.clientHeight <
+      300 //부드럽게 연결하기 위해 적당한 위치에서 미리 load
+    ) {
+      pagination()
+    }
+  }
+
+  const pagination = () => {
+    request
+      .get(`/student/${params.id}/comment`, {
+        params: { page: currentPage },
+      })
+      .then((response) => {
+        if (response.data.next) {
+          setCurrentPage(response.data.next)
+          setCommentList([...commentList, ...response.data.data])
+        }
+      })
+  }
+  //상태 변경 시 comment 불러오고 페이지네이션 초기화
+  const fetchComment = () => {
+    setLoading(true)
+    setCommentList([])
+    request
+      .get(`/student/${params.id}/comment`, {
+        params: { page: 1 },
+      })
+      .then((response) => {
+        setCurrentPage(response.data.next)
+        const temp = [...response.data.data]
+        setCommentList(temp)
+        setLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    fetchComment()
+  }, [isLocked, originalData, writtenComment])
 
   if (isLoading) {
     return <h1>Loading...</h1>
@@ -385,7 +440,11 @@ const StudentPage = () => {
 
           <div className="commentSection">
             <div className="commentIcon">코멘트</div>
-            <div className="commentList">
+            <div
+              className="commentList"
+              ref={scroller}
+              onScroll={() => handleScroll()}
+            >
               {commentList.map((item) => (
                 <Comments item={item} key={item.datetime} />
               ))}
@@ -412,7 +471,3 @@ const StudentPage = () => {
 }
 
 export default StudentPage
-
-//               {commentList.map((item) => (
-//                 <Comments item={item} key={item.datetime} />
-//               ))}

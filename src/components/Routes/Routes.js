@@ -10,27 +10,31 @@ import { toast } from 'react-toastify'
 const Routes = () => {
   const { userToken } = useLoginContext()
 
-  useEffect(() => {
-    if (userToken) {
-      request.defaults.headers.common['Authorization'] = `Bearer ${userToken}`
-    }
-  })
+  if (userToken) {
+    request.defaults.headers.common['Authorization'] = `Bearer ${userToken}`
+  }
+
+  if (userToken === undefined) {
+    return null
+  }
+
+  if (userToken === null) {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Redirect to="/login" />
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 
   return (
     <BrowserRouter>
       <Switch>
-        {userToken ? (
-          <>
-            <Route path="/students" component={Main} />
-            <Route path="/student/:id" component={StudentPage} />
-            <Redirect to="/students" />
-          </>
-        ) : (
-          <>
-            <Route path="/login" component={Login} />
-            <Redirect to="/login" />
-          </>
-        )}
+        <Route path="/students" component={Main} />
+        <Route path="/student/:id" component={StudentPage} />
+        <Redirect to="/students" />
       </Switch>
     </BrowserRouter>
   )
