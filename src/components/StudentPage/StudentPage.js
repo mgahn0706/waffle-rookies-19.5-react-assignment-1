@@ -10,7 +10,7 @@ import UnlockIcon from '../../image/Unlock.png'
 import { toast } from 'react-toastify'
 import request from '../../API/API'
 import Comments from './Comments/Comments'
-import { useLoginContext } from '../../Context/AuthContext'
+import { useLoginContext } from '../../Context/LoginContext'
 
 const StudentPage = () => {
   const { isTokenExpired } = useLoginContext()
@@ -87,18 +87,6 @@ const StudentPage = () => {
     history.goBack()
   }
 
-  const sortComment = () => {
-    commentList.sort((a, b) => {
-      if (a.datetime > b.datetime) {
-        return 1
-      } else if (a.datetime < b.datetime) {
-        return -1
-      } else {
-        return 0
-      }
-    })
-  } //시간에 따라 sorting 하는 함수,
-
   const handleSaveButton = () => {
     const formattedEmail = newEmail ? newEmail + '@waffle.hs.kr' : null //API 에 맞춰서 포매팅
     request
@@ -159,7 +147,14 @@ const StudentPage = () => {
     setConfirmVisible(!isConfirmVisible)
     /*modal 창 띄우기 */
   }
-
+  const formatEmailInput = (email) => {
+    if (email === null) {
+      return email
+    } else {
+      email = email.replace(' ', '')
+      return email.replace('@', '')
+    }
+  }
   const handleLockButton = () => {
     if (!isLocked) {
       setLocked(true)
@@ -203,6 +198,11 @@ const StudentPage = () => {
   const handlePhoneInput = (e) => {
     const formattedPhone = formatPhoneNumber(e.target.value)
     setNewPhone(formattedPhone)
+  }
+
+  const handleEmailInput = (e) => {
+    const formattedEmailInput = formatEmailInput(e.target.value)
+    setNewEmail(formattedEmailInput)
   }
 
   const formatPhoneNumber = (number) => {
@@ -398,16 +398,17 @@ const StudentPage = () => {
                 <input
                   className="emailChangeInput"
                   value={newEmail || ''}
-                  onChange={(e) => setNewEmail(e.target.value)}
+                  onChange={(e) => handleEmailInput(e)}
                 />
               </div>
               <div className="majorChange">
                 <span className="majorChangeText">전공</span>
                 <select
                   className="majorInput"
-                  defaultValue={selectedStudent.major}
+                  defaultValue=""
                   onChange={(e) => setNewMajor(e.target.value)}
                 >
+                  <option value="">None</option>
                   <option value="frontend">frontend</option>
                   <option value="backend">backend</option>
                   <option value="android">android</option>
@@ -420,6 +421,7 @@ const StudentPage = () => {
                 <input
                   className="profileChangeInput"
                   value={newProfile || ''}
+                  onChange={(e) => setNewProfile(e.target.value)}
                   onChange={(e) => setNewProfile(e.target.value)}
                 />
               </div>

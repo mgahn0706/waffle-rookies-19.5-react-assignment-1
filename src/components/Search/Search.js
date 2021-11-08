@@ -20,9 +20,7 @@ const Search = ({ setFilter }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(grade, name)
-  }, [grade, name])
+  useEffect(() => {}, [grade, name])
 
   return (
     <div className="searchSection">

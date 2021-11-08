@@ -5,11 +5,7 @@ import request from '../../API/API'
 
 const Dashboard = ({ studentList }) => {
   const [stat, setStat] = useState()
-
-  const countStudent = (targetGrade) => {
-    return studentList.filter((item) => item.grade === targetGrade).length
-  }
-
+  /*
   const useInterval = (callback, delay) => {
     const savedCallback = useRef()
 
@@ -34,25 +30,9 @@ const Dashboard = ({ studentList }) => {
     request.get('/student/stat').then((response) => {
       setStat(response.data.count)
     })
-  }, 3000)
+  }, 3000) */
 
-  const gradeStat = [
-    {
-      grade: '1학년',
-      value: countStudent(1),
-      color: '#FF8C00',
-    },
-    {
-      grade: '2학년',
-      value: countStudent(2),
-      color: '#0055FF',
-    },
-    {
-      grade: '3학년',
-      value: countStudent(3),
-      color: '#ADFF2F',
-    },
-  ]
+  useEffect(() => {}, [studentList])
 
   return stat ? (
     <div className={styles.dashBoard}>
@@ -62,12 +42,27 @@ const Dashboard = ({ studentList }) => {
             label={({ grade, value }) => `${grade}: ${value}명`}
             isAnimationActive={false}
             labelLine={false}
-            data={gradeStat}
-            nameKey="name"
-            dataKey="value"
+            data={[
+              {
+                grade: '1학년',
+                value: studentList.filter((item) => item.grade === 1).length,
+                key: Math.random,
+              },
+              {
+                grade: '2학년',
+                value: studentList.filter((item) => item.grade === 2).length,
+                key: Math.random,
+              },
+              {
+                grade: '3학년',
+                value: studentList.filter((item) => item.grade === 3).length,
+                key: Math.random,
+              },
+            ]}
             innerRadius="25%"
             outerRadius="50%"
             fill="#f0975e"
+            dataKey="value"
           />
         </PieChart>
       </ResponsiveContainer>
@@ -87,9 +82,21 @@ const Dashboard = ({ studentList }) => {
             label={({ grade, value }) => `${grade}: ${value}명`}
             isAnimationActive={false}
             labelLine={false}
-            data={gradeStat}
+            data={[
+              {
+                grade: '1학년',
+                value: studentList.filter((item) => item.grade === 1).length,
+              },
+              {
+                grade: '2학년',
+                value: studentList.filter((item) => item.grade === 2).length,
+              },
+              {
+                grade: '3학년',
+                value: studentList.filter((item) => item.grade === 3).length,
+              },
+            ]}
             nameKey="name"
-            dataKey="value"
             innerRadius="25%"
             outerRadius="50%"
             fill="#f0975e"
@@ -97,6 +104,7 @@ const Dashboard = ({ studentList }) => {
         </PieChart>
       </ResponsiveContainer>
       <span className={styles.totalStudent}>총 {studentList.length}명</span>
+
       <div className={styles.statTable}>Loading...</div>
     </div>
   )

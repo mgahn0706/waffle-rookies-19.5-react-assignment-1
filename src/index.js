@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { StudentProvider } from './Context/StudentContext'
-import { LoginProvider } from './Context/AuthContext'
+import { LoginProvider } from './Context/LoginContext'
 
 ReactDOM.render(
   <StudentProvider>

@@ -8,7 +8,7 @@ const Modal = ({ toggleModal, addStudent, modalVisible, studentList }) => {
 
   const resetInput = () => {
     setName('')
-    setGrade(0)
+    setGrade('')
   }
 
   const handleCloseButton = () => {

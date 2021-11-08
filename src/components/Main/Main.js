@@ -12,7 +12,7 @@ import request from '../../API/API'
 import { toast } from 'react-toastify'
 import PopUp from '../PopUp/PopUp'
 import StudentPage from '../StudentPage/StudentPage'
-import { useLoginContext } from '../../Context/AuthContext'
+import { useLoginContext } from '../../Context/LoginContext'
 import { useLocation } from 'react-router-dom'
 const Main = () => {
   const { isTokenExpired } = useLoginContext()
@@ -113,14 +113,10 @@ const Main = () => {
     isChecked ? showDetail(nullStudent) : showDetail(student)
   } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
-  const hideComponent = true
-
   return (
     <div className="App">
-      {hideComponent ? (
-        <div />
-      ) : (
-        <StudentPage handleSelection={handleSelectStudent} />
+      (
+      <StudentPage handleSelection={handleSelectStudent} />
       )}
       <Header />
       <Dashboard studentList={studentList} />

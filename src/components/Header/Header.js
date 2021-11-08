@@ -1,5 +1,5 @@
 import styles from './Header.module.scss'
-import { useLoginContext } from '../../Context/AuthContext'
+import { useLoginContext } from '../../Context/LoginContext'
 import { useHistory } from 'react-router-dom'
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
         <img
           src="https://wafflestudio.com/_next/image?url=%2Fimages%2Ficon_intro.svg&w=256&q=75"
           alt="waffleLogo"
-          className={'waffleLogo'}
+          className="waffleLogo"
         />
       </a>
 
