@@ -31,14 +31,13 @@
 } /*table*/
 
 .listSection{
-    border: solid #D3D3D3;
+    border: solid #d3d3d3;
     float: left;
     width: 624px;
     height: 598px;
     margin-top: 20px;
     margin-bottom: 10px;
     overflow-y: auto;
-
 }
 
 .emptyListSection{

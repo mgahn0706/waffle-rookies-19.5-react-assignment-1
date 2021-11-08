@@ -7,13 +7,11 @@ import { StudentProvider } from './Context/StudentContext'
 import { LoginProvider } from './Context/AuthContext'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StudentProvider>
-      <LoginProvider>
-        <App />
-      </LoginProvider>
-    </StudentProvider>
-  </React.StrictMode>,
+  <StudentProvider>
+    <LoginProvider>
+      <App />
+    </LoginProvider>
+  </StudentProvider>,
   document.getElementById('root')
 )
 

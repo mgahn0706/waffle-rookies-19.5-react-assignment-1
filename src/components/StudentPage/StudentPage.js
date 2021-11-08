@@ -82,9 +82,6 @@ const StudentPage = () => {
     [selectedStudent]
   )
   useEffect(() => setNewMajor(selectedStudent.major), [selectedStudent])
-  useEffect(() => {
-    handleComment()
-  }, [])
 
   const handleHomeButton = () => {
     history.goBack()
@@ -124,6 +121,7 @@ const StudentPage = () => {
           progress: undefined,
           theme: 'dark',
         })
+
         setSelectedStudent({
           id: selectedStudent.id,
           grade: selectedStudent.grade,
@@ -141,6 +139,8 @@ const StudentPage = () => {
           profile_img: newProfile,
           email: formattedEmail,
         })
+
+        fetchComment()
       })
       .catch((err) => {
         toast.error(err.message, {
@@ -163,32 +163,41 @@ const StudentPage = () => {
   const handleLockButton = () => {
     if (!isLocked) {
       setLocked(true)
-      request.post(`student/${params.id}/lock`).catch((err) => {
-        toast.error(err.message, {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+      request
+        .post(`student/${params.id}/lock`)
+        .then(() => {
+          fetchComment()
         })
-      })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: 'bottom-right',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        })
     } else {
       setLocked(false)
-      request.post(`student/${params.id}/unlock`).catch((err) => {
-        toast.error(err.message, {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+      request
+        .post(`student/${params.id}/unlock`)
+        .then(() => {
+          fetchComment()
         })
-      })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: 'bottom-right',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        })
     } /*잠금버튼 함수*/
-    fetchComment()
   }
 
   const handlePhoneInput = (e) => {
@@ -210,41 +219,21 @@ const StudentPage = () => {
       return phone.slice(0, 3) + '-' + phone.slice(3)
     } else if (phoneLength < 12) {
       return phone.slice(0, 3) + '-' + phone.slice(3, 7) + '-' + phone.slice(7)
+    } else {
+      return (
+        phone.slice(0, 3) + '-' + phone.slice(3, 7) + '-' + phone.slice(7, 11)
+      )
     }
   }
 
-  const handleComment = () => {
-    request
-      .get(`/student/${params.id}/comment`, {
-        params: { page: { currentPage } },
-      })
-      .then((response) => {
-        setCommentList(response.data.data)
-        if (response.data.next) {
-          setCurrentPage(response.data.next)
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          position: 'bottom-right',
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      })
-  }
-
-  const [writtenComment, setWrittenComment] = useState('')
-
   const handleWriteButton = () => {
     setComment('') /*입력값 초기화*/
-    setWrittenComment(comment)
     request
       .post(`/student/${params.id}/comment`, {
         content: comment,
+      })
+      .then(() => {
+        fetchComment()
       })
       .catch((err) => {
         toast.error(err.message, {
@@ -258,6 +247,10 @@ const StudentPage = () => {
         })
       }) /*comment 를 post 로 보냄*/
   }
+
+  useEffect(() => {
+    fetchComment()
+  }, [])
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -290,7 +283,6 @@ const StudentPage = () => {
   }
   //상태 변경 시 comment 불러오고 페이지네이션 초기화
   const fetchComment = () => {
-    setLoading(true)
     setCommentList([])
     request
       .get(`/student/${params.id}/comment`, {
@@ -300,13 +292,9 @@ const StudentPage = () => {
         setCurrentPage(response.data.next)
         const temp = [...response.data.data]
         setCommentList(temp)
-        setLoading(false)
+        console.log(response.data.data[0])
       })
   }
-
-  useEffect(() => {
-    fetchComment()
-  }, [isLocked, originalData, writtenComment])
 
   if (isLoading) {
     return <h1>Loading...</h1>

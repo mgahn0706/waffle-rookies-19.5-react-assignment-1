@@ -2,7 +2,6 @@ import styles from './Dashboard.module.scss'
 import { PieChart, Pie, ResponsiveContainer } from 'recharts'
 import React, { useEffect, useState, useRef } from 'react'
 import request from '../../API/API'
-import { toast } from 'react-toastify'
 
 const Dashboard = ({ studentList }) => {
   const [stat, setStat] = useState()

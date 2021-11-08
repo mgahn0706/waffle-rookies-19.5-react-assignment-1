@@ -9,6 +9,7 @@ const StudentDetail = ({ selectedStudent }) => {
     const url = '/student/' + selectedStudent.id
     return history.push(url)
   }
+
   return (
     <div className="studentDetail">
       <div
