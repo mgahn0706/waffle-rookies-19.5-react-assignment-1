@@ -4,8 +4,6 @@ import StudentPage from '../StudentPage/StudentPage'
 import Login from '../Login/Login'
 import { useLoginContext } from '../../Context/LoginContext'
 import request from '../../API/API'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
 
 const Routes = () => {
   const { userToken } = useLoginContext()

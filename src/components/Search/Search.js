@@ -1,9 +1,8 @@
 import './Search.css'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
-const Search = ({ setFilter }) => {
+const Search = () => {
   const history = useHistory()
   const [name, setName] = useState()
   const [grade, setGrade] = useState() //url 설정을 위해 입력된 값을 저장하는 state

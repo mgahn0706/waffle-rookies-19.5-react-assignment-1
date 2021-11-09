@@ -39,6 +39,7 @@ export const LoginProvider = ({ children }) => {
         const temp = response.data.access_token
         localStorage.setItem('token', temp)
         setUserToken(temp)
+        // @ts-ignore Authorization 에서는 ignore 을 사용함.
         request.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${response.data.access_token}`
@@ -57,9 +58,10 @@ export const LoginProvider = ({ children }) => {
   }
 
   const logout = () => {
+    // @ts-ignore Authorization 에서는 ignore 을 사용함.
     delete request.defaults.headers.common['Authorization']
     localStorage.removeItem('token')
-    setUserToken(undefined)
+    setUserToken('')
   }
 
   return (
