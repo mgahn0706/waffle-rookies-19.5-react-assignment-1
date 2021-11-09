@@ -47,6 +47,7 @@ const StudentPage = () => {
           draggable: true,
           progress: undefined,
         })
+        history.push('/students')
         setLoading(false)
       })
   }, [])

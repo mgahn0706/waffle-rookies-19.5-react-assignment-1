@@ -49,10 +49,10 @@ const Main = () => {
   }, []) //토큰이 만료되면 로그아웃
 
   const nullStudent = {
-    id: 0,
-    name: '',
-    grade: 0,
-    profile_img: '',
+    id: null,
+    name: null,
+    grade: null,
+    profile_img: null,
   }
 
 
