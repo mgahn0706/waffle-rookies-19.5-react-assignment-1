@@ -65,7 +65,7 @@ const StudentPage = () => {
     ) /*일일히 .locked 치기도 번거로우며 렌더가 잘 안돼서 따로 뺐음*/
   const [commentList, setCommentList] = useState([])
   const [comment, setComment] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [nextPage, setNextPage] = useState(1)
 
   const formatEmail = (email) => {
     if (!email) {
@@ -271,13 +271,19 @@ const StudentPage = () => {
   }
 
   const pagination = () => {
+    console.log(nextPage)
     request
       .get(`/student/${params.id}/comment`, {
-        params: { page: currentPage },
+        params: { page: nextPage },
       })
       .then((response) => {
         if (response.data.next) {
-          setCurrentPage(response.data.next)
+          setNextPage(response.data.next)
+        }
+        else{
+          setNextPage(null);
+        }
+        if(nextPage) {
           setCommentList([...commentList, ...response.data.data])
         }
       })
@@ -290,9 +296,11 @@ const StudentPage = () => {
         params: { page: 1 },
       })
       .then((response) => {
-        setCurrentPage(response.data.next)
-        const temp = [...response.data.data]
-        setCommentList(temp)
+        if (response.data.next) {
+          setNextPage(2)
+          const temp = [...response.data.data]
+          setCommentList(temp)
+        }
       })
   }
 
@@ -421,7 +429,6 @@ const StudentPage = () => {
                 <input
                   className="profileChangeInput"
                   value={newProfile || ''}
-                  onChange={(e) => setNewProfile(e.target.value)}
                   onChange={(e) => setNewProfile(e.target.value)}
                 />
               </div>
