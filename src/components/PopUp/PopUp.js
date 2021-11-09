@@ -2,6 +2,9 @@ import './PopUp.css'
 import PopUpImg from '../../image/PopUpImage.png'
 import { Cookies } from 'react-cookie'
 import { useEffect, useState } from 'react'
+import styled from "styled-components"
+
+
 
 const PopUp = () => {
   const cookie = new Cookies()
@@ -25,6 +28,9 @@ const PopUp = () => {
     cookie.set('cookie', 'popUp', { expires: date })
     setPopVisible(false)
   }
+
+
+
 
   return (
     <div className={'popUpWrapper' + (isPopVisible ? 'Visible' : '')}>

@@ -2,6 +2,7 @@ import styles from './Dashboard.module.scss'
 import { PieChart, Pie, ResponsiveContainer } from 'recharts'
 import React, { useEffect, useState, useRef } from 'react'
 import request from '../../API/API'
+import Chart from "./PieChart/Chart";
 
 const Dashboard = ({ studentList }) => {
   const [stat, setStat] = useState()
@@ -26,46 +27,19 @@ const Dashboard = ({ studentList }) => {
     }, [delay])
   } //Custom Hook
 
+    useEffect(()=>{},[studentList])
+
   useInterval(() => {
     request.get('/student/stat').then((response) => {
       setStat(response.data.count)
     })
   }, 3000)
 
-  useEffect(() => {}, [studentList])
+
 
   return stat ? (
     <div className={styles.dashBoard}>
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie
-            label={({ grade, value }) => `${grade}: ${value}명`}
-            isAnimationActive={false}
-            labelLine={false}
-            data={[
-              {
-                grade: '1학년',
-                value: studentList.filter((item) => item.grade === 1).length,
-                key: Math.random,
-              },
-              {
-                grade: '2학년',
-                value: studentList.filter((item) => item.grade === 2).length,
-                key: Math.random,
-              },
-              {
-                grade: '3학년',
-                value: studentList.filter((item) => item.grade === 3).length,
-                key: Math.random,
-              },
-            ]}
-            innerRadius="25%"
-            outerRadius="50%"
-            fill="#f0975e"
-            dataKey="value"
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <Chart studentList={studentList} />
       <span className={styles.totalStudent}>총 {studentList.length}명</span>
 
       <div className={styles.statTable}>
@@ -76,33 +50,7 @@ const Dashboard = ({ studentList }) => {
     </div>
   ) : (
     <div className={styles.dashBoard}>
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie
-            label={({ grade, value }) => `${grade}: ${value}명`}
-            isAnimationActive={false}
-            labelLine={false}
-            data={[
-              {
-                grade: '1학년',
-                value: studentList.filter((item) => item.grade === 1).length,
-              },
-              {
-                grade: '2학년',
-                value: studentList.filter((item) => item.grade === 2).length,
-              },
-              {
-                grade: '3학년',
-                value: studentList.filter((item) => item.grade === 3).length,
-              },
-            ]}
-            nameKey="name"
-            innerRadius="25%"
-            outerRadius="50%"
-            fill="#f0975e"
-          />
-        </PieChart>
-      </ResponsiveContainer>
+        <Chart studentList={studentList}/>
       <span className={styles.totalStudent}>총 {studentList.length}명</span>
 
       <div className={styles.statTable}>Loading...</div>

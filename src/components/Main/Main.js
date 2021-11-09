@@ -1,4 +1,3 @@
-import './Main.css'
 import Header from '../Header/Header'
 import Dashboard from '../Dashboard/Dashboard'
 import Search from '../Search/Search'
@@ -12,10 +11,36 @@ import request from '../../API/API'
 import { toast } from 'react-toastify'
 import PopUp from '../PopUp/PopUp'
 import { useLoginContext } from '../../Context/LoginContext'
+import styled from "styled-components";
 
 
+const AppWrapper = styled.div`
+      margin: 42px;
+    `
+const InputSection = styled.div`
+      width: 100%;
+      float: left;
+    `
+const LeftScreen = styled.div`
+      clear:both;
+      `
 
+const StudentManage = styled.div`
+    width: 1352px;
+    display: flex;
+    justify-content: space-between;`
+
+const RightScreen = styled.div`
+      clear:both;
+      width: 624px;
+      height: 700px;`
+
+const VerticalBorder = styled.div`
+      height: 700px;
+      width: 0;
+      border: 1px solid #E4E4E4;`
 const Main = () => {
+
 
 
   const { isTokenExpired } = useLoginContext()
@@ -35,6 +60,8 @@ const Main = () => {
   const [studentList, setStudentList] = useState([]);
   const [isModalVisible, setModalVisible] = useState(false)
   const [isLoading, setLoading] = useState(true)
+
+
 
     useEffect(() => {
         setLoading(true)
@@ -62,6 +89,8 @@ const Main = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible)
   } /*Modal 상태 변경*/
+
+
 
   const addStudent = (newStudent) => {
     request
@@ -141,7 +170,7 @@ const Main = () => {
 
   return (
 
-            <div className="App">
+            <AppWrapper>
 
               <Header/>
               <Dashboard studentList={studentList}/>
@@ -152,11 +181,11 @@ const Main = () => {
                   modalVisible={isModalVisible}
                   studentList={studentList}
               />
-              <div className="studentManage">
-                <div className="leftScreen">
-                  <div className="inputSection">
+              <StudentManage>
+                <LeftScreen>
+                  <InputSection>
                     <Search/>
-                  </div>
+                  </InputSection>
                   {isLoading ? (
                       <h1>Loading...</h1>
                   ) : (
@@ -169,13 +198,13 @@ const Main = () => {
                       </div>
                   )}
                   <StudentAdder toggleModal={toggleModal}/>
-                </div>
-                <div className="verticalBorder"/>
-                <div className="rightScreen">
+                </LeftScreen>
+                <VerticalBorder/>
+                <RightScreen>
                   <StudentDetail selectedStudent={selectedStudent}/>
-                </div>
-              </div>
-            </div>
+                </RightScreen>
+              </StudentManage>
+            </AppWrapper>
 
   )
 }

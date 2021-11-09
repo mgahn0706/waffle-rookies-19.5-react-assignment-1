@@ -1,6 +1,32 @@
-import './Search.css'
+import styled from "styled-components"
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+
+const SearchInput = styled.input`{
+        height: 20px;
+        width: 120px;
+        margin-right: 10px;
+    }`;
+
+
+const SearchButton = styled.button`{
+        height: 30px;
+        width: 100px;
+        left: 0;
+        top: 0;
+        background-color: white;
+        border: 1px solid black;
+        cursor: pointer;
+        float: right;
+        transition: all 0.3s;
+
+    }`;
+
+const SearchSection = styled.div`{
+        width:600px;
+    }`
+
+
 
 const Search = () => {
   const history = useHistory()
@@ -21,23 +47,23 @@ const Search = () => {
 
   useEffect(() => {}, [grade, name])
 
+
+
   return (
-    <div className="searchSection">
-      <input
-        className="search"
+    <SearchSection>
+      <SearchInput
         placeholder={'이름'}
         onChange={(e) => setName(e.target.value)}
       />
-      <input
-        className="search"
+      <SearchInput
         placeholder={'학년'}
         onChange={(e) => setGrade(e.target.value)}
       />
 
-      <button className="searchButton" onClick={handleSearchButton}>
+      <SearchButton onClick={handleSearchButton}>
         검색
-      </button>
-    </div>
+      </SearchButton>
+    </SearchSection>
   )
 }
 

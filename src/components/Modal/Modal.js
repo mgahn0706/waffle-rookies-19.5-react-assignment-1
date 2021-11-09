@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 const Modal = ({ toggleModal, addStudent, modalVisible, studentList }) => {
   const [name, setName] = useState('')
-  const [grade, setGrade] = useState()
+  const [grade, setGrade] = useState('')
 
   const resetInput = () => {
     setName('')
@@ -18,12 +18,11 @@ const Modal = ({ toggleModal, addStudent, modalVisible, studentList }) => {
 
   const handleAddButton = () => {
     if (grade === '1' || grade === '2' || grade === '3') {
-      setGrade(parseInt(grade))
     }
 
     const newStudent = {
       name: name,
-      grade: grade,
+      grade: parseInt(grade),
     }
 
     const sameNameStudent = studentList.find(
