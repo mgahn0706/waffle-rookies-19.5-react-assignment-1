@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 const MainAddButton = styled.button`
   height: 40px;
   width: 624px;
@@ -9,19 +9,15 @@ const MainAddButton = styled.button`
   cursor: pointer;
   font-size: 15px;
   border-radius: 10px;
-  transition: all 0.3s;`
+  transition: all 0.3s;
+`;
 
 const StudentAdder = ({ toggleModal }) => {
   const handleAddButton = () => {
-    toggleModal()
+    toggleModal();
+  }; /*modal 을 켜는 함수 */
 
-  } /*modal 을 켜는 함수 */
+  return <MainAddButton onClick={handleAddButton}>추가</MainAddButton>;
+};
 
-  return (
-    <MainAddButton onClick={handleAddButton}>
-      추가
-    </MainAddButton>
-  )
-}
-
-export default StudentAdder
+export default StudentAdder;

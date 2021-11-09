@@ -1,25 +1,25 @@
-import './Login.css'
-import { useLoginContext } from '../../Context/LoginContext.tsx'
-import { useState } from 'react'
-import { toast } from 'react-toastify'
+import './Login.css';
+import { useLoginContext } from '../../Context/LoginContext.tsx';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-  const { login } = useLoginContext()
+  const { login } = useLoginContext();
 
   const handleSignInButton = () => {
-    login(usernameInput, passwordInput)
-  }
+    login(usernameInput, passwordInput);
+  };
 
-  const [usernameInput, setUsernameInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
+  const [usernameInput, setUsernameInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
 
   const handleUserInput = (e) => {
-    setUsernameInput(e.target.value)
-  }
+    setUsernameInput(e.target.value);
+  };
 
   const handlePasswordInput = (e) => {
-    setPasswordInput(e.target.value)
-  }
+    setPasswordInput(e.target.value);
+  };
 
   const handleNotUpdated = () => {
     toast.error('아직 준비되지 않은 기능입니다.', {
@@ -30,11 +30,8 @@ const Login = () => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
-    })
-  }
-
-
-
+    });
+  };
 
   return (
     <div className="loginWrapper">
@@ -56,7 +53,7 @@ const Login = () => {
         <input
           className="usernameInput"
           onChange={(e) => {
-            handleUserInput(e)
+            handleUserInput(e);
           }}
         />
         <div className="passwordText">
@@ -72,7 +69,7 @@ const Login = () => {
           className="passwordInput"
           type="password"
           onChange={(e) => {
-            handlePasswordInput(e)
+            handlePasswordInput(e);
           }}
         />
         <div className="signInButtonWrapper">
@@ -96,7 +93,7 @@ const Login = () => {
         <span>Contact</span>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -1,22 +1,15 @@
-import styles from './Header.module.scss'
-import { useLoginContext } from '../../Context/LoginContext'
-import {useHistory} from "react-router-dom";
-import {useEffect, useState} from "react";
-
+import styles from './Header.module.scss';
+import { useLoginContext } from '../../Context/LoginContext';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
-    const [login, setGin] = useState();
-    const history = useHistory();
-    const { logout } = useLoginContext();
-    const handleLogOutButton = () => {
-      logout()
-      history.push('/login')
-     //logout 후 로그인 창 이동
-  }
-
-
-
-
+  const history = useHistory();
+  const { logout } = useLoginContext();
+  const handleLogOutButton = () => {
+    logout();
+    history.push('/login');
+    //logout 후 로그인 창 이동
+  };
 
   return (
     <div className={styles.Header}>
@@ -33,7 +26,7 @@ const Header = () => {
         로그아웃
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

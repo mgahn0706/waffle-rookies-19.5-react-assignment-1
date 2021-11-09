@@ -1,4 +1,4 @@
-import './StudentItem.css'
+import './StudentItem.css';
 
 const StudentItem = ({ item, handleSelectStudent, isSelected }) => {
   return (
@@ -15,7 +15,7 @@ const StudentItem = ({ item, handleSelectStudent, isSelected }) => {
         </button>
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default StudentItem
+export default StudentItem;

@@ -1,15 +1,15 @@
-import './Confirm.css'
-import { useSelectedStudentContext } from '../../../Context/StudentContext'
-import { useHistory } from 'react-router-dom'
-import WarningIcon from '../../../image/Warning.png'
-import DeleteIcon from '../../../image/Delete.png'
-import CancelIcon from '../../../image/Cancel.png'
-import request from '../../../API/API'
-import { toast } from 'react-toastify'
+import './Confirm.css';
+import { useSelectedStudentContext } from '../../../Context/StudentContext';
+import { useHistory } from 'react-router-dom';
+import WarningIcon from '../../../image/Warning.png';
+import DeleteIcon from '../../../image/Delete.png';
+import CancelIcon from '../../../image/Cancel.png';
+import request from '../../../API/API';
+import { toast } from 'react-toastify';
 
 const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
-  const { setSelectedStudent } = useSelectedStudentContext()
-  const history = useHistory()
+  const { setSelectedStudent } = useSelectedStudentContext();
+  const history = useHistory();
   const nullStudent = {
     id: null,
     name: null,
@@ -19,7 +19,7 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
     phone: null,
     major: null,
     locked: false,
-  }
+  };
 
   const deleteStudent = (id) => {
     request
@@ -37,7 +37,7 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
             progress: undefined,
             theme: 'dark',
           }
-        )
+        );
       })
       .catch((err) => {
         toast.error(err.data.message, {
@@ -48,22 +48,22 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-      })
+        });
+      });
 
-    setSelectedStudent(nullStudent)
-  } /*id를 받아서 해당 학생을 list 에서 삭제*/
+    setSelectedStudent(nullStudent);
+  }; /*id를 받아서 해당 학생을 list 에서 삭제*/
 
   const handleDeleteButton = () => {
-    history.replace('/students')
-    deleteStudent(selectedStudent.id) /*id를 delete 함수에 넘겨줘서 삭제*/
+    history.replace('/students');
+    deleteStudent(selectedStudent.id); /*id를 delete 함수에 넘겨줘서 삭제*/
 
     /*detail 창의 정보들을 name 을 빈칸으로 바꿔서 지움 */
-  }
+  };
 
   const handleCancelButton = () => {
-    toggleConfirm()
-  }
+    toggleConfirm();
+  };
 
   return (
     <div
@@ -88,7 +88,7 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Confirm
+export default Confirm;

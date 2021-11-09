@@ -1,22 +1,22 @@
-import './StudentList.css'
-import StudentItem from './StudentItem/StudentItem'
-import { useLocation } from 'react-router-dom'
+import './StudentList.css';
+import StudentItem from './StudentItem/StudentItem';
+import { useLocation } from 'react-router-dom';
 
 const StudentList = ({ handleSelectStudent, studentList, selectedStudent }) => {
-  const { search } = useLocation()
-  const params = new URLSearchParams(search)
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
 
-  const name = params.get('name')
-  const grade = params.get('grade')
+  const name = params.get('name');
+  const grade = params.get('grade');
 
   if (name) {
-    studentList = studentList.filter((student) => student.name.includes(name))
+    studentList = studentList.filter((student) => student.name.includes(name));
   }
 
   if (grade) {
     studentList = studentList.filter((student) => {
-      return student.grade === parseInt(grade)
-    })
+      return student.grade === parseInt(grade);
+    });
   }
 
   return studentList.length === 0 && !grade && !name ? (
@@ -58,7 +58,7 @@ const StudentList = ({ handleSelectStudent, studentList, selectedStudent }) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default StudentList
+export default StudentList;

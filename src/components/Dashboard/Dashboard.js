@@ -1,41 +1,38 @@
-import styles from './Dashboard.module.scss'
-import { PieChart, Pie, ResponsiveContainer } from 'recharts'
-import React, { useEffect, useState, useRef } from 'react'
-import request from '../../API/API'
-import Chart from "./PieChart/Chart";
+import styles from './Dashboard.module.scss';
+import React, { useEffect, useState, useRef } from 'react';
+import request from '../../API/API';
+import Chart from './PieChart/Chart';
 
 const Dashboard = ({ studentList }) => {
-  const [stat, setStat] = useState()
+  const [stat, setStat] = useState();
 
   const useInterval = (callback, delay) => {
-    const savedCallback = useRef()
+    const savedCallback = useRef();
 
     // Remember the latest callback.
     useEffect(() => {
-      savedCallback.current = callback
-    }, [callback])
+      savedCallback.current = callback;
+    }, [callback]);
 
     // Set up the interval.
     useEffect(() => {
       function tick() {
-        savedCallback.current()
+        savedCallback.current();
       }
       if (delay !== null) {
-        let id = setInterval(tick, delay)
-        return () => clearInterval(id)
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
       }
-    }, [delay])
-  } //Custom Hook
+    }, [delay]);
+  }; //Custom Hook
 
-    useEffect(()=>{},[studentList])
+  useEffect(() => {}, [studentList]);
 
   useInterval(() => {
     request.get('/student/stat').then((response) => {
-      setStat(response.data.count)
-    })
-  }, 3000)
-
-
+      setStat(response.data.count);
+    });
+  }, 3000);
 
   return stat ? (
     <div className={styles.dashBoard}>
@@ -50,12 +47,12 @@ const Dashboard = ({ studentList }) => {
     </div>
   ) : (
     <div className={styles.dashBoard}>
-        <Chart studentList={studentList}/>
+      <Chart studentList={studentList} />
       <span className={styles.totalStudent}>총 {studentList.length}명</span>
 
       <div className={styles.statTable}>Loading...</div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

@@ -1,16 +1,14 @@
-import './StudentDetail.css'
-import detailView from '../../image/DetailView.png'
-import { useHistory } from 'react-router-dom'
+import './StudentDetail.css';
+import detailView from '../../image/DetailView.png';
+import { useHistory } from 'react-router-dom';
 
 const StudentDetail = ({ selectedStudent }) => {
-  const history = useHistory()
+  const history = useHistory();
 
   const handleDetailButton = () => {
-    const url = '/student/' + selectedStudent.id
-    return history.push(url)
-  }
-
-
+    const url = '/student/' + selectedStudent.id;
+    return history.push(url);
+  };
 
   return (
     <div className="studentDetail">
@@ -59,7 +57,7 @@ const StudentDetail = ({ selectedStudent }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StudentDetail
+export default StudentDetail;
