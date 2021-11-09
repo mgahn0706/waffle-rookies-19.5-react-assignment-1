@@ -5,13 +5,16 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { StudentProvider } from './Context/StudentContext'
 import { LoginProvider } from './Context/LoginContext'
+import {Router} from "react-router-dom";
 
 ReactDOM.render(
-  <StudentProvider>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
-  </StudentProvider>,
+    <React.StrictMode>
+          <StudentProvider>
+                <LoginProvider>
+                    <App />
+                </LoginProvider>
+          </StudentProvider>
+    </React.StrictMode>,
   document.getElementById('root')
 )
 

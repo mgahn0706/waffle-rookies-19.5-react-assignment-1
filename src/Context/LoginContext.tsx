@@ -1,23 +1,51 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import request from '../API/API'
 import { toast } from 'react-toastify'
+import {AxiosResponse} from "axios";
 
-const LoginContext = createContext(null)
 
-export const LoginProvider = ({ children }) => {
-  const [userToken, setUserToken] = useState()
+
+type AccessTokenType = {
+  access_token: string
+}
+
+type LogInInputType = {
+  username : string,
+  password : string
+}
+type LoginContextType = {
+  userToken : string|null|undefined,
+  login : (username : string, password: string) => void;
+  logout : ()=>void;
+  setUserToken : React.Dispatch<React.SetStateAction<string | null | undefined>>
+  isTokenExpired : ()=>void;
+}
+
+
+const LoginContext = createContext<LoginContextType>({} as LoginContextType)
+
+export const LoginProvider = ({ children } : {children : React.ReactNode}) => {
+  const [userToken, setUserToken] = useState<string|null|undefined>()
 
   useEffect(() => {
     setUserToken(localStorage.getItem('token'))
+    
   }, [])
 
   const isTokenExpired = () => {
+
+    type TokenResponseType = {
+      checked : boolean
+    }
+
     request
-      .get('/auth/check_token')
-      .then(() => {})
+      .get<never,AxiosResponse<TokenResponseType>>('/auth/check_token')
+        .then((response)=>{
+
+        })
       .catch(() => {
-        logout()
-        toast.error('로그인 후 10분이 지나 자동 로그아웃 되었습니다.', {
+        logout();
+        toast.error('로그아웃 되었습니다.', {
           position: 'bottom-right',
           autoClose: 4000,
           hideProgressBar: false,
@@ -26,12 +54,15 @@ export const LoginProvider = ({ children }) => {
           draggable: true,
           progress: undefined,
         })
+
       })
   }
 
-  const login = (usernameInput, passwordInput) => {
+
+
+  const login = (usernameInput : string, passwordInput : string) => {
     request
-      .post('/auth/login', {
+      .post<LogInInputType, AxiosResponse<AccessTokenType>>('/auth/login', {
         username: usernameInput,
         password: passwordInput,
       })
@@ -41,6 +72,7 @@ export const LoginProvider = ({ children }) => {
         setUserToken(temp)
         // @ts-ignore Authorization 에서는 ignore 을 사용함.
         request.defaults.headers.common[
+            // @ts-ignore
           'Authorization'
         ] = `Bearer ${response.data.access_token}`
       })
@@ -55,13 +87,18 @@ export const LoginProvider = ({ children }) => {
           progress: undefined,
         })
       })
+
   }
 
+
+
   const logout = () => {
+
     // @ts-ignore Authorization 에서는 ignore 을 사용함.
     delete request.defaults.headers.common['Authorization']
     localStorage.removeItem('token')
-    setUserToken('')
+    setUserToken(null)
+
   }
 
   return (

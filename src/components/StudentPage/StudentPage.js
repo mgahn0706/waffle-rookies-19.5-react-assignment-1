@@ -292,7 +292,6 @@ const StudentPage = () => {
         setCurrentPage(response.data.next)
         const temp = [...response.data.data]
         setCommentList(temp)
-        console.log(response.data.data[0])
       })
   }
 

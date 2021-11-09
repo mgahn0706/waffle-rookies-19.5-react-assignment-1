@@ -1,5 +1,5 @@
 import './Login.css'
-import { useLoginContext } from '../../Context/LoginContext.js'
+import { useLoginContext } from '../../Context/LoginContext.tsx'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 

@@ -17,13 +17,13 @@ export const StudentProvider = ({ children }) => {
   const [selectedStudent, setSelectedStudent] = useState(nullStudent)
 
   return (
-    <SelectedStudentContext.Provider
-      value={{ selectedStudent, setSelectedStudent }}
-    >
-      {children}
-    </SelectedStudentContext.Provider>
+      <SelectedStudentContext.Provider
+          value={{ selectedStudent, setSelectedStudent }}
+      >
+        {children}
+      </SelectedStudentContext.Provider>
   )
 }
 
 export const useSelectedStudentContext = () =>
-  useContext(SelectedStudentContext)
+    useContext(SelectedStudentContext)

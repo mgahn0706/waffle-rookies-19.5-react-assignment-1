@@ -1,14 +1,22 @@
 import styles from './Header.module.scss'
 import { useLoginContext } from '../../Context/LoginContext'
-import { useHistory } from 'react-router-dom'
+import {useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
+
 
 const Header = () => {
-  const history = useHistory()
-  const { logout } = useLoginContext()
-  const handleLogOutButton = () => {
-    logout()
-    history.push('/login') //logout 후 로그인 창 이동
+    const [login, setGin] = useState();
+    const history = useHistory();
+    const { logout } = useLoginContext();
+    const handleLogOutButton = () => {
+      logout()
+      history.push('/login')
+     //logout 후 로그인 창 이동
   }
+
+
+
+
 
   return (
     <div className={styles.Header}>

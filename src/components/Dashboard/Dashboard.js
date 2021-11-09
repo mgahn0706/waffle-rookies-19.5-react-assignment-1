@@ -5,7 +5,7 @@ import request from '../../API/API'
 
 const Dashboard = ({ studentList }) => {
   const [stat, setStat] = useState()
-  /*
+
   const useInterval = (callback, delay) => {
     const savedCallback = useRef()
 
@@ -30,7 +30,7 @@ const Dashboard = ({ studentList }) => {
     request.get('/student/stat').then((response) => {
       setStat(response.data.count)
     })
-  }, 3000) */
+  }, 3000)
 
   useEffect(() => {}, [studentList])
 
