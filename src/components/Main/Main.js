@@ -65,7 +65,6 @@ const Main = () => {
       .get('/student')
       .then((response) => {
         setStudentList(response.data);
-        setLoading(false);
       })
       .catch(() => {
         toast.error('학생 리스트를 불러오지 못했습니다.', {
@@ -77,6 +76,8 @@ const Main = () => {
           draggable: true,
           progress: undefined,
         });
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);

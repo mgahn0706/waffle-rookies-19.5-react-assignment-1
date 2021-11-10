@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const SearchInput = styled.input`
    {
@@ -35,6 +35,17 @@ const Search = () => {
   const [name, setName] = useState();
   const [grade, setGrade] = useState(); //url 설정을 위해 입력된 값을 저장하는 state
 
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+
+  const urlName = params.get('name');
+  const urlGrade = params.get('grade');
+
+  useEffect(() => {
+    setName(urlName);
+    setGrade(urlGrade);
+  }, []);
+
   const handleSearchButton = () => {
     if (grade && name) {
       history.push(`?name=${name}&grade=${grade}`);
@@ -47,17 +58,17 @@ const Search = () => {
     }
   };
 
-  useEffect(() => {}, [grade, name]);
-
   return (
     <SearchSection>
       <SearchInput
         placeholder={'이름'}
         onChange={(e) => setName(e.target.value)}
+        defaultValue={urlName}
       />
       <SearchInput
         placeholder={'학년'}
         onChange={(e) => setGrade(e.target.value)}
+        defaultValue={urlGrade}
       />
 
       <SearchButton onClick={handleSearchButton}>검색</SearchButton>

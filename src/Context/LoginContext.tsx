@@ -35,7 +35,6 @@ export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
     request
       .get<never, AxiosResponse<TokenResponseType>>('/auth/check_token')
-      .then(() => {})
       .catch(() => {
         logout();
         toast.error('로그아웃 되었습니다.', {
