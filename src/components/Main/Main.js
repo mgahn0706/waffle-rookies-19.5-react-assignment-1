@@ -141,7 +141,7 @@ const Main = () => {
     if (!student.id) {
       setSelectedStudent(nullStudent);
     } /*아무도 선택되지 않은 경우*/ else {
-      if (studentList !== undefined) {
+      if (studentList !== []) {
         //혹시 빈 배열이 올 것을 방지
         const selectedStudentList = studentList.filter(
           (item) => item.id === student.id

@@ -267,14 +267,14 @@ const StudentPage = () => {
       scroller.current.scrollHeight -
         scroller.current.scrollTop -
         scroller.current.clientHeight <
-      300 //부드럽게 연결하기 위해 적당한 위치에서 미리 load
+        300 && //부드럽게 연결하기 위해 적당한 위치에서 미리 load)
+      nextPage
     ) {
       pagination();
     }
   };
 
   const pagination = () => {
-    console.log(nextPage);
     request
       .get(`/student/${params.id}/comment`, {
         params: { page: nextPage },

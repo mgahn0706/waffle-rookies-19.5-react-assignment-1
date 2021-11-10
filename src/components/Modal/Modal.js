@@ -17,9 +17,6 @@ const Modal = ({ toggleModal, addStudent, modalVisible, studentList }) => {
   };
 
   const handleAddButton = () => {
-    if (grade === '1' || grade === '2' || grade === '3') {
-    }
-
     const newStudent = {
       name: name,
       grade: parseInt(grade),

@@ -55,7 +55,7 @@ const Confirm = ({ selectedStudent, toggleConfirm, isConfirmVisible }) => {
   }; /*id를 받아서 해당 학생을 list 에서 삭제*/
 
   const handleDeleteButton = () => {
-    history.replace('/students');
+    history.push('/students');
     deleteStudent(selectedStudent.id); /*id를 delete 함수에 넘겨줘서 삭제*/
 
     /*detail 창의 정보들을 name 을 빈칸으로 바꿔서 지움 */
