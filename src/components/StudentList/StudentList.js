@@ -1,13 +1,25 @@
-import './StudentList.css'
-import StudentItem from './StudentItem/StudentItem'
+import './StudentList.css';
+import StudentItem from './StudentItem/StudentItem';
+import { useLocation } from 'react-router-dom';
 
-const StudentList = ({
-  filteredStudentList,
-  handleSelectStudent,
-  studentList,
-  selectedStudent,
-}) => {
-  return studentList.length === 0 ? (
+const StudentList = ({ handleSelectStudent, studentList, selectedStudent }) => {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+
+  const name = params.get('name');
+  const grade = params.get('grade');
+
+  if (name) {
+    studentList = studentList.filter((student) => student.name.includes(name));
+  }
+
+  if (grade) {
+    studentList = studentList.filter((student) => {
+      return student.grade === parseInt(grade);
+    });
+  }
+
+  return studentList.length === 0 && !grade && !name ? (
     <div className="listSection">
       <table className="studentListSection">
         <thead>
@@ -32,7 +44,7 @@ const StudentList = ({
           </tr>
         </thead>
         <tbody>
-          {filteredStudentList.map(
+          {studentList.map(
             (item) => (
               <StudentItem
                 key={item.id}
@@ -46,7 +58,7 @@ const StudentList = ({
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default StudentList
+export default StudentList;

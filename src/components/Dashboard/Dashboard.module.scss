@@ -6,7 +6,7 @@
     height: 174px;
     line-height: 174px;
     width: 1352px;
-    align-items: center;
+
 }
 
 .totalStudent{
@@ -15,3 +15,21 @@
     left: 1000px;
     font-size: 18px;
 }
+
+.statTable{
+    position: absolute;
+    top: 140px;
+    left: 1100px;
+    border: solid black 1px;
+    width: 260px;
+    height: 140px;
+    line-height: 90px;
+
+}
+
+.statTable span{
+    display: block;
+    height: 20px;
+    margin: 5px;
+}
+

@@ -1,40 +1,70 @@
-import './Main.css'
-import Header from '../Header/Header'
-import Dashboard from '../Dashboard/Dashboard'
-import Search from '../Search/Search'
-import StudentAdder from '../StudentAdder/StudentAdder'
-import StudentList from '../StudentList/StudentList'
-import { useEffect, useState } from 'react'
-import StudentDetail from '../StudentDetail/StudentDetail'
-import Modal from '../Modal/Modal'
-import { useSelectedStudentContext } from '../../Context/StudentContext'
-import request from '../../API/API'
-import { toast } from 'react-toastify'
-import PopUp from '../PopUp/PopUp'
-import StudentPage from '../StudentPage/StudentPage'
+import Header from '../Header/Header';
+import Dashboard from '../Dashboard/Dashboard';
+import Search from '../Search/Search';
+import StudentAdder from '../StudentAdder/StudentAdder';
+import StudentList from '../StudentList/StudentList';
+import { useEffect, useState } from 'react';
+import StudentDetail from '../StudentDetail/StudentDetail';
+import Modal from '../Modal/Modal';
+import { useSelectedStudentContext } from '../../Context/StudentContext';
+import request from '../../API/API';
+import { toast } from 'react-toastify';
+import PopUp from '../PopUp/PopUp';
+import { useLoginContext } from '../../Context/LoginContext';
+import styled from 'styled-components';
 
+const AppWrapper = styled.div`
+  margin: 42px;
+`;
+const InputSection = styled.div`
+  width: 100%;
+  float: left;
+`;
+const LeftScreen = styled.div`
+  clear: both;
+`;
+
+const StudentManage = styled.div`
+  width: 1352px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const RightScreen = styled.div`
+  clear: both;
+  width: 624px;
+  height: 700px;
+`;
+
+const VerticalBorder = styled.div`
+  height: 700px;
+  width: 0;
+  border: 1px solid #e4e4e4;
+`;
 const Main = () => {
+  const { isTokenExpired } = useLoginContext();
+  useEffect(() => {
+    isTokenExpired();
+  }, []); //토큰이 만료되면 로그아웃
+
   const nullStudent = {
     id: null,
     name: null,
     grade: null,
     profile_img: null,
-  }
+  };
 
-  const { selectedStudent, setSelectedStudent } = useSelectedStudentContext()
-  const [studentList, setStudentList] = useState([])
-  const [filteredStudents, setFilteredStudents] = useState(studentList)
-  const [isModalVisible, setModalVisible] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-  const [filter, setFilter] = useState('')
+  const { selectedStudent, setSelectedStudent } = useSelectedStudentContext();
+  const [studentList, setStudentList] = useState([]);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     request
       .get('/student')
       .then((response) => {
-        setStudentList(response.data)
-        setLoading(false)
+        setStudentList(response.data);
       })
       .catch(() => {
         toast.error('학생 리스트를 불러오지 못했습니다.', {
@@ -45,25 +75,16 @@ const Main = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-        setLoading(false)
+        });
       })
-  }, [])
-
-  const filterStudent = () => {
-    setFilteredStudents(
-      filter
-        ? studentList.filter((student) => student.name.includes(filter))
-        : studentList
-    )
-  } /*새로운 filteredStudent 라는 state 를 만들어서 필터링 */
-  useEffect(() => {
-    filterStudent()
-  }, [filter, studentList])
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible)
-  } /*Modal 상태 변경*/
+    setModalVisible(!isModalVisible);
+  }; /*Modal 상태 변경*/
 
   const addStudent = (newStudent) => {
     request
@@ -84,19 +105,24 @@ const Main = () => {
             progress: undefined,
             theme: 'dark',
           }
-        )
+        );
 
         const addedStudent = {
           id: response.data.id,
           name: newStudent.name,
           grade: newStudent.grade,
-          profile_img: null,
+          profile_img: '',
+        };
+
+        if (studentList !== undefined) {
+          setStudentList([
+            ...studentList,
+            addedStudent,
+          ]); /*서버 사용으로 의미는 없지만 추가하자마자 리스트에 생성되도록 함*/
+        } else {
+          setStudentList([addedStudent]);
         }
-        setStudentList([
-          ...studentList,
-          addedStudent,
-        ]) /*서버 사용으로 의미는 없지만 추가하자마자 리스트에 생성되도록 함*/
-        setSelectedStudent(addedStudent)
+        setSelectedStudent(addedStudent);
       })
       .catch((err) => {
         toast.error(err.message, {
@@ -107,35 +133,34 @@ const Main = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-      })
-  } /*modal 에서 newStudent 를 받아 studentList 업데이트 후 해당 학생 선택상태는 StudentList 컴포넌트로, 정보는 StudentDetail 컴포넌트로 보낸다. */
+        });
+      });
+  };
 
   const showDetail = (student) => {
     if (!student.id) {
-      setSelectedStudent(nullStudent)
+      setSelectedStudent(nullStudent);
     } /*아무도 선택되지 않은 경우*/ else {
-      const selectedStudentList = studentList.filter(
-        (item) => item.id === student.id
-      )
-      setSelectedStudent(selectedStudentList[0])
+      if (studentList !== []) {
+        //혹시 빈 배열이 올 것을 방지
+        const selectedStudentList = studentList.filter(
+          (item) => item.id === student.id
+        );
+
+        setSelectedStudent(selectedStudentList[0]);
+      }
     }
-  } /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
+  }; /*studentItem 의 id 를 가져와서 대조 후, 해당 학생의 이름, 학년, 프로필 이미지 링크를 보내는 함수 */
 
   const handleSelectStudent = (student) => {
-    const isChecked = selectedStudent.id && selectedStudent.id === student.id
-    isChecked ? showDetail(nullStudent) : showDetail(student)
-  } /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
-
-  const hideComponent = true
+    if (selectedStudent !== undefined) {
+      const isChecked = selectedStudent.id && selectedStudent.id === student.id;
+      isChecked ? showDetail(nullStudent) : showDetail(student);
+    }
+  }; /*버튼이 눌리면 checked 상태를 바꿔주고 on / off 에 따라 showDetail 에 학생정보를 보낸다*/
 
   return (
-    <div className="App">
-      {hideComponent ? (
-        <div />
-      ) : (
-        <StudentPage handleSelection={handleSelectStudent} />
-      )}
+    <AppWrapper>
       <Header />
       <Dashboard studentList={studentList} />
       <PopUp />
@@ -145,32 +170,31 @@ const Main = () => {
         modalVisible={isModalVisible}
         studentList={studentList}
       />
-      <div className="studentManage">
-        <div className="leftScreen">
-          <div className="inputSection">
-            <Search filterStudent={filterStudent} setFilter={setFilter} />
-            <StudentAdder toggleModal={toggleModal} />
-          </div>
+      <StudentManage>
+        <LeftScreen>
+          <InputSection>
+            <Search />
+          </InputSection>
           {isLoading ? (
             <h1>Loading...</h1>
           ) : (
             <div className="studentList">
               <StudentList
-                filteredStudentList={filteredStudents}
                 handleSelectStudent={handleSelectStudent}
                 studentList={studentList}
                 selectedStudent={selectedStudent}
               />
             </div>
           )}
-        </div>
-        <div className="verticalBorder"></div>
-        <div className="rightScreen">
+          <StudentAdder toggleModal={toggleModal} />
+        </LeftScreen>
+        <VerticalBorder />
+        <RightScreen>
           <StudentDetail selectedStudent={selectedStudent} />
-        </div>
-      </div>
-    </div>
-  )
-}
+        </RightScreen>
+      </StudentManage>
+    </AppWrapper>
+  );
+};
 
-export default Main
+export default Main;

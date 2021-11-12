@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react';
 
 const nullStudent = {
   id: null,
@@ -9,12 +9,12 @@ const nullStudent = {
   phone: null,
   major: null,
   locked: false,
-}
+};
 
-const SelectedStudentContext = createContext(nullStudent)
+const SelectedStudentContext = createContext(nullStudent);
 
 export const StudentProvider = ({ children }) => {
-  const [selectedStudent, setSelectedStudent] = useState(nullStudent)
+  const [selectedStudent, setSelectedStudent] = useState(nullStudent);
 
   return (
     <SelectedStudentContext.Provider
@@ -22,8 +22,8 @@ export const StudentProvider = ({ children }) => {
     >
       {children}
     </SelectedStudentContext.Provider>
-  )
-}
+  );
+};
 
 export const useSelectedStudentContext = () =>
-  useContext(SelectedStudentContext)
+  useContext(SelectedStudentContext);

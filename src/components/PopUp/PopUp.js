@@ -1,30 +1,30 @@
-import './PopUp.css'
-import PopUpImg from '../../image/PopUpImage.png'
-import { Cookies } from 'react-cookie'
-import { useEffect, useState } from 'react'
+import './PopUp.css';
+import PopUpImg from '../../image/PopUpImage.png';
+import { Cookies } from 'react-cookie';
+import { useEffect, useState } from 'react';
 
 const PopUp = () => {
-  const cookie = new Cookies()
-  const [isPopVisible, setPopVisible] = useState(true)
-  const date = new Date()
-  date.setHours(date.getHours() + 24)
+  const cookie = new Cookies();
+  const [isPopVisible, setPopVisible] = useState(true);
+  const date = new Date();
+  date.setHours(date.getHours() + 24);
 
   useEffect(() => {
     if (cookie.get('cookie')) {
-      setPopVisible(false)
+      setPopVisible(false);
     } else {
-      setPopVisible(true)
+      setPopVisible(true);
     }
-  }, [])
+  }, []);
 
   const handleCloseButton = () => {
-    setPopVisible(false)
-  }
+    setPopVisible(false);
+  };
 
   const handleDisableButton = () => {
-    cookie.set('cookie', 'popUp', { expires: date })
-    setPopVisible(false)
-  }
+    cookie.set('cookie', 'popUp', { expires: date });
+    setPopVisible(false);
+  };
 
   return (
     <div className={'popUpWrapper' + (isPopVisible ? 'Visible' : '')}>
@@ -38,7 +38,7 @@ const PopUp = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PopUp
+export default PopUp;

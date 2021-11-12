@@ -65,9 +65,7 @@
     top: 80px;
 }
 
-.signInHeader{
 
-}
 
 .signInButton{
     background-color: #2da44e;
@@ -106,4 +104,10 @@
 .forgotPasswordLink:hover, .createAccountLink:hover{
     color: darkblue;
     cursor: pointer;
+}
+
+.waffleLogo{
+    width: 54px;
+    height: 58px;
+    vertical-align: middle;
 }

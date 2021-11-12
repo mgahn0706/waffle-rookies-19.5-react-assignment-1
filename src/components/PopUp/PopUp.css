@@ -54,7 +54,7 @@
 }
 
 .closePopButton:hover, .disableButton:hover{
-    background-color: rgba(59, 44, 49);
+    background-color: rgb(59, 44, 49);
 }
 
 .disableButton{
